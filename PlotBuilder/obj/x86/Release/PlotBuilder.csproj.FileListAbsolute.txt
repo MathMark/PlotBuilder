@@ -1,0 +1,7 @@
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\bin\Release\PlotBuilder.exe
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\bin\Release\PlotBuilder.pdb
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Release\PlotBuilder.Form1.resources
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Release\PlotBuilder.Properties.Resources.resources
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Release\PlotBuilder.csproj.GenerateResource.Cache
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Release\PlotBuilder.exe
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Release\PlotBuilder.pdb

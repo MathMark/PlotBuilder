@@ -1,0 +1,23 @@
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\bin\Debug\PlotBuilder.exe
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\bin\Debug\PlotBuilder.pdb
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Debug\PlotBuilder.Form1.resources
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Debug\PlotBuilder.Properties.Resources.resources
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Debug\PlotBuilder.csproj.GenerateResource.Cache
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Debug\PlotBuilder.exe
+C:\Users\User\AppData\Local\Temporary Projects\PlotBuilder\obj\x86\Debug\PlotBuilder.pdb
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.exe
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.pdb
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\bin\Debug\PlotBuilder.exe
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\bin\Debug\PlotBuilder.pdb
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.Form1.resources
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.Properties.Resources.resources
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.csproj.GenerateResource.Cache
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.csprojResolveAssemblyReference.cache
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.AboutBox1.resources
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\bin\Debug\PlotBuilder.exe.manifest
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\bin\Debug\PlotBuilder.application
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.TrustInfo.xml
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.exe.manifest
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.application
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\bin\Debug\PlotBuilder.exe.config
+C:\Users\User\documents\visual studio 2010\Projects\PlotBuilder\PlotBuilder\obj\x86\Debug\PlotBuilder.UserControl1.resources
