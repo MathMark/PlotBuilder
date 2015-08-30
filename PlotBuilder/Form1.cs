@@ -118,7 +118,6 @@ namespace PlotBuilder
 
             D.BuildNet(g, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
             D.BuildAxes(g, sheet);
-            D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             g.Dispose();
         }
@@ -142,7 +141,6 @@ namespace PlotBuilder
             Pen black = new Pen(Color.Black);
             D.BuildNet(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             D.BuildAxes(e.Graphics, sheet);
-            D.BuildSection(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
             D.DrawCoordinates(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             if (textBox1.Text != "") D.DrawGraphic(p, e.Graphics, sheet, line, pixelcoeff*Convert.ToDouble(scale.Value), true);
@@ -534,40 +532,33 @@ namespace PlotBuilder
     }
     class Build
     {
-        public void BuildNet(Graphics g, PictureBox sheet, float scale)//рассчитан на квадратный лист
+       public void BuildNet(Graphics g, PictureBox sheet, float scale)//рассчитан на квадратный лист
         {
-            Pen penNet = new Pen(Color.WhiteSmoke);
+            Pen gray = new Pen(Color.WhiteSmoke);
+            Pen black = new Pen(Color.Black);
             for (float i = Convert.ToSingle(sheet.Height / 2); i < sheet.Height; i += scale)
             {
-                g.DrawLine(penNet, 0, i, Convert.ToSingle(sheet.Width), i);
-                g.DrawLine(penNet, i, 0, i, Convert.ToSingle(sheet.Height));
+                ///Net
+                g.DrawLine(gray, 0, i, Convert.ToSingle(sheet.Width), i);
+                g.DrawLine(gray, i, 0, i, Convert.ToSingle(sheet.Height));
+
+                ///Section
+                g.DrawLine(black, Convert.ToSingle(sheet.Width / 2) - 2, i, Convert.ToSingle(sheet.Width / 2) + 2, i);
+                g.DrawLine(black, i, Convert.ToSingle(sheet.Height / 2) + 2, i, Convert.ToSingle(sheet.Height / 2) - 2);
             }
             for (float i = Convert.ToSingle(sheet.Width / 2); i >= 0; i -= scale)
             {
-                g.DrawLine(penNet, 0, i, Convert.ToSingle(sheet.Width), i);
-                g.DrawLine(penNet, i, 0, i, Convert.ToSingle(sheet.Height));
+                ///Net
+                g.DrawLine(gray, 0, i, Convert.ToSingle(sheet.Width), i);
+                g.DrawLine(gray, i, 0, i, Convert.ToSingle(sheet.Height));
+
+                //Section
+                g.DrawLine(black, Convert.ToSingle(sheet.Width / 2) - 2, i, Convert.ToSingle(sheet.Width / 2) + 2, i);
+                g.DrawLine(black, i, Convert.ToSingle(sheet.Height / 2) + 2, i, Convert.ToSingle(sheet.Height / 2) - 2);
             }
         }
 
-        public void BuildSection(Graphics g,PictureBox sheet, float scale)
-        {
-            
-            
-                Pen pen = new Pen(Color.Black);
-                for (float i = Convert.ToSingle(sheet.Height / 2); i < sheet.Height; i += scale)
-                {
-                    g.DrawLine(pen, Convert.ToSingle(sheet.Width / 2) - 2, i, Convert.ToSingle(sheet.Width / 2) + 2, i);
-                    g.DrawLine(pen, i, Convert.ToSingle(sheet.Height / 2) + 2, i, Convert.ToSingle(sheet.Height / 2) - 2);
-
-                }
-                for (float i = Convert.ToSingle(sheet.Width / 2); i >= 0; i -= scale)
-                {
-                    g.DrawLine(pen, Convert.ToSingle(sheet.Width / 2) - 2, i, Convert.ToSingle(sheet.Width / 2) + 2, i);
-                    g.DrawLine(pen, i, Convert.ToSingle(sheet.Height / 2) + 2, i, Convert.ToSingle(sheet.Height / 2) - 2);
-                }
-            
-
-        }
+     
         public void BuildAxes(Graphics g, PictureBox sheet)
         {
             Pen pen = new Pen(Color.Black, 1);
