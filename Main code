@@ -229,7 +229,7 @@ namespace PlotBuilder
             //if (char.(textBox1.Text[textBox1.Text.Length - 1])) MessageBox.Show("Hello");
             
             if(textBox1.Text!="") b = (textBox1.Text[textBox1.Text.Length - 1]);
-            if((b>=1040)&&(b<=1103))MessageBox.Show("" + b);
+            if((b>=1040)&&(b<=1103))textBox1.Text="";
         }
     }
     class Calculate
