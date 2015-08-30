@@ -358,7 +358,12 @@ namespace PlotBuilder
                                  case '^':
                                      b = Convert.ToDouble(P.Pop());
                                      a = Convert.ToDouble(P.Pop());
-                                     P.Push(Math.Pow(a, b));
+                                     if(a<0)
+                                     {
+                                     a=-1*a;
+                                     P.Push(-Math.Pow(a,b));
+                                     }
+                                     else P.Push(Math.Pow(a, b));
                                      break;
 
                                  ///unary operations
