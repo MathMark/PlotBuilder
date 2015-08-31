@@ -32,11 +32,16 @@ namespace PlotBuilder
         Pen p = new Pen(Color.Navy,2);
         bool argument = false;
         Graphics g;
-
+        
+        List<string>=new List<string>();
 
         Build D;
         public void button1_Click(object sender, EventArgs e)
         {
+            if (list.Contains(textBox1.Text) == true) goto t;
+            else
+            {
+                list.Add(textBox1.Text);
             argument = false;
             for (int i = 0; i < textBox1.Text.Length; i++)
             {
@@ -96,6 +101,7 @@ namespace PlotBuilder
             }
 
             g.Dispose();
+            }
         
           
         t: return;
@@ -103,6 +109,7 @@ namespace PlotBuilder
 
         private void button2_Click(object sender, EventArgs e)
         {
+            list.Clear();
             g = sheet.CreateGraphics();
             D = new Build();
             //MessageBox.Show("" + line[0]);
