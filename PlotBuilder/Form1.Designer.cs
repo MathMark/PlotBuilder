@@ -45,6 +45,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.fxLabel = new System.Windows.Forms.Label();
             this.Trigonometry = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -57,7 +58,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.scaletable = new System.Windows.Forms.Label();
-            this.fxLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scale)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -212,6 +212,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Function";
             // 
+            // fxLabel
+            // 
+            this.fxLabel.AutoSize = true;
+            this.fxLabel.Location = new System.Drawing.Point(6, 23);
+            this.fxLabel.Name = "fxLabel";
+            this.fxLabel.Size = new System.Drawing.Size(42, 13);
+            this.fxLabel.TabIndex = 26;
+            this.fxLabel.Text = "f ( x ) = ";
+            // 
             // Trigonometry
             // 
             this.Trigonometry.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -255,6 +264,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Y";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioButton2
             // 
@@ -354,15 +364,6 @@
             this.scaletable.Name = "scaletable";
             this.scaletable.Size = new System.Drawing.Size(96, 21);
             this.scaletable.TabIndex = 25;
-            // 
-            // fxLabel
-            // 
-            this.fxLabel.AutoSize = true;
-            this.fxLabel.Location = new System.Drawing.Point(6, 23);
-            this.fxLabel.Name = "fxLabel";
-            this.fxLabel.Size = new System.Drawing.Size(42, 13);
-            this.fxLabel.TabIndex = 26;
-            this.fxLabel.Text = "f ( x ) = ";
             // 
             // Form1
             // 
