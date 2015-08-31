@@ -23,13 +23,6 @@ namespace PlotBuilder
             scale.Increment = Convert.ToDecimal(0.1);
             scale.Value = Convert.ToDecimal(2);
             //scaletable.Text += "1 : " + scale.Value.ToString() + " cm";
-            string[] trigonometry = { "sin(x)", "cos(x)", "tg(x)", "ctg(x)","arcsin(x)","arccos(x)","arctg(x)","arcctg(x)" };
-            string[] hyperbolical = { "sinh(x)", "cosh(x)", "th(x)", "ch(x)","arsinh(x)","arcosh(x)","arth(x)","arch(x)" };
-            for (int i = 0; i < trigonometry.Length; i++)
-            {
-                Trigonometry.Items.Add(trigonometry[i]);
-                Hyperbolical.Items.Add(hyperbolical[i]);
-            }
 
             radioButton1.Select();
         }
@@ -220,7 +213,7 @@ namespace PlotBuilder
             p.Clear(Color.White);
             D.BuildNet(p, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
             D.BuildAxes(p, sheet);
-            D.BuildSection(p, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            //D.BuildSection(p, sheet, pixelcoeff * Convert.ToSingle(scale.Value));   //Causes exception
             D.DrawCoordinates(p, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             p.Dispose();
 

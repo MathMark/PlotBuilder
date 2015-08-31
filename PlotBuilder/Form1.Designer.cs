@@ -40,10 +40,10 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Trigonometry = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -134,14 +134,14 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
             this.toolStripSeparator1,
+            this.toolStripButton4,
             this.toolStripButton2,
             this.toolStripSeparator2,
-            this.toolStripButton3,
-            this.toolStripButton4});
+            this.toolStripButton3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStrip1.Size = new System.Drawing.Size(970, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(972, 25);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -159,6 +159,17 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton4.ForeColor = System.Drawing.Color.Maroon;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(83, 22);
+            this.toolStripButton4.Text = "Choose Color";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // toolStripButton2
             // 
@@ -187,17 +198,6 @@
             this.toolStripButton3.Text = "Exit";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton4.ForeColor = System.Drawing.Color.Maroon;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(83, 22);
-            this.toolStripButton4.Text = "Choose Color";
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
@@ -215,6 +215,15 @@
             this.Trigonometry.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Trigonometry.ForeColor = System.Drawing.Color.Silver;
             this.Trigonometry.FormattingEnabled = true;
+            this.Trigonometry.Items.AddRange(new object[] {
+            "sin(x)",
+            "cos(x)",
+            "tg(x)",
+            "ctg(x)",
+            "arcsin(x)",
+            "arccos(x)",
+            "arctg(x)",
+            "arcctg(x)"});
             this.Trigonometry.Location = new System.Drawing.Point(19, 19);
             this.Trigonometry.Name = "Trigonometry";
             this.Trigonometry.Size = new System.Drawing.Size(107, 23);
@@ -274,6 +283,15 @@
             this.Hyperbolical.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Hyperbolical.ForeColor = System.Drawing.Color.SeaGreen;
             this.Hyperbolical.FormattingEnabled = true;
+            this.Hyperbolical.Items.AddRange(new object[] {
+            "sinh(x)",
+            "cosh(x)",
+            "th(x)",
+            "ch(x)",
+            "arsinh(x)",
+            "arcosh(x)",
+            "arth(x)",
+            "arch(x)"});
             this.Hyperbolical.Location = new System.Drawing.Point(19, 19);
             this.Hyperbolical.Name = "Hyperbolical";
             this.Hyperbolical.Size = new System.Drawing.Size(107, 23);
@@ -340,7 +358,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(970, 751);
+            this.ClientSize = new System.Drawing.Size(972, 753);
             this.Controls.Add(this.scaletable);
             this.Controls.Add(this.sheet);
             this.Controls.Add(this.groupBox4);
