@@ -57,6 +57,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.scaletable = new System.Windows.Forms.Label();
+            this.fxLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scale)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -69,9 +70,9 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(18, 19);
+            this.textBox1.Location = new System.Drawing.Point(48, 19);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(208, 23);
+            this.textBox1.Size = new System.Drawing.Size(178, 23);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -201,6 +202,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.groupBox1.Controls.Add(this.fxLabel);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.ForeColor = System.Drawing.Color.SteelBlue;
             this.groupBox1.Location = new System.Drawing.Point(718, 39);
@@ -353,6 +355,15 @@
             this.scaletable.Size = new System.Drawing.Size(96, 21);
             this.scaletable.TabIndex = 25;
             // 
+            // fxLabel
+            // 
+            this.fxLabel.AutoSize = true;
+            this.fxLabel.Location = new System.Drawing.Point(6, 23);
+            this.fxLabel.Name = "fxLabel";
+            this.fxLabel.Size = new System.Drawing.Size(42, 13);
+            this.fxLabel.TabIndex = 26;
+            this.fxLabel.Text = "f ( x ) = ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,6 +433,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         public System.Windows.Forms.PictureBox sheet;
         private System.Windows.Forms.Label scaletable;
+        private System.Windows.Forms.Label fxLabel;
     }
 }
 
