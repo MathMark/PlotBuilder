@@ -33,7 +33,7 @@ namespace PlotBuilder
         bool argument = false;
         Graphics g;
         
-        List<string>=new List<string>();
+        List<string> list = new List<string>();
 
         Build D;
         public void button1_Click(object sender, EventArgs e)
