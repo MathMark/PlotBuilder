@@ -44,7 +44,13 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.parametricToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parametricToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.Trigonometry = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -57,6 +63,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.scaletable = new System.Windows.Forms.Label();
+            this.panel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scale)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -69,7 +76,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(18, 19);
+            this.textBox1.Location = new System.Drawing.Point(113, 19);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(208, 23);
             this.textBox1.TabIndex = 0;
@@ -80,7 +87,7 @@
             this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(791, 435);
+            this.button1.Location = new System.Drawing.Point(817, 480);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 27);
             this.button1.TabIndex = 4;
@@ -93,7 +100,7 @@
             this.sheet.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.sheet.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sheet.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.sheet.Location = new System.Drawing.Point(12, 39);
+            this.sheet.Location = new System.Drawing.Point(28, 64);
             this.sheet.MaximumSize = new System.Drawing.Size(700, 700);
             this.sheet.MinimumSize = new System.Drawing.Size(700, 700);
             this.sheet.Name = "sheet";
@@ -108,7 +115,7 @@
             // 
             this.scale.BackColor = System.Drawing.SystemColors.Menu;
             this.scale.DecimalPlaces = 1;
-            this.scale.Location = new System.Drawing.Point(880, 304);
+            this.scale.Location = new System.Drawing.Point(0, 28);
             this.scale.Name = "scale";
             this.scale.Size = new System.Drawing.Size(51, 20);
             this.scale.TabIndex = 7;
@@ -120,7 +127,7 @@
             this.button2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button2.Location = new System.Drawing.Point(791, 465);
+            this.button2.Location = new System.Drawing.Point(919, 480);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 27);
             this.button2.TabIndex = 9;
@@ -137,11 +144,12 @@
             this.toolStripButton2,
             this.toolStripSeparator2,
             this.toolStripButton3,
-            this.toolStripButton4});
+            this.toolStripButton4,
+            this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStrip1.Size = new System.Drawing.Size(970, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1107, 25);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -198,23 +206,92 @@
             this.toolStripButton4.Text = "Choose Color";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parametricToolStripMenuItem,
+            this.parametricToolStripMenuItem1});
+            this.toolStripDropDownButton1.ForeColor = System.Drawing.Color.SeaGreen;
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(99, 22);
+            this.toolStripDropDownButton1.Text = "Representation";
+            // 
+            // parametricToolStripMenuItem
+            // 
+            this.parametricToolStripMenuItem.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.parametricToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.parametricToolStripMenuItem.Name = "parametricToolStripMenuItem";
+            this.parametricToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.parametricToolStripMenuItem.Text = "Explicit";
+            this.parametricToolStripMenuItem.Click += new System.EventHandler(this.parametricToolStripMenuItem_Click);
+            // 
+            // parametricToolStripMenuItem1
+            // 
+            this.parametricToolStripMenuItem1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.parametricToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.parametricToolStripMenuItem1.Name = "parametricToolStripMenuItem1";
+            this.parametricToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.parametricToolStripMenuItem1.Text = "Parametric";
+            this.parametricToolStripMenuItem1.Click += new System.EventHandler(this.parametricToolStripMenuItem1_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.groupBox1.Location = new System.Drawing.Point(718, 39);
+            this.groupBox1.Location = new System.Drawing.Point(750, 54);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(242, 59);
+            this.groupBox1.Size = new System.Drawing.Size(333, 90);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Function";
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label4.Location = new System.Drawing.Point(25, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 23);
+            this.label4.TabIndex = 28;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox2.Location = new System.Drawing.Point(113, 48);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(208, 23);
+            this.textBox2.TabIndex = 27;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label3.Location = new System.Drawing.Point(25, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 23);
+            this.label3.TabIndex = 26;
             // 
             // Trigonometry
             // 
             this.Trigonometry.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Trigonometry.ForeColor = System.Drawing.Color.Silver;
             this.Trigonometry.FormattingEnabled = true;
+            this.Trigonometry.Items.AddRange(new object[] {
+            "sin(x)",
+            "cos(x)",
+            "tan(x)",
+            "cot(x)",
+            "arcsin(x)",
+            "arccos(x)",
+            "arctan(x)",
+            "arccot(x)"});
             this.Trigonometry.Location = new System.Drawing.Point(19, 19);
             this.Trigonometry.Name = "Trigonometry";
             this.Trigonometry.Size = new System.Drawing.Size(107, 23);
@@ -226,9 +303,9 @@
             this.groupBox2.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.groupBox2.Controls.Add(this.Trigonometry);
             this.groupBox2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.groupBox2.Location = new System.Drawing.Point(822, 104);
+            this.groupBox2.Location = new System.Drawing.Point(750, 150);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(138, 53);
+            this.groupBox2.Size = new System.Drawing.Size(155, 53);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Trigonomety functions";
@@ -237,13 +314,14 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.radioButton1.Location = new System.Drawing.Point(13, 17);
+            this.radioButton1.Location = new System.Drawing.Point(13, 18);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(32, 17);
             this.radioButton1.TabIndex = 14;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Y";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioButton2
             // 
@@ -256,15 +334,16 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "X";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.groupBox3.Controls.Add(this.Hyperbolical);
             this.groupBox3.ForeColor = System.Drawing.Color.SteelBlue;
-            this.groupBox3.Location = new System.Drawing.Point(822, 163);
+            this.groupBox3.Location = new System.Drawing.Point(929, 150);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(138, 53);
+            this.groupBox3.Size = new System.Drawing.Size(155, 53);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Hyperbolical functions";
@@ -274,6 +353,15 @@
             this.Hyperbolical.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Hyperbolical.ForeColor = System.Drawing.Color.SeaGreen;
             this.Hyperbolical.FormattingEnabled = true;
+            this.Hyperbolical.Items.AddRange(new object[] {
+            "sinh(x)",
+            "cosh(x)",
+            "tanh(x)",
+            "cth(x)",
+            "arsinh(x)",
+            "arcosh(x)",
+            "artanh(x)",
+            "arcth(x)"});
             this.Hyperbolical.Location = new System.Drawing.Point(19, 19);
             this.Hyperbolical.Name = "Hyperbolical";
             this.Hyperbolical.Size = new System.Drawing.Size(107, 23);
@@ -282,13 +370,13 @@
             // 
             // label1
             // 
+            this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Location = new System.Drawing.Point(766, 304);
+            this.label1.Location = new System.Drawing.Point(761, 271);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 34);
+            this.label1.Size = new System.Drawing.Size(0, 15);
             this.label1.TabIndex = 17;
             // 
             // Hystory
@@ -297,9 +385,9 @@
             this.Hystory.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Hystory.FormattingEnabled = true;
             this.Hystory.ItemHeight = 15;
-            this.Hystory.Location = new System.Drawing.Point(742, 540);
+            this.Hystory.Location = new System.Drawing.Point(750, 576);
             this.Hystory.Name = "Hystory";
-            this.Hystory.Size = new System.Drawing.Size(202, 199);
+            this.Hystory.Size = new System.Drawing.Size(343, 199);
             this.Hystory.TabIndex = 20;
             this.Hystory.SelectedValueChanged += new System.EventHandler(this.Hystory_SelectedValueChanged);
             // 
@@ -308,7 +396,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label2.Location = new System.Drawing.Point(788, 513);
+            this.label2.Location = new System.Drawing.Point(865, 535);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 13);
             this.label2.TabIndex = 22;
@@ -319,7 +407,7 @@
             this.groupBox4.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.groupBox4.Controls.Add(this.radioButton2);
             this.groupBox4.Controls.Add(this.radioButton1);
-            this.groupBox4.Location = new System.Drawing.Point(718, 123);
+            this.groupBox4.Location = new System.Drawing.Point(1020, 223);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(53, 82);
             this.groupBox4.TabIndex = 23;
@@ -328,25 +416,34 @@
             // 
             // scaletable
             // 
+            this.scaletable.AutoSize = true;
             this.scaletable.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.scaletable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scaletable.Location = new System.Drawing.Point(766, 283);
+            this.scaletable.Location = new System.Drawing.Point(653, 767);
             this.scaletable.Name = "scaletable";
-            this.scaletable.Size = new System.Drawing.Size(96, 21);
+            this.scaletable.Size = new System.Drawing.Size(0, 13);
             this.scaletable.TabIndex = 25;
+            // 
+            // panel
+            // 
+            this.panel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel.Location = new System.Drawing.Point(10, 44);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(734, 750);
+            this.panel.TabIndex = 26;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(970, 751);
+            this.ClientSize = new System.Drawing.Size(1107, 787);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.scaletable);
             this.Controls.Add(this.sheet);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Hystory);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -354,9 +451,9 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.scale);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.panel);
             this.ForeColor = System.Drawing.Color.DarkRed;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(986, 789);
             this.MinimumSize = new System.Drawing.Size(986, 789);
             this.Name = "Form1";
             this.Text = "PlotBuilder";
@@ -377,7 +474,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NumericUpDown scale;
         private System.Windows.Forms.Button button2;
@@ -404,6 +500,14 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         public System.Windows.Forms.PictureBox sheet;
         private System.Windows.Forms.Label scaletable;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem parametricToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parametricToolStripMenuItem1;
+        private System.Windows.Forms.Label panel;
     }
 }
 
