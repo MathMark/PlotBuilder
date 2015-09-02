@@ -244,6 +244,17 @@ namespace PlotBuilder
             DialogResult dialog = MessageBox.Show("Are you sure that you want to quit?", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dialog == DialogResult.OK) Application.Exit();
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButton1.Checked)
+            {
+                fxLabel.Text = "f ( x ) =";
+            } else
+            {
+                fxLabel.Text = "f ( y ) =";
+            }
+        }
     }
     class Calculate
     {
