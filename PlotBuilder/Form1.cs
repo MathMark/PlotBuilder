@@ -21,12 +21,18 @@ namespace PlotBuilder
             scale.Minimum = Convert.ToDecimal(0.5);
             scale.Maximum = 2;
             scale.Increment = Convert.ToDecimal(0.1);
-            scale.Value = Convert.ToDecimal(2);
+            scale.Value = Convert.ToDecimal(0.5);
+
             radioButton1.Select();
             label3.Text = "y = f(x)";
             textBox2.Hide();
             label4.Hide();
             groupBox1.Size = new System.Drawing.Size(333, 57);
+
+            Bitmap v = new Bitmap(100, 100);
+            
+            Graphics r = Graphics.FromImage(v);
+            
         }
         const int pixelcoeff=35;
 
@@ -36,143 +42,25 @@ namespace PlotBuilder
 
         string[] OutputLine_2;
         Pen p = new Pen(Color.CadetBlue,2);
-        bool argument = false;
 
 
-        Bitmap buffer;
+        //Bitmap buffer;
         Graphics g;
 
         bool parametricMode = false;
 
         public static char Argument = 'x';
-
+    
 
         List<string>list=new List<string>();
 
 
         Build D;
-        public void button1_Click(object sender, EventArgs e)
-        {
-
-            if (list.Contains(textBox1.Text) == true) goto t;
-            else
-            {
-                list.Add(textBox1.Text);
-                argument = false;
-                for (int i = 0; i < textBox1.Text.Length; i++)
-                {
-                    if (textBox1.Text[i] == Argument)
-                    {
-                        argument = true;
-                        break;
-                    }
-                }
-                if (argument != true)
-                {
-                    MessageBox.Show("You've forgotten to add argument");
-                    goto t;
-                }
-
-               // g = sheet.CreateGraphics();
-                
-             
-
-               buf = new StringBuilder(textBox1.Text);
-                OutputLine = new string[buf.Length];
-                try
-               {
-                    Calculate.ConvertToRPN(buf, ref OutputLine,Argument);
-                    if (parametricMode == true)
-                    {
-                        buf = new StringBuilder(textBox2.Text);
-                        OutputLine_2 = new string[buf.Length];
-                        Calculate.ConvertToRPN(buf, ref OutputLine_2, Argument);
-                    }
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    goto t;
-                }
-                catch (NullReferenceException)
-                {
-                   MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    goto t;
-               }
-
-                //buffer = null;
-                buffer = new Bitmap(sheet.Width, sheet.Height);
-                g = Graphics.FromImage(buffer);
-
-                g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-             // g.SmoothingMode = SmoothingMode.AntiAlias;
-              D = new Build();
-              
-               if (parametricMode == true)
-               {
-                   g.Clear(Color.White);
-
-                   D.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                   D.BuildAxes(g, sheet);
-                   D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                   D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                  // g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-
-
-                   D.DrawGraphic(p, g, sheet, OutputLine, OutputLine_2, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
-
-               }
-               else D.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
-
-
-
-               sheet.Image = buffer;
-               g.Dispose();
-
-
-                bool repeat = false;
-                if (parametricMode == true)
-                {
-                    for (int i = 0; i < Hystory.Items.Count; i++)
-                    {
-                        if (Hystory.Items[i].ToString() == "{ " + textBox1.Text + " | " + textBox2.Text + " }") repeat = true;
-                    }
-
-                }
-                else
-                {
-                    for (int i = 0; i < Hystory.Items.Count; i++)
-                    {
-                        if (Hystory.Items[i].ToString() == textBox1.Text) repeat = true;
-                    }
-                }
-
-
-
-                if (repeat != true)
-                {
-                    if (parametricMode == true)
-                    {
-                        Hystory.Items.Add("{ " + textBox1.Text + " | " + textBox2.Text + " }");
-                    }
-                    else Hystory.Items.Add(textBox1.Text);
-                    repeat = false;
-                }
-
-            }
         
-          
-        t: return;
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             list.Clear();
-            //g = sheet.CreateGraphics();
-
-            buffer = new Bitmap(sheet.Width, sheet.Height);
-            g = Graphics.FromImage(buffer);
-
+            g = sheet.CreateGraphics();
 
 
             D = new Build();
@@ -185,8 +73,6 @@ namespace PlotBuilder
             D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
-            sheet.Image = buffer;
-            g.Dispose();
         }
 
 
@@ -231,7 +117,7 @@ namespace PlotBuilder
         private void Hyperbolical_SelectedValueChanged(object sender, EventArgs e)
         {
             textBox1.Text = null;
-            textBox1.Text = Hyperbolical.SelectedItem.ToString();
+            //textBox1.Text = Hyperbolical.SelectedItem.ToString();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -245,9 +131,9 @@ namespace PlotBuilder
             double X = (Convert.ToDouble(e.X) - Convert.ToDouble(sheet.Width / 2))
                    / (pixelcoeff * Convert.ToDouble(scale.Value));
             double Y = -(Convert.ToDouble(e.Y) - Convert.ToDouble(sheet.Height / 2))
-                / (pixelcoeff*Convert.ToDouble(scale.Value));
-            label1.Text = "X:  " + String.Format("{0:0.00}", X) + "\nY:  " + String.Format("{0:0.00}", Y);
-            label1.Location =new Point(e.X,e.Y);
+                / (pixelcoeff * Convert.ToDouble(scale.Value));
+            labelStatus.Text = "X:  " + String.Format("{0:0.00}", X) + "\nY:  " + String.Format("{0:0.00}", Y);
+           // labelStatus.Location = new Point(e.X, e.Y);
         }
 
         private void sheet_MouseLeave(object sender, EventArgs e)
@@ -286,14 +172,14 @@ namespace PlotBuilder
 
         private void scale_ValueChanged(object sender, EventArgs e)
         {
-            //Graphics p = sheet.CreateGraphics();
-           buffer = new Bitmap(sheet.Width, sheet.Height);
-            g = Graphics.FromImage(buffer);
-
+            Graphics g = sheet.CreateGraphics();
+          // buffer = new Bitmap(sheet.Width, sheet.Height);
+           // g = Graphics.FromImage(buffer);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
 
             D = new Build();
-            scaletable.Text = null;
-            scaletable.Text += "1 : " + scale.Value.ToString() + " (cm)";
+            //scaletable.Text = null;
+            //scaletable.Text += "1 : " + scale.Value.ToString() + " (cm)";
             g.Clear(Color.White);
 
             //DoubleBuffered = true;
@@ -302,10 +188,12 @@ namespace PlotBuilder
             D.BuildAxes(g, sheet);
             D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+
+            g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
             if (textBox1.Text != "") D.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
 
-            sheet.Image = buffer;
-            p.Dispose();
+          //  sheet.Image = buffer;
+           // p.Dispose();
 
         }
 
@@ -332,6 +220,10 @@ namespace PlotBuilder
         {
             label3.Text = "y = f(x)";
             Argument = 'x';
+            if (textBox1.Text != "")
+            {
+                textBox1.Text.Replace('y', 'x');
+            }
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -345,7 +237,7 @@ namespace PlotBuilder
         {
             label4.Hide();
             textBox2.Hide();
-            groupBox4.Enabled = true;
+            groupBox4.Show();
             groupBox1.Size = new System.Drawing.Size(333, 57);
             if (radioButton1.Checked == true)
             {
@@ -369,7 +261,186 @@ namespace PlotBuilder
             label3.Text = "x = " + "\u03c6" + " (t)";
             label4.Text = "y = " + "\u03c8" + " (t)";
             parametricMode = true;
-            groupBox4.Enabled = false;
+            groupBox4.Hide();
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+
+            if (list.Contains(textBox1.Text) == true) goto t;
+            else
+            {
+                list.Add(textBox1.Text);
+                
+
+                g = sheet.CreateGraphics();
+
+
+
+                buf = new StringBuilder(textBox1.Text);
+                OutputLine = new string[buf.Length];
+                try
+                {
+                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
+                    if (parametricMode == true)
+                    {
+                        buf = new StringBuilder(textBox2.Text);
+                        OutputLine_2 = new string[buf.Length];
+                        Calculate.ConvertToRPN(buf, ref OutputLine_2, Argument);
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    goto t;
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    goto t;
+                }
+                catch(Exception)
+                {
+                    MessageBox.Show("You have forgotten to close brackets!","ErrorInSyntaxException",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                }
+
+                //buffer = null;
+                // buffer = new Bitmap(sheet.Width, sheet.Height);
+                // g = Graphics.FromImage(buffer);
+
+                g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                D = new Build();
+
+                if (parametricMode == true)
+                {
+                    g.Clear(Color.White);
+
+                    D.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    D.BuildAxes(g, sheet);
+                    D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
+
+
+                    D.DrawGraphic(p, g, sheet, OutputLine, OutputLine_2, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+
+                }
+                else D.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+
+
+
+                //sheet.Image = buffer;
+                // g.Dispose();
+                //
+
+                bool repeat = false;
+                if (parametricMode == true)
+                {
+                    for (int i = 0; i < Hystory.Items.Count; i++)
+                    {
+                        if (Hystory.Items[i].ToString() == "{ " + textBox1.Text + " | " + textBox2.Text + " }") repeat = true;
+                    }
+
+                }
+                else
+                {
+                    for (int i = 0; i < Hystory.Items.Count; i++)
+                    {
+                        if (Hystory.Items[i].ToString() == textBox1.Text) repeat = true;
+                    }
+                }
+
+
+
+                if (repeat != true)
+                {
+                    if (parametricMode == true)
+                    {
+                        Hystory.Items.Add("{ " + textBox1.Text + " | " + textBox2.Text + " }");
+                    }
+                    else Hystory.Items.Add("f("+Argument+")"+" = "+textBox1.Text);
+                    repeat = false;
+                }
+
+            }
+
+
+        t: return;
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            list.Clear();
+            g = sheet.CreateGraphics();
+
+            // buffer = new Bitmap(sheet.Width, sheet.Height);
+            // g = Graphics.FromImage(buffer);
+
+
+
+            D = new Build();
+
+            g.Clear(Color.White);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            D.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            D.BuildAxes(g, sheet);
+            D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+
+            //sheet.Image = buffer;
+            //g.Dispose();
+        }
+
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = TrigonomentyBox.SelectedItem.ToString();
+        }
+
+        private void HyperbolicalBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = HyperbolicalBox.SelectedItem.ToString();
+        }
+
+        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void solidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            p.DashStyle = DashStyle.Solid;
+        }
+
+        private void dashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            p.DashStyle = DashStyle.Dash;
+        }
+
+        private void dashDotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            p.DashStyle = DashStyle.DashDot;
+        }
+
+        private void dashDotDotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            p.DashStyle = DashStyle.DashDotDot;
+        }
+
+        private void xToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void yToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            p.DashStyle = DashStyle.Dot;
         }
     }
 
@@ -390,9 +461,10 @@ namespace PlotBuilder
 
             int j = 0;
 
-
             ///Перевод выражения в польскую запись
-            string function="";
+            string function=string.Empty;
+
+            short OpenBrackets = 0;
 
             int e = 0;
             for (; j < buf.Length; j++)
@@ -408,7 +480,6 @@ namespace PlotBuilder
                     while(char.IsLetter(buf[j]))
                     {
                         function += buf[j];
-                        //MessageBox.Show(""+buf[j]);
                         j++;
                     }
                     j--;
@@ -428,10 +499,12 @@ namespace PlotBuilder
                     ///
                     else if (buf[j] == '(')
                     {
+                        OpenBrackets--;
                         S.Push(buf[j]);
                     }
                     else if (buf[j] == ')')
                     {
+                        OpenBrackets++;
                         while (Calculate.priority(Convert.ToString(S.CopyElement())) != 1)
                         {
                             line[e] += S.Pop().ToString();
@@ -453,10 +526,17 @@ namespace PlotBuilder
                 }
 
             }
-            while (S.IsEmpty() != true)
+            if (OpenBrackets !=0)
             {
-                e++;
-                line[e] += S.Pop().ToString();
+                throw new Exception("");
+            }
+            else
+            {
+                while (S.IsEmpty() != true)
+                {
+                    e++;
+                    line[e] += S.Pop().ToString();
+                }
             }
         }
         public static double Solve(string[] line,double x,char Argument)
@@ -482,6 +562,9 @@ namespace PlotBuilder
                              case"sqrt":
                                  P.Push(Math.Sqrt(X));
                                      break;
+                            case "abs":
+                                P.Push(Math.Abs(X));
+                                break;
                              case"sin":
                                      P.Push(Math.Sin(X));
                                      break;
@@ -509,7 +592,7 @@ namespace PlotBuilder
                              case "аbs":
                                      P.Push(Math.Abs(X));
                                      break;
-                             case "lg":
+                             case "ln":
                                      P.Push(Math.Log(X));
                                      break;
                              case "arsinh":
@@ -587,7 +670,7 @@ namespace PlotBuilder
         }
        static string[] functions = {"sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
                                  "tanh","cth","arsinh","arcosh","artanh","arcth"};
-        public static short priority(string q)//ставит приоритет операции
+        public static short priority(string q)//returnes priority of function
         {
 
             for (byte i = 0; i < functions.Length; i++)
@@ -647,8 +730,6 @@ namespace PlotBuilder
         public bool IsEmpty()
         {
            if( object.Equals(list[list.Length-1],null))return true;
-            //if (char.IsControl(Convert.ToChar(list[list.Length - 1]))) return true;
-            //if (string.IsNullOrEmpty(list[list.Length - 1].ToString())) return true;
             else return false;
         }
         public object CopyElement()
@@ -660,37 +741,40 @@ namespace PlotBuilder
     }
     class Build
     {
-        public void BuildNet(Graphics g, PictureBox sheet, float scale)//рассчитан на квадратный лист
+        public void BuildNet(Graphics g, PictureBox sheet, float scale)
         {
             Pen penNet = new Pen(Color.WhiteSmoke);
-            for (float i = Convert.ToSingle(sheet.Height / 2); i < sheet.Height; i += scale)
+            float start = Convert.ToSingle(sheet.Width / 2);
+            for (float i=0; i < sheet.Width; i += scale)
             {
-                g.DrawLine(penNet, 0, i, Convert.ToSingle(sheet.Width), i);
-                g.DrawLine(penNet, i, 0, i, Convert.ToSingle(sheet.Height));
+                g.DrawLine(penNet, start+i, 0, start+i, sheet.Height);
+                g.DrawLine(penNet, start - i, 0, start - i, sheet.Height);
             }
-            for (float i = Convert.ToSingle(sheet.Width / 2); i >= 0; i -= scale)
+            start = Convert.ToSingle(sheet.Height / 2);
+            for(float i=0;i<sheet.Height/2;i+=scale)
             {
-                g.DrawLine(penNet, 0, i, Convert.ToSingle(sheet.Width), i);
-                g.DrawLine(penNet, i, 0, i, Convert.ToSingle(sheet.Height));
+                g.DrawLine(penNet, 0, start + i, sheet.Width, start + i);
+                g.DrawLine(penNet, 0, start -i, sheet.Width, start - i);
             }
         }
 
         public void BuildSection(Graphics g,PictureBox sheet, float scale)
         {
-            
-            
-                Pen pen = new Pen(Color.Black);
-                for (float i = Convert.ToSingle(sheet.Height / 2); i < sheet.Height; i += scale)
-                {
-                    g.DrawLine(pen, Convert.ToSingle(sheet.Width / 2) - 2, i, Convert.ToSingle(sheet.Width / 2) + 2, i);
-                    g.DrawLine(pen, i, Convert.ToSingle(sheet.Height / 2) + 2, i, Convert.ToSingle(sheet.Height / 2) - 2);
-
-                }
-                for (float i = Convert.ToSingle(sheet.Width / 2); i >= 0; i -= scale)
-                {
-                    g.DrawLine(pen, Convert.ToSingle(sheet.Width / 2) - 2, i, Convert.ToSingle(sheet.Width / 2) + 2, i);
-                    g.DrawLine(pen, i, Convert.ToSingle(sheet.Height / 2) + 2, i, Convert.ToSingle(sheet.Height / 2) - 2);
-                }
+            Pen pen = new Pen(Color.Black);
+            //X
+            float start = Convert.ToSingle(sheet.Width / 2);
+               for(float i=0;i<sheet.Width;i+=scale)
+            {
+                g.DrawLine(pen, start+i,Convert.ToSingle(sheet.Height/2)-2,start+i,Convert.ToSingle(sheet.Height/2)+2);
+                g.DrawLine(pen, start - i, Convert.ToSingle(sheet.Height / 2) - 2, start - i, Convert.ToSingle(sheet.Height / 2) + 2);
+            }
+               //Y
+            start = Convert.ToSingle(sheet.Height / 2);
+            for(float i=0;i<sheet.Height;i+=scale)
+            {
+                g.DrawLine(pen,Convert.ToSingle(sheet.Width/2)-2,start+i, Convert.ToSingle(sheet.Width / 2) + 2,start+ i);
+                g.DrawLine(pen, Convert.ToSingle(sheet.Width / 2) - 2, start - i, Convert.ToSingle(sheet.Width / 2) + 2, start - i);
+            }
             
 
         }
@@ -745,66 +829,111 @@ namespace PlotBuilder
         }
         public void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] line, double scale, char Argument)
         {
-            PointF point;
-            PointF step;
-            if (Argument=='x')
+            //pen.DashStyle = DashStyle.Custom;
+            double prototype;
+            PointF[] coordinates;
+            List<PointF> Coordinates = new List<PointF>();
+
+            if (Argument == 'x')
             {
-                for (double x = -sheet.Width/2; x < sheet.Width/2; x += 0.5)
+                for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
                 {
-                    try
+                    prototype = Calculate.Solve((string[])line.Clone(), x / scale, Argument);
+
+                    if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
-                        point = new PointF(Convert.ToSingle(sheet.Width / 2 + x),
-                           Convert.ToSingle((sheet.Height / 2) - scale * Calculate.Solve((string[])line.Clone(), x / scale, Argument)));
-                        step = new PointF(Convert.ToSingle(sheet.Width / 2 + x + 0.5),
-                            Convert.ToSingle((sheet.Height / 2) - scale * Calculate.Solve((string[])line.Clone(), (x + 0.5) / scale, Argument)));
-                        g.DrawLine(pen, point, step);
-                    }
-                    catch (OverflowException)
-                    {
+                        if (Coordinates.Count != 0)
+                        {
+                            coordinates = new PointF[Coordinates.Count];
+                            coordinates = Coordinates.ToArray();
+                            g.DrawLines(pen, coordinates);
+                            Coordinates.Clear();
+                        }
                         continue;
                     }
-                    //catch (ArgumentException)
+                    else
                     {
-                        //continue;
+                        Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width / 2 + x),
+                                       Convert.ToSingle((sheet.Height / 2) - scale * prototype)));
                     }
+
+
+                }
+                if (Coordinates.Count != 0)
+                {
+                    coordinates = new PointF[Coordinates.Count];
+                    coordinates = Coordinates.ToArray();
+                    g.DrawLines(pen, coordinates);
                 }
             }
             else
             {
-                for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 0.5)
+                for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
                 {
-                    try
+                    prototype = Calculate.Solve((string[])line.Clone(), x / scale, Argument);
+
+                    if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
-                        g.DrawLine(pen, Convert.ToSingle((sheet.Height / 2) + scale *Calculate.Solve((string[])line.Clone(), x / scale,Argument) ),
-                             Convert.ToSingle((sheet.Width / 2) + x),
-                             Convert.ToSingle((sheet.Height / 2) + scale *Calculate.Solve((string[])line.Clone(), (x + 1) / scale,Argument) ),
-                             Convert.ToSingle((sheet.Width / 2) + x + 1));
-                    }
-                    catch (OverflowException)
-                    {
+                        if (Coordinates.Count != 0)
+                        {
+                            coordinates = new PointF[Coordinates.Count];
+                            coordinates = Coordinates.ToArray();
+                            g.DrawLines(pen, coordinates);
+                            Coordinates.Clear();
+                        }
                         continue;
                     }
+                    else
+                    {
+                        Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width / 2 + scale*prototype),
+                                       Convert.ToSingle((sheet.Height / 2) - x)));
+                    }
+                }
+                if (Coordinates.Count != 0)
+                {
+                    coordinates = new PointF[Coordinates.Count];
+                    coordinates = Coordinates.ToArray();
+                    g.DrawLines(pen, coordinates);
                 }
             }
+
         }
-        public void DrawGraphic(Pen pen,Graphics g, PictureBox sheet, string[] OutputLine_1, string[] OutputLine_2, double scale,char Argument)
+        public void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] OutputLine_1, string[] OutputLine_2, double scale, char Argument)
         {
-            PointF point;
-            PointF step;
-            for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 0.5)
+            PointF[] coordinates;
+            List<PointF> Coordinates = new List<PointF>();
+            double parametric_1;
+            double parametric_2;
+
+            for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
             {
-                try
+                parametric_1 = Calculate.Solve((string[])OutputLine_1.Clone(), x / scale, Argument);
+                parametric_2 = Calculate.Solve((string[])OutputLine_2.Clone(), x / scale, Argument);
+
+                if ((double.IsNaN(parametric_1)) || (double.IsInfinity(parametric_1))||
+                    (double.IsNaN(parametric_2)) || (double.IsInfinity(parametric_2)))
                 {
-                    point = new PointF(Convert.ToSingle(sheet.Width / 2 + scale*Calculate.Solve((string[])OutputLine_1.Clone(),x/scale,Argument)),
-                       Convert.ToSingle((sheet.Height / 2) - scale * Calculate.Solve((string[])OutputLine_2.Clone(), x / scale, Argument)));
-                    step = new PointF(Convert.ToSingle(sheet.Width / 2 + scale * Calculate.Solve((string[])OutputLine_1.Clone(), (x + 1) / scale, Argument)),
-                       Convert.ToSingle((sheet.Height / 2) - scale * Calculate.Solve((string[])OutputLine_2.Clone(), (x + 1) / scale, Argument)));
-                    g.DrawLine(pen, point, step);
-                }
-                catch (OverflowException)
-                {
+                    if (Coordinates.Count != 0)
+                    {
+                        coordinates = new PointF[Coordinates.Count];
+                        coordinates = Coordinates.ToArray();
+                        g.DrawLines(pen, coordinates);
+                        Coordinates.Clear();
+                    }
                     continue;
                 }
+                else
+                {
+                    Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width / 2 + scale*parametric_1),
+                                   Convert.ToSingle((sheet.Height / 2) - scale * parametric_2)));
+                }
+
+            }
+            if (Coordinates.Count != 0)
+            {
+                coordinates = new PointF[Coordinates.Count];
+                coordinates = Coordinates.ToArray();
+                g.DrawLines(pen, coordinates);
             }
         }
         
