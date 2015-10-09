@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+//using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -23,7 +23,6 @@ namespace PlotBuilder
             scale.Increment = Convert.ToDecimal(0.1);
             scale.Value = Convert.ToDecimal(0.5);
 
-            radioButton1.Select();
             label3.Text = "y = f(x)";
             textBox2.Hide();
             label4.Hide();
@@ -34,17 +33,17 @@ namespace PlotBuilder
             Graphics r = Graphics.FromImage(v);
             
         }
-        const int pixelcoeff=35;
+        const  int pixelcoeff=35;
+
 
         public StringBuilder buf;
 
-        string[] OutputLine;
+         static string[] OutputLine;
 
-        string[] OutputLine_2;
+         static string[] OutputLine_2;
+
         Pen p = new Pen(Color.CadetBlue,2);
 
-
-        //Bitmap buffer;
         Graphics g;
 
         bool parametricMode = false;
@@ -55,53 +54,33 @@ namespace PlotBuilder
         List<string>list=new List<string>();
 
 
-        Build D;
-        
         private void button2_Click(object sender, EventArgs e)
         {
+            
             list.Clear();
             g = sheet.CreateGraphics();
-
-
-            D = new Build();
 
             g.Clear(Color.White);
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            D.BuildNet(g, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
-            D.BuildAxes(g, sheet);
-            D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.BuildNet(g, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
+            Builder.BuildAxes(g, sheet);
+            Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
-        }
-
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            
-            Rectangle r = sheet.RectangleToScreen(sheet.ClientRectangle);
-            Bitmap b = new Bitmap(r.Width, r.Height);
-            Graphics g = Graphics.FromImage(b);
-            g.CopyFromScreen(r.Location, new Point(0, 0), r.Size);
-            b.Save("111.jpg");
-       
         }
 
         private void sheet_Paint(object sender, PaintEventArgs e)
         {
-            D = new Build();
             e.Graphics.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-            //SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             Pen black = new Pen(Color.Black);
-            D.BuildNet(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            D.BuildAxes(e.Graphics, sheet);
-            D.BuildSection(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.BuildNet(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.BuildAxes(e.Graphics, sheet);
+            Builder.BuildSection(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
-            D.DrawCoordinates(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            if (textBox1.Text != "") D.DrawGraphic(p, e.Graphics, sheet, OutputLine, pixelcoeff*Convert.ToDouble(scale.Value), Argument);
+            Builder.DrawCoordinates(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
         }
-
 
 
         private void Trigonometry_SelectedValueChanged(object sender, EventArgs e)
@@ -120,11 +99,6 @@ namespace PlotBuilder
             //textBox1.Text = Hyperbolical.SelectedItem.ToString();
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            AboutBox1 b= new AboutBox1();
-            if (b.ShowDialog() == DialogResult.OK) this.Close();
-        }
 
         private void sheet_MouseMove(object sender, MouseEventArgs e)
         {
@@ -133,14 +107,11 @@ namespace PlotBuilder
             double Y = -(Convert.ToDouble(e.Y) - Convert.ToDouble(sheet.Height / 2))
                 / (pixelcoeff * Convert.ToDouble(scale.Value));
             labelStatus.Text = "X:  " + String.Format("{0:0.00}", X) + "\nY:  " + String.Format("{0:0.00}", Y);
-           // labelStatus.Location = new Point(e.X, e.Y);
         }
 
         private void sheet_MouseLeave(object sender, EventArgs e)
         {
-            //label1.Text = "X:" + "\nY:";
-            label1.ResetText();
-            label1.Location = new Point(0, 0);
+            labelStatus.ResetText();
         }
 
         private void Hystory_SelectedValueChanged(object sender, EventArgs e)
@@ -151,16 +122,9 @@ namespace PlotBuilder
 
         private void button4_Click(object sender, EventArgs e)
         {
-           // Hystory.SelectedItem = null;
         }
 
-        private void toolStripButton4_Click(object sender, EventArgs e, Pen p)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                 p = new Pen(colorDialog1.Color);
-            }
-        }
+   
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
@@ -173,39 +137,23 @@ namespace PlotBuilder
         private void scale_ValueChanged(object sender, EventArgs e)
         {
             Graphics g = sheet.CreateGraphics();
-          // buffer = new Bitmap(sheet.Width, sheet.Height);
-           // g = Graphics.FromImage(buffer);
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            D = new Build();
-            //scaletable.Text = null;
-            //scaletable.Text += "1 : " + scale.Value.ToString() + " (cm)";
             g.Clear(Color.White);
 
-            //DoubleBuffered = true;
-
-            D.BuildNet(g, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
-            D.BuildAxes(g, sheet);
-            D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.BuildNet(g, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
+            Builder.BuildAxes(g, sheet);
+            Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
             g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-            if (textBox1.Text != "") D.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
-
-          //  sheet.Image = buffer;
-           // p.Dispose();
+            if (textBox1.Text != "") Builder.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
 
         }
 
-        private void groupBox4_MouseHover(object sender, EventArgs e)
-        {
-            toolTip1.Show("Выбор образа функции", groupBox4);
-        }
         double b = 0;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            //if (char.(textBox1.Text[textBox1.Text.Length - 1])) MessageBox.Show("Hello");
-            
             if(textBox1.Text!="") b = (textBox1.Text[textBox1.Text.Length - 1]);
             if((b>=1040)&&(b<=1103))textBox1.ResetText();
         }
@@ -230,38 +178,6 @@ namespace PlotBuilder
         {
             label3.Text = "x = f(y)";
             Argument = 'y';
-        }
-
-      
-        private void parametricToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            label4.Hide();
-            textBox2.Hide();
-            groupBox4.Show();
-            groupBox1.Size = new System.Drawing.Size(333, 57);
-            if (radioButton1.Checked == true)
-            {
-                label3.Text = "y = f(x)";
-                Argument = 'x';
-            }
-            else
-            {
-                label3.Text = "x = f(y)";
-                Argument = 'y';
-            }
-            parametricMode = false;
-        }
-
-        private void parametricToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Argument = 't';
-            groupBox1.Size = new System.Drawing.Size(333, 90);
-            label4.Show();
-            textBox2.Show();
-            label3.Text = "x = " + "\u03c6" + " (t)";
-            label4.Text = "y = " + "\u03c8" + " (t)";
-            parametricMode = true;
-            groupBox4.Hide();
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e)
@@ -304,35 +220,25 @@ namespace PlotBuilder
                     MessageBox.Show("You have forgotten to close brackets!","ErrorInSyntaxException",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 }
 
-                //buffer = null;
-                // buffer = new Bitmap(sheet.Width, sheet.Height);
-                // g = Graphics.FromImage(buffer);
-
                 g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
                 g.SmoothingMode = SmoothingMode.AntiAlias;
-                D = new Build();
 
                 if (parametricMode == true)
                 {
                     g.Clear(Color.White);
 
-                    D.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                    D.BuildAxes(g, sheet);
-                    D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                    D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    Builder.BuildAxes(g, sheet);
+                    Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
                     g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
 
 
-                    D.DrawGraphic(p, g, sheet, OutputLine, OutputLine_2, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    Builder.DrawGraphic(p, g, sheet, OutputLine, OutputLine_2, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
 
                 }
-                else D.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                else Builder.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
 
-
-
-                //sheet.Image = buffer;
-                // g.Dispose();
-                //
 
                 bool repeat = false;
                 if (parametricMode == true)
@@ -374,23 +280,14 @@ namespace PlotBuilder
             list.Clear();
             g = sheet.CreateGraphics();
 
-            // buffer = new Bitmap(sheet.Width, sheet.Height);
-            // g = Graphics.FromImage(buffer);
-
-
-
-            D = new Build();
-
             g.Clear(Color.White);
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            D.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            D.BuildAxes(g, sheet);
-            D.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            D.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.BuildAxes(g, sheet);
+            Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
-            //sheet.Image = buffer;
-            //g.Dispose();
         }
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -442,6 +339,35 @@ namespace PlotBuilder
         {
             p.DashStyle = DashStyle.Dot;
         }
+
+        private void explicitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label4.Hide();
+            textBox2.Hide();
+            groupBox1.Size = new System.Drawing.Size(333, 57);
+            label3.Text = "y = f(x)";
+            Argument = 'x';
+            parametricMode = false;
+        }
+
+        private void parametricToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Argument = 't';
+            groupBox1.Size = new System.Drawing.Size(333, 90);
+            label4.Show();
+            textBox2.Show();
+            label3.Text = "x = " + "\u03c6" + " (t)";
+            label4.Text = "y = " + "\u03c8" + " (t)";
+            parametricMode = true;
+        }
+
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                p = new Pen(colorDialog1.Color, 2);
+            }
+        }
     }
 
     class Calculate
@@ -464,7 +390,6 @@ namespace PlotBuilder
             ///Перевод выражения в польскую запись
             string function=string.Empty;
 
-            short OpenBrackets = 0;
 
             int e = 0;
             for (; j < buf.Length; j++)
@@ -499,12 +424,10 @@ namespace PlotBuilder
                     ///
                     else if (buf[j] == '(')
                     {
-                        OpenBrackets--;
                         S.Push(buf[j]);
                     }
                     else if (buf[j] == ')')
                     {
-                        OpenBrackets++;
                         while (Calculate.priority(Convert.ToString(S.CopyElement())) != 1)
                         {
                             line[e] += S.Pop().ToString();
@@ -526,24 +449,19 @@ namespace PlotBuilder
                 }
 
             }
-            if (OpenBrackets !=0)
-            {
-                throw new Exception("");
-            }
-            else
-            {
+
+            
                 while (S.IsEmpty() != true)
                 {
                     e++;
                     line[e] += S.Pop().ToString();
                 }
-            }
+            
         }
         public static double Solve(string[] line,double x,char Argument)
         {
             Stack P = new Stack(10);
              double a,b;
-            //string function="";
              for (int i = 0; i < line.Length; i++)
              {
                  if (string.IsNullOrEmpty(line[i]))continue;
@@ -739,9 +657,9 @@ namespace PlotBuilder
         }
 
     }
-    class Build
+    class Builder
     {
-        public void BuildNet(Graphics g, PictureBox sheet, float scale)
+        public static void BuildNet(Graphics g, PictureBox sheet, float scale)
         {
             Pen penNet = new Pen(Color.WhiteSmoke);
             float start = Convert.ToSingle(sheet.Width / 2);
@@ -758,7 +676,7 @@ namespace PlotBuilder
             }
         }
 
-        public void BuildSection(Graphics g,PictureBox sheet, float scale)
+        public static void BuildSection(Graphics g,PictureBox sheet, float scale)
         {
             Pen pen = new Pen(Color.Black);
             //X
@@ -778,14 +696,14 @@ namespace PlotBuilder
             
 
         }
-        public void BuildAxes(Graphics g, PictureBox sheet)
+        public static void BuildAxes(Graphics g, PictureBox sheet)
         {
             Pen pen = new Pen(Color.Black, 1);
             g.DrawLine(pen, sheet.Width / 2, 0, sheet.Width / 2, sheet.Height);
             g.DrawLine(pen, 0, sheet.Height / 2, sheet.Width, sheet.Height / 2);   
 
         }
-        public void DrawCoordinates(Graphics h,PictureBox sheet,float scale)
+        public static void DrawCoordinates(Graphics h,PictureBox sheet,float scale)
         {
             Pen p=new Pen(Color.Gray);
             short w=1, v = -1;
@@ -827,7 +745,7 @@ namespace PlotBuilder
                 w++;
             }
         }
-        public void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] line, double scale, char Argument)
+        public static void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] line, double scale, char Argument)
         {
             //pen.DashStyle = DashStyle.Custom;
             double prototype;
@@ -836,7 +754,7 @@ namespace PlotBuilder
 
             if (Argument == 'x')
             {
-                for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
+                for (double x = -sheet.Width/2; x < sheet.Width/2; x += 1)
                 {
                     prototype = Calculate.Solve((string[])line.Clone(), x / scale, Argument);
 
@@ -853,8 +771,8 @@ namespace PlotBuilder
                     }
                     else
                     {
-                        Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width / 2 + x),
-                                       Convert.ToSingle((sheet.Height / 2) - scale * prototype)));
+                        Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width/2+x),
+                            Convert.ToSingle(sheet.Height/2-scale * prototype)));
                     }
 
 
@@ -898,7 +816,7 @@ namespace PlotBuilder
             }
 
         }
-        public void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] OutputLine_1, string[] OutputLine_2, double scale, char Argument)
+        public static void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] OutputLine_1, string[] OutputLine_2, double scale, char Argument)
         {
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
