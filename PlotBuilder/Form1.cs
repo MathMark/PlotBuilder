@@ -21,7 +21,7 @@ namespace PlotBuilder
             label3.Text = "y = f(x)";
             textBox2.Hide();
             label4.Hide();
-            groupBox1.Size = new System.Drawing.Size(333, 57);
+            groupBox1.Size = new Size(333, 57);
 
 
             Bitmap chosenColor = new Bitmap(10, 10);
@@ -104,9 +104,6 @@ namespace PlotBuilder
             textBox1.Text = Trigonometry.SelectedItem.ToString();
         }
 
-        private void scale_Scroll(object sender, ScrollEventArgs e)
-        {
-        }
 
         private void Hyperbolical_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -129,11 +126,7 @@ namespace PlotBuilder
             labelStatus.ResetText();
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-        }
 
-   
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
@@ -308,10 +301,7 @@ namespace PlotBuilder
             textBox1.Text = HyperbolicalBox.SelectedItem.ToString();
         }
 
-        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void solidToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -333,15 +323,6 @@ namespace PlotBuilder
             p.DashStyle = DashStyle.DashDotDot;
         }
 
-        private void xToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void yToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void dotToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -768,7 +749,6 @@ namespace PlotBuilder
         }
         public static void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] line, double scale, char Argument)
         {
-            //pen.DashStyle = DashStyle.Custom;
             double prototype;
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
@@ -781,6 +761,10 @@ namespace PlotBuilder
                     if (prototype > sheet.Height / 2)
                     {
                         prototype = sheet.Height / 2;
+                    }
+                    if(prototype < -sheet.Height / 2)
+                    {
+                        prototype = -sheet.Height / 2;
                     }
                     if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
@@ -798,8 +782,6 @@ namespace PlotBuilder
                         Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width/2+x),
                             Convert.ToSingle(sheet.Height/2-scale * prototype)));
                     }
-
-
                 }
                 try
                 {

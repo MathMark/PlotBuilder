@@ -120,7 +120,6 @@
             this.scale.Size = new System.Drawing.Size(51, 20);
             this.scale.TabIndex = 7;
             this.scale.ValueChanged += new System.EventHandler(this.scale_ValueChanged);
-            this.scale.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scale_Scroll);
             // 
             // toolStrip1
             // 
@@ -174,14 +173,12 @@
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
             this.xToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.xToolStripMenuItem.Text = "X";
-            this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
             // yToolStripMenuItem
             // 
             this.yToolStripMenuItem.Name = "yToolStripMenuItem";
             this.yToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.yToolStripMenuItem.Text = "Y";
-            this.yToolStripMenuItem.Click += new System.EventHandler(this.yToolStripMenuItem_Click);
             // 
             // dashStyleToolStripMenuItem
             // 
