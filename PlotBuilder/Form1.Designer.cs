@@ -67,17 +67,18 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.HyperbolicalBox = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.ColorLabel = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.sheet = new System.Windows.Forms.PictureBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
-            this.ColorLabel = new System.Windows.Forms.ToolStripLabel();
+            this.pointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.scale)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -171,14 +172,14 @@
             // xToolStripMenuItem
             // 
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(81, 22);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.xToolStripMenuItem.Text = "X";
             this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
             // yToolStripMenuItem
             // 
             this.yToolStripMenuItem.Name = "yToolStripMenuItem";
-            this.yToolStripMenuItem.Size = new System.Drawing.Size(81, 22);
+            this.yToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.yToolStripMenuItem.Text = "Y";
             this.yToolStripMenuItem.Click += new System.EventHandler(this.yToolStripMenuItem_Click);
             // 
@@ -259,7 +260,8 @@
             // 
             this.representationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.explicitToolStripMenuItem,
-            this.parametricToolStripMenuItem2});
+            this.parametricToolStripMenuItem2,
+            this.pointsToolStripMenuItem});
             this.representationToolStripMenuItem.Name = "representationToolStripMenuItem";
             this.representationToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.representationToolStripMenuItem.Text = "Representation";
@@ -267,14 +269,14 @@
             // explicitToolStripMenuItem
             // 
             this.explicitToolStripMenuItem.Name = "explicitToolStripMenuItem";
-            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.explicitToolStripMenuItem.Text = "Explicit";
             this.explicitToolStripMenuItem.Click += new System.EventHandler(this.explicitToolStripMenuItem_Click);
             // 
             // parametricToolStripMenuItem2
             // 
             this.parametricToolStripMenuItem2.Name = "parametricToolStripMenuItem2";
-            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.parametricToolStripMenuItem2.Text = "Parametric";
             this.parametricToolStripMenuItem2.Click += new System.EventHandler(this.parametricToolStripMenuItem2_Click);
             // 
@@ -461,6 +463,25 @@
             this.HyperbolicalBox.Size = new System.Drawing.Size(121, 25);
             this.HyperbolicalBox.SelectedIndexChanged += new System.EventHandler(this.HyperbolicalBox_SelectedIndexChanged);
             // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(0, 22);
+            this.toolStripLabel4.Text = "toolStripLabel4";
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(77, 22);
+            this.toolStripLabel3.Text = "Chosen color";
+            // 
+            // ColorLabel
+            // 
+            this.ColorLabel.AutoSize = false;
+            this.ColorLabel.Name = "ColorLabel";
+            this.ColorLabel.Size = new System.Drawing.Size(20, 20);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -478,6 +499,29 @@
             this.splitContainer1.Size = new System.Drawing.Size(749, 739);
             this.splitContainer1.SplitterDistance = 104;
             this.splitContainer1.TabIndex = 28;
+            // 
+            // listView1
+            // 
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView1.LargeImageList = this.imageList1;
+            this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(104, 739);
+            this.listView1.SmallImageList = this.imageList1;
+            this.listView1.StateImageList = this.imageList1;
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(20, 20);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // sheet
             // 
@@ -530,29 +574,6 @@
             this.labelStatus.Size = new System.Drawing.Size(100, 79);
             this.labelStatus.TabIndex = 29;
             // 
-            // listView1
-            // 
-            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listView1.LargeImageList = this.imageList1;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(104, 739);
-            this.listView1.SmallImageList = this.imageList1;
-            this.listView1.StateImageList = this.imageList1;
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(20, 20);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -571,24 +592,11 @@
             this.splitContainer3.SplitterDistance = 749;
             this.splitContainer3.TabIndex = 30;
             // 
-            // toolStripLabel4
+            // pointsToolStripMenuItem
             // 
-            this.toolStripLabel4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(0, 22);
-            this.toolStripLabel4.Text = "toolStripLabel4";
-            // 
-            // toolStripLabel3
-            // 
-            this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(77, 22);
-            this.toolStripLabel3.Text = "Chosen color";
-            // 
-            // ColorLabel
-            // 
-            this.ColorLabel.AutoSize = false;
-            this.ColorLabel.Name = "ColorLabel";
-            this.ColorLabel.Size = new System.Drawing.Size(20, 20);
+            this.pointsToolStripMenuItem.Name = "pointsToolStripMenuItem";
+            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pointsToolStripMenuItem.Text = "Points";
             // 
             // Form1
             // 
@@ -687,6 +695,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripLabel ColorLabel;
+        private System.Windows.Forms.ToolStripMenuItem pointsToolStripMenuItem;
     }
 }
 

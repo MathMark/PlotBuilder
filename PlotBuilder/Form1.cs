@@ -43,6 +43,8 @@ namespace PlotBuilder
 
         Pen p = new Pen(Color.CadetBlue,2);
 
+        public static List<Color> FunctionColors = new List<Color>();
+
         Graphics g;
 
         bool parametricMode = false;
@@ -73,12 +75,26 @@ namespace PlotBuilder
         {
             e.Graphics.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
 
-            Pen black = new Pen(Color.Black);
             Builder.BuildNet(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             Builder.BuildAxes(e.Graphics, sheet);
             Builder.BuildSection(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
             Builder.DrawCoordinates(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            e.Graphics.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            if (list.Count!=0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    buf =new StringBuilder( list[i].ToString());
+                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
+                    Builder.DrawGraphic(new Pen(FunctionColors[i],2), e.Graphics, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                }
+            }
+            else
+            {
+                ;
+            }
         }
 
 
@@ -147,7 +163,7 @@ namespace PlotBuilder
         double b = 0;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if(textBox1.Text!="") b = (textBox1.Text[textBox1.Text.Length - 1]);
+            if(textBox1.Text!=string.Empty) b = (textBox1.Text[textBox1.Text.Length - 1]);
             if((b>=1040)&&(b<=1103))textBox1.ResetText();
         }
 
@@ -155,16 +171,6 @@ namespace PlotBuilder
         {
             DialogResult dialog = MessageBox.Show("Are you sure that you want to quit?", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dialog == DialogResult.OK) Application.Exit();
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            label3.Text = "y = f(x)";
-            Argument = 'x';
-            if (textBox1.Text != "")
-            {
-                textBox1.Text.Replace('y', 'x');
-            }
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -177,18 +183,15 @@ namespace PlotBuilder
         Bitmap ColorFunction;
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-
-
-            if (list.Contains(textBox1.Text) == true) goto t;
+            if (list.Contains(textBox1.Text) == true)
+            {
+                return;
+            } 
             else
             {
                 list.Add(textBox1.Text);
-                
-
+                FunctionColors.Add(p.Color);
                 g = sheet.CreateGraphics();
-
-
-
                 buf = new StringBuilder(textBox1.Text);
                 OutputLine = new string[buf.Length];
                 try
@@ -204,12 +207,12 @@ namespace PlotBuilder
                 catch (IndexOutOfRangeException)
                 {
                     MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    goto t;
+                    return;
                 }
                 catch (NullReferenceException)
                 {
                     MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    goto t;
+                    return;
                 }
                 catch(Exception)
                 {
@@ -259,13 +262,6 @@ namespace PlotBuilder
 
                 if (repeat != true)
                 {
-                    //if (parametricMode == true)
-                    //{
-                    //    Hystory.Items.Add("{ " + textBox1.Text + " | " + textBox2.Text + " }");
-                    //}
-                    //else Hystory.Items.Add("f("+Argument+")"+" = "+textBox1.Text);
-                    //repeat = false;
-
                     if (parametricMode == true)
                     {
                         DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
@@ -283,13 +279,12 @@ namespace PlotBuilder
 
             }
 
-
-        t: return;
         }
 
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             list.Clear();
+            FunctionColors.Clear();
             listView1.Items.Clear();
             g = sheet.CreateGraphics();
 
@@ -391,8 +386,9 @@ namespace PlotBuilder
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ListViewItem item = listView1.SelectedItems[0]; 
             textBox1.Text = null;
-            textBox1.Text = listView1.SelectedItems[0].Text;
+            textBox1.Text = item.Text;
         }
     }
 
@@ -746,14 +742,13 @@ namespace PlotBuilder
             for (float i = Convert.ToSingle(sheet.Width / 2)+scale; i < sheet.Width; i += scale)
             {
                 P = new PointF(i-3, sheet.Height-15);
-               // G = new PointF(k - 3, sheet.Height - 15);
                 F = new PointF(sheet.Width - i-7, sheet.Height-15);
-                //h.DrawString(l, font, drawBrush, G);
+
                 h.DrawString(w.ToString(), font, drawBrush, P);
                 w++;
                 h.DrawString(v.ToString(), font, drawBrush, F);
                 v--;
-                //k += Convert.ToSingle((Math.PI / 2)*scale);
+
             }
             P = new PointF(sheet.Width / 2-5,sheet.Height-15);
             h.DrawString(zero, font, drawBrush, P);
@@ -783,7 +778,10 @@ namespace PlotBuilder
                 for (double x = -sheet.Width/2; x < sheet.Width/2; x += 1)
                 {
                     prototype = Calculate.Solve((string[])line.Clone(), x / scale, Argument);
-
+                    if (prototype > sheet.Height / 2)
+                    {
+                        prototype = sheet.Height / 2;
+                    }
                     if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
                         if (Coordinates.Count != 0)
@@ -803,11 +801,18 @@ namespace PlotBuilder
 
 
                 }
-                if (Coordinates.Count != 0)
+                try
                 {
-                    coordinates = new PointF[Coordinates.Count];
-                    coordinates = Coordinates.ToArray();
-                    g.DrawLines(pen, coordinates);
+                    if (Coordinates.Count != 0)
+                    {
+                        coordinates = new PointF[Coordinates.Count];
+                        coordinates = Coordinates.ToArray();
+                        g.DrawLines(pen, coordinates);
+                    }
+                }
+                catch(OverflowException)
+                {
+                    ;
                 }
             }
             else
