@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-//using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
 using System.Drawing.Drawing2D;
-using System.Threading;
 
 
 namespace PlotBuilder
@@ -28,10 +23,14 @@ namespace PlotBuilder
             label4.Hide();
             groupBox1.Size = new System.Drawing.Size(333, 57);
 
-            Bitmap v = new Bitmap(100, 100);
-            
-            Graphics r = Graphics.FromImage(v);
-            
+
+            Bitmap chosenColor = new Bitmap(10, 10);
+            Graphics fill = Graphics.FromImage(chosenColor);
+            SolidBrush brush = new SolidBrush(p.Color);
+            fill.FillRectangle(brush, 0, 0, ColorLabel.Width, ColorLabel.Height);
+            ColorLabel.Image = chosenColor;
+            fill.Dispose();
+
         }
         const  int pixelcoeff=35;
 
@@ -114,12 +113,6 @@ namespace PlotBuilder
             labelStatus.ResetText();
         }
 
-        private void Hystory_SelectedValueChanged(object sender, EventArgs e)
-        {
-            textBox1.Text = null;
-            textBox1.Text = Hystory.SelectedItem.ToString();
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
         }
@@ -180,8 +173,11 @@ namespace PlotBuilder
             Argument = 'y';
         }
 
+
+        Bitmap ColorFunction;
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
+
 
             if (list.Contains(textBox1.Text) == true) goto t;
             else
@@ -243,29 +239,45 @@ namespace PlotBuilder
                 bool repeat = false;
                 if (parametricMode == true)
                 {
-                    for (int i = 0; i < Hystory.Items.Count; i++)
+                    for (int i = 0; i < listView1.Items.Count; i++)
                     {
-                        if (Hystory.Items[i].ToString() == "{ " + textBox1.Text + " | " + textBox2.Text + " }") repeat = true;
+                        if (listView1.Items[i].ToString() == "{ " + textBox1.Text + " | " + textBox2.Text + " }") repeat = true;
                     }
 
                 }
                 else
                 {
-                    for (int i = 0; i < Hystory.Items.Count; i++)
+                    foreach(ListViewItem function in listView1.Items)
                     {
-                        if (Hystory.Items[i].ToString() == textBox1.Text) repeat = true;
+                        if (function.Text == textBox1.Text) repeat = true;
                     }
                 }
 
-
+                ColorFunction = new Bitmap(imageList1.ImageSize.Width, imageList1.ImageSize.Height);
+                Graphics DrawColor = Graphics.FromImage(ColorFunction);
+                SolidBrush color = new SolidBrush(p.Color);
 
                 if (repeat != true)
                 {
+                    //if (parametricMode == true)
+                    //{
+                    //    Hystory.Items.Add("{ " + textBox1.Text + " | " + textBox2.Text + " }");
+                    //}
+                    //else Hystory.Items.Add("f("+Argument+")"+" = "+textBox1.Text);
+                    //repeat = false;
+
                     if (parametricMode == true)
                     {
-                        Hystory.Items.Add("{ " + textBox1.Text + " | " + textBox2.Text + " }");
+                        DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
+                        imageList1.Images.Add(ColorFunction);
+                        listView1.Items.Add(textBox1.Text+" | "+textBox2.Text,imageList1.Images.Count-1);
                     }
-                    else Hystory.Items.Add("f("+Argument+")"+" = "+textBox1.Text);
+                    else
+                    {
+                        DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
+                        imageList1.Images.Add(ColorFunction);
+                        listView1.Items.Add(textBox1.Text, imageList1.Images.Count-1);
+                    }
                     repeat = false;
                 }
 
@@ -278,6 +290,7 @@ namespace PlotBuilder
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             list.Clear();
+            listView1.Items.Clear();
             g = sheet.CreateGraphics();
 
             g.Clear(Color.White);
@@ -366,7 +379,20 @@ namespace PlotBuilder
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 p = new Pen(colorDialog1.Color, 2);
+                Bitmap chosenColor = new Bitmap(10, 10);
+                Graphics fill = Graphics.FromImage(chosenColor);
+                SolidBrush brush = new SolidBrush(p.Color);
+                fill.FillRectangle(brush, 0, 0, ColorLabel.Width, ColorLabel.Height);
+                ColorLabel.Image = chosenColor;
+                fill.Dispose();
             }
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+            textBox1.Text = listView1.SelectedItems[0].Text;
         }
     }
 
@@ -575,7 +601,7 @@ namespace PlotBuilder
 
                                  ///unary operations
                                  case '~':
-                                     P.Push(-1 * Convert.ToDouble(P.Pop()));
+                                     P.Push(-1 * Convert.ToDouble(b));
                                      break;
                                  default: 
                                      goto y;
@@ -586,7 +612,7 @@ namespace PlotBuilder
              }
              y:return Convert.ToDouble(P.Pop());
         }
-       static string[] functions = {"sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
+       static string[] functions = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
                                  "tanh","cth","arsinh","arcosh","artanh","arcth"};
         public static short priority(string q)//returnes priority of function
         {

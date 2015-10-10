@@ -62,16 +62,22 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.TrigonomentyBox = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.HyperbolicalBox = new System.Windows.Forms.ToolStripComboBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.Hystory = new System.Windows.Forms.ListBox();
             this.sheet = new System.Windows.Forms.PictureBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.ColorLabel = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.scale)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -86,6 +92,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -99,7 +106,7 @@
             this.textBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox1.Location = new System.Drawing.Point(113, 19);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(208, 23);
+            this.textBox1.Size = new System.Drawing.Size(202, 23);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -107,7 +114,7 @@
             // 
             this.scale.BackColor = System.Drawing.SystemColors.Menu;
             this.scale.DecimalPlaces = 1;
-            this.scale.Location = new System.Drawing.Point(572, 28);
+            this.scale.Location = new System.Drawing.Point(924, 28);
             this.scale.Name = "scale";
             this.scale.Size = new System.Drawing.Size(51, 20);
             this.scale.TabIndex = 7;
@@ -120,10 +127,10 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton3,
             this.toolStripDropDownButton2});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(10, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStrip1.Size = new System.Drawing.Size(1108, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1088, 25);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -279,7 +286,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.label3);
@@ -288,7 +295,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.SteelBlue;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(341, 84);
+            this.groupBox1.Size = new System.Drawing.Size(335, 84);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Function";
@@ -309,7 +316,7 @@
             this.textBox2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox2.Location = new System.Drawing.Point(113, 48);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(208, 23);
+            this.textBox2.Size = new System.Drawing.Size(202, 23);
             this.textBox2.TabIndex = 27;
             // 
             // label3
@@ -359,7 +366,7 @@
             this.label1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Location = new System.Drawing.Point(761, 271);
+            this.label1.Location = new System.Drawing.Point(771, 271);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 15);
             this.label1.TabIndex = 17;
@@ -369,11 +376,17 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton5,
             this.toolStripButton6,
+            this.toolStripLabel2,
             this.TrigonomentyBox,
-            this.HyperbolicalBox});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 25);
+            this.toolStripSeparator1,
+            this.toolStripLabel1,
+            this.HyperbolicalBox,
+            this.toolStripLabel4,
+            this.toolStripLabel3,
+            this.ColorLabel});
+            this.toolStrip2.Location = new System.Drawing.Point(10, 25);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1108, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(1088, 25);
             this.toolStrip2.TabIndex = 27;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -399,6 +412,12 @@
             this.toolStripButton6.Text = "Build";
             this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(135, 22);
+            this.toolStripLabel2.Text = "Trigonometry Functions";
+            // 
             // TrigonomentyBox
             // 
             this.TrigonomentyBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -414,6 +433,17 @@
             this.TrigonomentyBox.Name = "TrigonomentyBox";
             this.TrigonomentyBox.Size = new System.Drawing.Size(121, 25);
             this.TrigonomentyBox.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(129, 22);
+            this.toolStripLabel1.Text = "Hyperbolical Functions";
             // 
             // HyperbolicalBox
             // 
@@ -431,43 +461,23 @@
             this.HyperbolicalBox.Size = new System.Drawing.Size(121, 25);
             this.HyperbolicalBox.SelectedIndexChanged += new System.EventHandler(this.HyperbolicalBox_SelectedIndexChanged);
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.Tag = "listView1";
-            this.imageList1.TransparentColor = System.Drawing.Color.Maroon;
-            this.imageList1.Images.SetKeyName(0, "Blackvariant-Shadow135-System-ITunes.ico");
-            this.imageList1.Images.SetKeyName(1, "add_file-512.png");
-            // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.Hystory);
+            this.splitContainer1.Panel1.Controls.Add(this.listView1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.sheet);
-            this.splitContainer1.Size = new System.Drawing.Size(763, 739);
-            this.splitContainer1.SplitterDistance = 106;
+            this.splitContainer1.Size = new System.Drawing.Size(749, 739);
+            this.splitContainer1.SplitterDistance = 104;
             this.splitContainer1.TabIndex = 28;
-            // 
-            // Hystory
-            // 
-            this.Hystory.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.Hystory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Hystory.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Hystory.FormattingEnabled = true;
-            this.Hystory.ItemHeight = 15;
-            this.Hystory.Location = new System.Drawing.Point(0, 0);
-            this.Hystory.Name = "Hystory";
-            this.Hystory.Size = new System.Drawing.Size(106, 739);
-            this.Hystory.TabIndex = 20;
-            this.Hystory.SelectedValueChanged += new System.EventHandler(this.Hystory_SelectedValueChanged);
             // 
             // sheet
             // 
@@ -477,7 +487,8 @@
             this.sheet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sheet.Location = new System.Drawing.Point(0, 0);
             this.sheet.Name = "sheet";
-            this.sheet.Size = new System.Drawing.Size(653, 739);
+            this.sheet.Size = new System.Drawing.Size(641, 739);
+            this.sheet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.sheet.TabIndex = 5;
             this.sheet.TabStop = false;
             this.sheet.Paint += new System.Windows.Forms.PaintEventHandler(this.sheet_Paint);
@@ -497,32 +508,56 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.labelStatus);
             this.splitContainer2.Panel2.Controls.Add(this.panel1);
-            this.splitContainer2.Size = new System.Drawing.Size(341, 739);
+            this.splitContainer2.Size = new System.Drawing.Size(335, 739);
             this.splitContainer2.SplitterDistance = 84;
             this.splitContainer2.TabIndex = 29;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.labelStatus);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(335, 651);
+            this.panel1.TabIndex = 6;
+            // 
             // labelStatus
             // 
-            this.labelStatus.Location = new System.Drawing.Point(25, 30);
+            this.labelStatus.Location = new System.Drawing.Point(41, 17);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(100, 79);
             this.labelStatus.TabIndex = 29;
             // 
-            // panel1
+            // listView1
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(341, 651);
-            this.panel1.TabIndex = 6;
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView1.LargeImageList = this.imageList1;
+            this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(104, 739);
+            this.listView1.SmallImageList = this.imageList1;
+            this.listView1.StateImageList = this.imageList1;
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(20, 20);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.IsSplitterFixed = true;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 50);
+            this.splitContainer3.Location = new System.Drawing.Point(10, 50);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -532,9 +567,28 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer3.Size = new System.Drawing.Size(1108, 739);
-            this.splitContainer3.SplitterDistance = 763;
+            this.splitContainer3.Size = new System.Drawing.Size(1088, 739);
+            this.splitContainer3.SplitterDistance = 749;
             this.splitContainer3.TabIndex = 30;
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(0, 22);
+            this.toolStripLabel4.Text = "toolStripLabel4";
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(77, 22);
+            this.toolStripLabel3.Text = "Chosen color";
+            // 
+            // ColorLabel
+            // 
+            this.ColorLabel.AutoSize = false;
+            this.ColorLabel.Name = "ColorLabel";
+            this.ColorLabel.Size = new System.Drawing.Size(20, 20);
             // 
             // Form1
             // 
@@ -554,6 +608,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(986, 789);
             this.Name = "Form1";
+            this.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.Text = "PlotBuilder";
             ((System.ComponentModel.ISupportInitialize)(this.scale)).EndInit();
             this.toolStrip1.ResumeLayout(false);
@@ -565,6 +620,7 @@
             this.toolStrip2.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
@@ -572,6 +628,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -599,12 +656,10 @@
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.ToolStripButton toolStripButton6;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripComboBox TrigonomentyBox;
         private System.Windows.Forms.ToolStripComboBox HyperbolicalBox;
         private System.Windows.Forms.SplitContainer splitContainer1;
         public System.Windows.Forms.PictureBox sheet;
-        private System.Windows.Forms.ListBox Hystory;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Label labelStatus;
@@ -624,6 +679,14 @@
         private System.Windows.Forms.ToolStripMenuItem scaleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem explicitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parametricToolStripMenuItem2;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripLabel ColorLabel;
     }
 }
 
