@@ -149,7 +149,20 @@ namespace PlotBuilder
             Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
 
             g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-            if (textBox1.Text != "") Builder.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+
+            if (list.Count != 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    buf = new StringBuilder(list[i].ToString());
+                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
+                    Builder.DrawGraphic(new Pen(FunctionColors[i], 2), g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                }
+            }
+            else
+            {
+                ;
+            }
 
         }
 
