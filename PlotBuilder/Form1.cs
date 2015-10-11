@@ -315,31 +315,38 @@ namespace PlotBuilder
         }
 
 
-
+        static Bitmap d = new Bitmap(100, 100);
+        Graphics f = Graphics.FromImage(d);
         private void solidToolStripMenuItem_Click(object sender, EventArgs e)
         {
             p.DashStyle = DashStyle.Solid;
+            statusDash.Text = "Solid";
         }
 
         private void dashToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             p.DashStyle = DashStyle.Dash;
+            statusDash.Text = "Dash";
         }
 
         private void dashDotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             p.DashStyle = DashStyle.DashDot;
+            statusDash.Text = "Dash Dot";
         }
 
         private void dashDotDotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             p.DashStyle = DashStyle.DashDotDot;
+            statusDash.Text = "Dash Dot Dot";
         }
 
 
         private void dotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             p.DashStyle = DashStyle.Dot;
+            statusDash.Text = "Dot";
         }
 
         private void explicitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -383,6 +390,11 @@ namespace PlotBuilder
             ListViewItem item = listView1.SelectedItems[0]; 
             textBox1.Text = null;
             textBox1.Text = item.Text;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 
