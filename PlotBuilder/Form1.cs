@@ -45,6 +45,8 @@ namespace PlotBuilder
 
         public static List<Color> FunctionColors = new List<Color>();
 
+        public static List<DashStyle> FunctionDashStyles = new List<DashStyle>();
+
         Graphics g;
 
         bool parametricMode = false;
@@ -88,7 +90,9 @@ namespace PlotBuilder
                 {
                     buf =new StringBuilder( list[i].ToString());
                     Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
-                    Builder.DrawGraphic(new Pen(FunctionColors[i],2), e.Graphics, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    Pen pen = new Pen(FunctionColors[i],2);
+                    pen.DashStyle = FunctionDashStyles[i];
+                    Builder.DrawGraphic(pen, e.Graphics, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
                 }
             }
             else
@@ -156,7 +160,9 @@ namespace PlotBuilder
                 {
                     buf = new StringBuilder(list[i].ToString());
                     Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
-                    Builder.DrawGraphic(new Pen(FunctionColors[i], 2), g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    Pen pen = new Pen(FunctionColors[i],2);
+                    pen.DashStyle=FunctionDashStyles[i];
+                    Builder.DrawGraphic(pen, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
                 }
             }
             else
@@ -197,6 +203,7 @@ namespace PlotBuilder
             {
                 list.Add(textBox1.Text);
                 FunctionColors.Add(p.Color);
+                FunctionDashStyles.Add(p.DashStyle);
                 g = sheet.CreateGraphics();
                 buf = new StringBuilder(textBox1.Text);
                 OutputLine = new string[buf.Length];
@@ -291,6 +298,7 @@ namespace PlotBuilder
         {
             list.Clear();
             FunctionColors.Clear();
+            FunctionDashStyles.Clear();
             listView1.Items.Clear();
             g = sheet.CreateGraphics();
 
