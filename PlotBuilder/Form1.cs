@@ -395,9 +395,16 @@ namespace PlotBuilder
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListViewItem item = listView1.SelectedItems[0]; 
-            textBox1.Text = null;
-            textBox1.Text = item.Text;
+            if (listView1.SelectedItems.Count != 0)
+            {
+                ListViewItem item = listView1.SelectedItems[0];
+                textBox1.Text = null;
+                textBox1.Text = item.Text;
+            }
+            else
+            {
+                ;
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
