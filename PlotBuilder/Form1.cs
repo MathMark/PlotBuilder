@@ -19,7 +19,7 @@ namespace PlotBuilder
             scale.Value = Convert.ToDecimal(0.5);
 
             label3.Text = "y = f(x)";
-            textBox2.Hide();
+            secondFunctionBox.Hide();
             label4.Hide();
             groupBox1.Size = new Size(333, 57);
 
@@ -104,30 +104,35 @@ namespace PlotBuilder
 
         private void Trigonometry_SelectedValueChanged(object sender, EventArgs e)
         {
-            textBox1.Text = null;
-            textBox1.Text = Trigonometry.SelectedItem.ToString();
+            firstFunctionBox.Text = null;
+            firstFunctionBox.Text = Trigonometry.SelectedItem.ToString();
         }
 
 
         private void Hyperbolical_SelectedValueChanged(object sender, EventArgs e)
         {
-            textBox1.Text = null;
+            firstFunctionBox.Text = null;
             //textBox1.Text = Hyperbolical.SelectedItem.ToString();
         }
 
-
+        static int offset = 10;
         private void sheet_MouseMove(object sender, MouseEventArgs e)
         {
+
+            labelStatus.Show();
             double X = (Convert.ToDouble(e.X) - Convert.ToDouble(sheet.Width / 2))
                    / (pixelcoeff * Convert.ToDouble(scale.Value));
             double Y = -(Convert.ToDouble(e.Y) - Convert.ToDouble(sheet.Height / 2))
                 / (pixelcoeff * Convert.ToDouble(scale.Value));
-            labelStatus.Text = "X:  " + String.Format("{0:0.00}", X) + "\nY:  " + String.Format("{0:0.00}", Y);
+            labelStatus.Text = "X: " + String.Format("{0:0.00}", X) + "  Y: " + String.Format("{0:0.00}", Y);
+            labelStatus.Location = new Point(e.X+offset, e.Y-offset);
+
         }
 
         private void sheet_MouseLeave(object sender, EventArgs e)
         {
             labelStatus.ResetText();
+            labelStatus.Hide();
         }
 
 
@@ -175,8 +180,8 @@ namespace PlotBuilder
         double b = 0;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if(textBox1.Text!=string.Empty) b = (textBox1.Text[textBox1.Text.Length - 1]);
-            if((b>=1040)&&(b<=1103))textBox1.ResetText();
+            if(firstFunctionBox.Text!=string.Empty) b = (firstFunctionBox.Text[firstFunctionBox.Text.Length - 1]);
+            if((b>=1040)&&(b<=1103))firstFunctionBox.ResetText();
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -195,24 +200,24 @@ namespace PlotBuilder
         Bitmap ColorFunction;
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            if (list.Contains(textBox1.Text) == true)
+            if (list.Contains(firstFunctionBox.Text) == true)
             {
                 return;
             } 
             else
             {
-                list.Add(textBox1.Text);
+                list.Add(firstFunctionBox.Text);
                 FunctionColors.Add(p.Color);
                 FunctionDashStyles.Add(p.DashStyle);
                 g = sheet.CreateGraphics();
-                buf = new StringBuilder(textBox1.Text);
+                buf = new StringBuilder(firstFunctionBox.Text);
                 OutputLine = new string[buf.Length];
                 try
                 {
                     Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
                     if (parametricMode == true)
                     {
-                        buf = new StringBuilder(textBox2.Text);
+                        buf = new StringBuilder(secondFunctionBox.Text);
                         OutputLine_2 = new string[buf.Length];
                         Calculate.ConvertToRPN(buf, ref OutputLine_2, Argument);
                     }
@@ -255,17 +260,17 @@ namespace PlotBuilder
                 bool repeat = false;
                 if (parametricMode == true)
                 {
-                    for (int i = 0; i < listView1.Items.Count; i++)
+                    for (int i = 0; i < FunctionList.Items.Count; i++)
                     {
-                        if (listView1.Items[i].ToString() == "{ " + textBox1.Text + " | " + textBox2.Text + " }") repeat = true;
+                        if (FunctionList.Items[i].ToString() == "{ " + firstFunctionBox.Text + " | " + secondFunctionBox.Text + " }") repeat = true;
                     }
 
                 }
                 else
                 {
-                    foreach(ListViewItem function in listView1.Items)
+                    foreach(ListViewItem function in FunctionList.Items)
                     {
-                        if (function.Text == textBox1.Text) repeat = true;
+                        if (function.Text == firstFunctionBox.Text) repeat = true;
                     }
                 }
 
@@ -279,13 +284,13 @@ namespace PlotBuilder
                     {
                         DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
                         imageList1.Images.Add(ColorFunction);
-                        listView1.Items.Add(textBox1.Text+" | "+textBox2.Text,imageList1.Images.Count-1);
+                        FunctionList.Items.Add(firstFunctionBox.Text+" | "+secondFunctionBox.Text,imageList1.Images.Count-1);
                     }
                     else
                     {
                         DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
                         imageList1.Images.Add(ColorFunction);
-                        listView1.Items.Add(textBox1.Text, imageList1.Images.Count-1);
+                        FunctionList.Items.Add(firstFunctionBox.Text, imageList1.Images.Count-1);
                     }
                     repeat = false;
                 }
@@ -299,7 +304,7 @@ namespace PlotBuilder
             list.Clear();
             FunctionColors.Clear();
             FunctionDashStyles.Clear();
-            listView1.Items.Clear();
+            FunctionList.Items.Clear();
             g = sheet.CreateGraphics();
 
             g.Clear(Color.White);
@@ -314,12 +319,12 @@ namespace PlotBuilder
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBox1.Text = TrigonomentyBox.SelectedItem.ToString();
+            firstFunctionBox.Text = TrigonomentyBox.SelectedItem.ToString();
         }
 
         private void HyperbolicalBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBox1.Text = HyperbolicalBox.SelectedItem.ToString();
+            firstFunctionBox.Text = HyperbolicalBox.SelectedItem.ToString();
         }
 
 
@@ -360,7 +365,7 @@ namespace PlotBuilder
         private void explicitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             label4.Hide();
-            textBox2.Hide();
+            secondFunctionBox.Hide();
             groupBox1.Size = new System.Drawing.Size(333, 57);
             label3.Text = "y = f(x)";
             Argument = 'x';
@@ -372,7 +377,7 @@ namespace PlotBuilder
             Argument = 't';
             groupBox1.Size = new System.Drawing.Size(333, 90);
             label4.Show();
-            textBox2.Show();
+            secondFunctionBox.Show();
             label3.Text = "x = " + "\u03c6" + " (t)";
             label4.Text = "y = " + "\u03c8" + " (t)";
             parametricMode = true;
@@ -395,11 +400,11 @@ namespace PlotBuilder
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count != 0)
+            if (FunctionList.SelectedItems.Count != 0)
             {
-                ListViewItem item = listView1.SelectedItems[0];
-                textBox1.Text = null;
-                textBox1.Text = item.Text;
+                ListViewItem item = FunctionList.SelectedItems[0];
+                firstFunctionBox.Text = null;
+                firstFunctionBox.Text = item.Text;
             }
             else
             {
@@ -460,7 +465,7 @@ namespace PlotBuilder
                     {
                         S.Push(buf[j]);
                     }
-                    else if (Calculate.priority(Convert.ToString(S.CopyElement())) < Calculate.priority(buf[j].ToString())) //сравнение приоритетов операций
+                    else if (priority(Convert.ToString(S.CopyElement())) <priority(buf[j].ToString())) //сравнение приоритетов операций
                     {
                         S.Push(buf[j]);
                     }
@@ -471,7 +476,7 @@ namespace PlotBuilder
                     }
                     else if (buf[j] == ')')
                     {
-                        while (Calculate.priority(Convert.ToString(S.CopyElement())) != 1)
+                        while (priority(Convert.ToString(S.CopyElement())) != 1)
                         {
                             line[e] += S.Pop().ToString();
                             e++;
@@ -480,7 +485,7 @@ namespace PlotBuilder
                     }
                     else
                     {
-                        while (Calculate.priority(Convert.ToString(S.CopyElement())) >= Calculate.priority(buf[j].ToString()))
+                        while (priority(Convert.ToString(S.CopyElement())) >= priority(buf[j].ToString()))
                         {
                             line[e] += S.Pop().ToString();
                             e++;
