@@ -13,7 +13,6 @@ namespace PlotBuilder
         public Form1()
         {
             InitializeComponent();
-            g = sheet.CreateGraphics();
             scale.Minimum = Convert.ToDecimal(0.5);
             scale.Maximum = 2;
             scale.Increment = Convert.ToDecimal(0.1);
@@ -33,28 +32,37 @@ namespace PlotBuilder
             fill.Dispose();
 
         }
-
         const  int pixelcoeff=35;
 
 
+        public StringBuilder buf;
+
+         static string[] OutputLine;
+
+         static string[] OutputLine_2;
+
         Pen p = new Pen(Color.CadetBlue,2);
 
-        public static Graphics g;
+        public static List<Color> FunctionColors = new List<Color>();
+
+        public static List<DashStyle> FunctionDashStyles = new List<DashStyle>();
+
+        Graphics g;
 
         bool parametricMode = false;
 
         public static char Argument = 'x';
+    
 
-        List<string> SavedFunctions = new List<string>();
+        List<string>list=new List<string>();
 
-        List<Function> list = new List<Function>();
-
-        public static Function function;
 
         private void button2_Click(object sender, EventArgs e)
         {
             
             list.Clear();
+            g = sheet.CreateGraphics();
+
             g.Clear(Color.White);
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
@@ -80,9 +88,11 @@ namespace PlotBuilder
             {
                 for (int i = 0; i < list.Count; i++)
                 {
-                    Pen pen = new Pen(list[i].color,2);
-                    pen.DashStyle = list[i].lineStyle;
-                    Builder.DrawGraphic(pen, e.Graphics, sheet, list[i].nameFunction, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    buf =new StringBuilder( list[i].ToString());
+                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
+                    Pen pen = new Pen(FunctionColors[i],2);
+                    pen.DashStyle = FunctionDashStyles[i];
+                    Builder.DrawGraphic(pen, e.Graphics, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
                 }
             }
             else
@@ -96,6 +106,13 @@ namespace PlotBuilder
         {
             firstFunctionBox.Text = null;
             firstFunctionBox.Text = Trigonometry.SelectedItem.ToString();
+        }
+
+
+        private void Hyperbolical_SelectedValueChanged(object sender, EventArgs e)
+        {
+            firstFunctionBox.Text = null;
+            //textBox1.Text = Hyperbolical.SelectedItem.ToString();
         }
 
         static int offset = 10;
@@ -130,7 +147,7 @@ namespace PlotBuilder
 
         private void scale_ValueChanged(object sender, EventArgs e)
         {
-            g = sheet.CreateGraphics();
+            Graphics g = sheet.CreateGraphics();
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
             g.Clear(Color.White);
@@ -146,9 +163,11 @@ namespace PlotBuilder
             {
                 for (int i = 0; i < list.Count; i++)
                 {
-                    Pen pen = new Pen(list[i].color,2);
-                    pen.DashStyle=list[i].lineStyle;
-                    Builder.DrawGraphic(pen, g, sheet, list[i].nameFunction, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    buf = new StringBuilder(list[i].ToString());
+                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
+                    Pen pen = new Pen(FunctionColors[i],2);
+                    pen.DashStyle=FunctionDashStyles[i];
+                    Builder.DrawGraphic(pen, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
                 }
             }
             else
@@ -181,21 +200,28 @@ namespace PlotBuilder
         Bitmap ColorFunction;
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            try
+            if (list.Contains(firstFunctionBox.Text) == true)
+            {
+                return;
+            } 
+            else
+            {
+                list.Add(firstFunctionBox.Text);
+                FunctionColors.Add(p.Color);
+                FunctionDashStyles.Add(p.DashStyle);
+                g = sheet.CreateGraphics();
+                buf = new StringBuilder(firstFunctionBox.Text);
+                OutputLine = new string[buf.Length];
+                try
                 {
-                    g = sheet.CreateGraphics();
-                    g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-                    g.SmoothingMode = SmoothingMode.AntiAlias;
-
-                if (SavedFunctions.Contains(firstFunctionBox.Text) != true)
-                {
-                    function = new Function(new StringBuilder(firstFunctionBox.Text), p.Color, p.DashStyle, Argument);
-                    list.Add(function);
-                    SavedFunctions.Add(firstFunctionBox.Text);
-                    Builder.DrawGraphic(p, g, sheet, function.nameFunction, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
+                    if (parametricMode == true)
+                    {
+                        buf = new StringBuilder(secondFunctionBox.Text);
+                        OutputLine_2 = new string[buf.Length];
+                        Calculate.ConvertToRPN(buf, ref OutputLine_2, Argument);
+                    }
                 }
-
-            }
                 catch (IndexOutOfRangeException)
                 {
                     MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -206,18 +232,47 @@ namespace PlotBuilder
                     MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                catch (Exception)
+                catch(Exception)
                 {
-                    MessageBox.Show("You have forgotten to close brackets!", "ErrorInSyntaxException", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("You have forgotten to close brackets!","ErrorInSyntaxException",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 }
 
-               
+                g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+
+                if (parametricMode == true)
+                {
+                    g.Clear(Color.White);
+
+                    Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    Builder.BuildAxes(g, sheet);
+                    Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+                    g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
+
+
+                    Builder.DrawGraphic(p, g, sheet, OutputLine, OutputLine_2, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+
+                }
+                else Builder.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+
+
                 bool repeat = false;
-            foreach (ListViewItem f in FunctionList.Items)
+                if (parametricMode == true)
+                {
+                    for (int i = 0; i < FunctionList.Items.Count; i++)
                     {
-                        if (f.Text == firstFunctionBox.Text) repeat = true;
+                        if (FunctionList.Items[i].ToString() == "{ " + firstFunctionBox.Text + " | " + secondFunctionBox.Text + " }") repeat = true;
                     }
-                
+
+                }
+                else
+                {
+                    foreach(ListViewItem function in FunctionList.Items)
+                    {
+                        if (function.Text == firstFunctionBox.Text) repeat = true;
+                    }
+                }
 
                 ColorFunction = new Bitmap(imageList1.ImageSize.Width, imageList1.ImageSize.Height);
                 Graphics DrawColor = Graphics.FromImage(ColorFunction);
@@ -240,13 +295,17 @@ namespace PlotBuilder
                     repeat = false;
                 }
 
+            }
+
         }
 
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             list.Clear();
-            SavedFunctions.Clear();
+            FunctionColors.Clear();
+            FunctionDashStyles.Clear();
             FunctionList.Items.Clear();
+            g = sheet.CreateGraphics();
 
             g.Clear(Color.White);
             g.SmoothingMode = SmoothingMode.AntiAlias;
@@ -313,16 +372,16 @@ namespace PlotBuilder
             parametricMode = false;
         }
 
-        //private void parametricToolStripMenuItem2_Click(object sender, EventArgs e)
-        //{
-        //    Argument = 't';
-        //    groupBox1.Size = new System.Drawing.Size(333, 90);
-        //    label4.Show();
-        //    secondFunctionBox.Show();
-        //    label3.Text = "x = " + "\u03c6" + " (t)";
-        //    label4.Text = "y = " + "\u03c8" + " (t)";
-        //    parametricMode = true;
-        //}
+        private void parametricToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Argument = 't';
+            groupBox1.Size = new System.Drawing.Size(333, 90);
+            label4.Show();
+            secondFunctionBox.Show();
+            label3.Text = "x = " + "\u03c6" + " (t)";
+            label4.Text = "y = " + "\u03c8" + " (t)";
+            parametricMode = true;
+        }
 
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -344,6 +403,7 @@ namespace PlotBuilder
             if (FunctionList.SelectedItems.Count != 0)
             {
                 ListViewItem item = FunctionList.SelectedItems[0];
+                firstFunctionBox.Text = null;
                 firstFunctionBox.Text = item.Text;
             }
             else
@@ -397,7 +457,7 @@ namespace PlotBuilder
                     }
                     j--;
                     S.Push(function);
-                    function = string.Empty;
+                    function = "";
                 }
                 else
                 {
@@ -536,29 +596,24 @@ namespace PlotBuilder
                          else
                          {
                              b = Convert.ToDouble(P.Pop());
-                             
+                             a = Convert.ToDouble(P.Pop());
                              switch (line[i][0])
                              {
                                  ///binary operations
                                  case '+':
-                                    a = Convert.ToDouble(P.Pop());
-                                    P.Push(a + b);
+                                     P.Push(a + b);
                                      break;
                                  case '-':
-                                    a = Convert.ToDouble(P.Pop());
-                                    P.Push(a - b);
+                                     P.Push(a - b);
                                      break;
                                  case '*':
-                                    a = Convert.ToDouble(P.Pop());
-                                    P.Push(a * b);
+                                     P.Push(a * b);
                                      break;
                                  case '/':
-                                    a = Convert.ToDouble(P.Pop());
-                                    P.Push(a / b);
+                                     P.Push(a / b);
                                      break;
                                  case '^':
-                                    a = Convert.ToDouble(P.Pop());
-                                    if ((a < 0)&&(b<1))
+                                     if ((a < 0)&&(b<1))
                                      {
                                          a = -1 * a;
                                          P.Push(-Math.Pow(a, b));
@@ -859,38 +914,6 @@ namespace PlotBuilder
         }
         
 
-    }
-
-    public class Function
-    {
-        public string[] nameFunction;
-        public Color color = new Color();
-        public DashStyle lineStyle;
-        public char Argument;
-
-        public Function(StringBuilder text,Color color,DashStyle lineStyle, char Argument)
-        {
-            Calculate.ConvertToRPN(text, ref nameFunction, Argument);
-            this.color = color;
-            this.lineStyle = lineStyle;
-            this.Argument = Argument;
-        }
-
-    }
-    public class ParametricFunction
-    {
-        public string[] nameFunction_1;
-        public string[] nameFunction_2;
-        public Color color = new Color();
-        public DashStyle lineStyle;
-
-        public ParametricFunction(StringBuilder text1,StringBuilder text2, Color color, DashStyle lineStyle)
-        {
-            Calculate.ConvertToRPN(text1, ref nameFunction_1, 't');
-            Calculate.ConvertToRPN(text2, ref nameFunction_2, 't');
-            this.color = color;
-            this.lineStyle = lineStyle;
-        }
     }
 }
 

@@ -315,7 +315,7 @@
             this.parametricToolStripMenuItem2.Name = "parametricToolStripMenuItem2";
             this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
             this.parametricToolStripMenuItem2.Text = "Parametric";
-           // this.parametricToolStripMenuItem2.Click += new System.EventHandler(this.parametricToolStripMenuItem2_Click);
+            this.parametricToolStripMenuItem2.Click += new System.EventHandler(this.parametricToolStripMenuItem2_Click);
             // 
             // pointsToolStripMenuItem
             // 
@@ -1179,7 +1179,7 @@
             this.ForeColor = System.Drawing.Color.DarkRed;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(200, 220);
+            this.MinimumSize = new System.Drawing.Size(986, 789);
             this.Name = "Form1";
             this.Text = "PlotBuilder";
             ((System.ComponentModel.ISupportInitialize)(this.scale)).EndInit();
