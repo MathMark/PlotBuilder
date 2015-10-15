@@ -1,4 +1,2 @@
 # PlotBuilder
-This program allows you to create a mathematical graphics. 
-To Create mathematical graphics you have to enter your function and push button "Build".
-If you want to create a new function you can push button "Clear" and enter new function or just enter new function.
+This program allows you to create a mathematical plots. It can build plots with plenty of different colors and also style of line. It also can build parametric functions and will be able to build another representations of functions soon;
