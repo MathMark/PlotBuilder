@@ -567,6 +567,9 @@ namespace PlotBuilder
                             case "log":
                                 P.Push(Math.Log(Convert.ToDouble(P.Pop()), X));
                                 break;
+                            case "sign":
+                                P.Push(Math.Sign(X));
+                                break;
 
                          }
                      }
@@ -620,7 +623,7 @@ namespace PlotBuilder
              y:return Convert.ToDouble(P.Pop());
         }
        static string[] functions = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
-                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log"};
+                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign"};
         public static short priority(string q)//returnes priority of function
         {
 
