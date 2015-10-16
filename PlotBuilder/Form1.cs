@@ -37,10 +37,6 @@ namespace PlotBuilder
 
         public StringBuilder buf;
 
-         static string[] OutputLine;
-
-         static string[] OutputLine_2;
-
         Pen p = new Pen(Color.CadetBlue,2);
 
         public static List<Color> FunctionColors = new List<Color>();
@@ -51,10 +47,12 @@ namespace PlotBuilder
 
         bool parametricMode = false;
 
-        public static char Argument = 'x';
+        //public static char Argument = 'x';
     
 
         List<string>list=new List<string>();
+
+        List<Function> Functions = new List<Function>();
 
 
         private void button2_Click(object sender, EventArgs e)
@@ -84,15 +82,13 @@ namespace PlotBuilder
             Builder.DrawCoordinates(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             e.Graphics.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            if (list.Count!=0)
+            if (Functions.Count!=0)
             {
-                for (int i = 0; i < list.Count; i++)
+                foreach(Function function in Functions)
                 {
-                    buf =new StringBuilder( list[i].ToString());
-                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
-                    Pen pen = new Pen(FunctionColors[i],2);
-                    pen.DashStyle = FunctionDashStyles[i];
-                    Builder.DrawGraphic(pen, e.Graphics, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    Pen pen = new Pen(function.color,2);
+                    pen.DashStyle = function.LineStyle;
+                    Builder.DrawGraphic(pen, e.Graphics, sheet, function.RPNsequence, pixelcoeff * Convert.ToDouble(scale.Value), function.Argument);
                 }
             }
             else
@@ -159,15 +155,13 @@ namespace PlotBuilder
 
             g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
 
-            if (list.Count != 0)
+            if (Functions.Count != 0)
             {
-                for (int i = 0; i < list.Count; i++)
+                foreach (Function function in Functions)
                 {
-                    buf = new StringBuilder(list[i].ToString());
-                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
-                    Pen pen = new Pen(FunctionColors[i],2);
-                    pen.DashStyle=FunctionDashStyles[i];
-                    Builder.DrawGraphic(pen, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
+                    Pen pen = new Pen(function.color, 2);
+                    pen.DashStyle = function.LineStyle;
+                    Builder.DrawGraphic(pen, g, sheet, function.RPNsequence, pixelcoeff * Convert.ToDouble(scale.Value), function.Argument);
                 }
             }
             else
@@ -190,12 +184,6 @@ namespace PlotBuilder
             if (dialog == DialogResult.OK) Application.Exit();
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            label3.Text = "x = f(y)";
-            Argument = 'y';
-        }
-
 
         Bitmap ColorFunction;
         private void toolStripButton6_Click(object sender, EventArgs e)
@@ -206,21 +194,16 @@ namespace PlotBuilder
             } 
             else
             {
-                list.Add(firstFunctionBox.Text);
-                FunctionColors.Add(p.Color);
-                FunctionDashStyles.Add(p.DashStyle);
-                g = sheet.CreateGraphics();
-                buf = new StringBuilder(firstFunctionBox.Text);
-                OutputLine = new string[buf.Length];
                 try
                 {
-                    Calculate.ConvertToRPN(buf, ref OutputLine, Argument);
-                    if (parametricMode == true)
-                    {
-                        buf = new StringBuilder(secondFunctionBox.Text);
-                        OutputLine_2 = new string[buf.Length];
-                        Calculate.ConvertToRPN(buf, ref OutputLine_2, Argument);
-                    }
+                    g = sheet.CreateGraphics();
+                    g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    Function function = new Function(new StringBuilder(firstFunctionBox.Text), p.Color, p.DashStyle, 'x');
+
+                    Functions.Add(function);
+
+                    Builder.DrawGraphic(p, g, sheet, function.RPNsequence, pixelcoeff * Convert.ToDouble(scale.Value), function.Argument);
                 }
                 catch (IndexOutOfRangeException)
                 {
@@ -237,48 +220,18 @@ namespace PlotBuilder
                     MessageBox.Show("You have forgotten to close brackets!","ErrorInSyntaxException",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 }
 
-                g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-
-                if (parametricMode == true)
-                {
-                    g.Clear(Color.White);
-
-                    Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                    Builder.BuildAxes(g, sheet);
-                    Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                    Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-                    g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-
-
-                    Builder.DrawGraphic(p, g, sheet, OutputLine, OutputLine_2, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
-
-                }
-                else Builder.DrawGraphic(p, g, sheet, OutputLine, pixelcoeff * Convert.ToDouble(scale.Value), Argument);
-
-
-                bool repeat = false;
-                if (parametricMode == true)
-                {
-                    for (int i = 0; i < FunctionList.Items.Count; i++)
-                    {
-                        if (FunctionList.Items[i].ToString() == "{ " + firstFunctionBox.Text + " | " + secondFunctionBox.Text + " }") repeat = true;
-                    }
-
-                }
-                else
-                {
+                bool repetition = false;
                     foreach(ListViewItem function in FunctionList.Items)
                     {
-                        if (function.Text == firstFunctionBox.Text) repeat = true;
+                        if (function.Text == firstFunctionBox.Text) repetition = true;
                     }
-                }
+                
 
                 ColorFunction = new Bitmap(imageList1.ImageSize.Width, imageList1.ImageSize.Height);
                 Graphics DrawColor = Graphics.FromImage(ColorFunction);
                 SolidBrush color = new SolidBrush(p.Color);
 
-                if (repeat != true)
+                if (repetition != true)
                 {
                     if (parametricMode == true)
                     {
@@ -292,7 +245,7 @@ namespace PlotBuilder
                         imageList1.Images.Add(ColorFunction);
                         FunctionList.Items.Add(firstFunctionBox.Text, imageList1.Images.Count-1);
                     }
-                    repeat = false;
+                    repetition = false;
                 }
 
             }
@@ -301,9 +254,8 @@ namespace PlotBuilder
 
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
-            list.Clear();
-            FunctionColors.Clear();
-            FunctionDashStyles.Clear();
+            Functions.Clear();
+
             FunctionList.Items.Clear();
             g = sheet.CreateGraphics();
 
@@ -368,19 +320,19 @@ namespace PlotBuilder
             secondFunctionBox.Hide();
             groupBox1.Size = new System.Drawing.Size(333, 57);
             label3.Text = "y = f(x)";
-            Argument = 'x';
+           // Argument = 'x';
             parametricMode = false;
         }
 
         private void parametricToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            Argument = 't';
-            groupBox1.Size = new System.Drawing.Size(333, 90);
-            label4.Show();
-            secondFunctionBox.Show();
-            label3.Text = "x = " + "\u03c6" + " (t)";
-            label4.Text = "y = " + "\u03c8" + " (t)";
-            parametricMode = true;
+            //Argument = 't';
+            //groupBox1.Size = new System.Drawing.Size(333, 90);
+            //label4.Show();
+            //secondFunctionBox.Show();
+            //label3.Text = "x = " + "\u03c6" + " (t)";
+            //label4.Text = "y = " + "\u03c8" + " (t)";
+            //parametricMode = true;
         }
 
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -416,6 +368,24 @@ namespace PlotBuilder
         {
 
         }
+    }
+
+    class Function
+    {
+        public StringBuilder name;//e.g. sin(x)+5*x^2
+        public string[] RPNsequence;//x sin x 2 ^ 5 * +
+        public Color color;
+        public DashStyle LineStyle;
+        public char Argument;
+        public Function(StringBuilder name,Color color, DashStyle LineStyle,char Argument)
+        {
+            this.name = name;
+            Calculate.ConvertToRPN(name, ref RPNsequence, Argument);
+            this.color = color;
+            this.LineStyle = LineStyle;
+            this.Argument = Argument;
+        }
+           
     }
 
     class Calculate
@@ -914,6 +884,9 @@ namespace PlotBuilder
         }
         
 
+
     }
+
+
 }
 
