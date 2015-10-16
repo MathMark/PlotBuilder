@@ -117,6 +117,8 @@
             this.button18 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.OtherFunctions = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.scale)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -155,7 +157,7 @@
             // 
             this.scale.BackColor = System.Drawing.SystemColors.Menu;
             this.scale.DecimalPlaces = 1;
-            this.scale.Location = new System.Drawing.Point(924, 28);
+            this.scale.Location = new System.Drawing.Point(271, 77);
             this.scale.Name = "scale";
             this.scale.Size = new System.Drawing.Size(51, 20);
             this.scale.TabIndex = 7;
@@ -306,21 +308,21 @@
             // explicitToolStripMenuItem
             // 
             this.explicitToolStripMenuItem.Name = "explicitToolStripMenuItem";
-            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.explicitToolStripMenuItem.Text = "Explicit";
             this.explicitToolStripMenuItem.Click += new System.EventHandler(this.explicitToolStripMenuItem_Click);
             // 
             // parametricToolStripMenuItem2
             // 
             this.parametricToolStripMenuItem2.Name = "parametricToolStripMenuItem2";
-            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.parametricToolStripMenuItem2.Text = "Parametric";
             this.parametricToolStripMenuItem2.Click += new System.EventHandler(this.parametricToolStripMenuItem2_Click);
             // 
             // pointsToolStripMenuItem
             // 
             this.pointsToolStripMenuItem.Name = "pointsToolStripMenuItem";
-            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pointsToolStripMenuItem.Text = "Points";
             // 
             // scaleToolStripMenuItem
@@ -333,6 +335,7 @@
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.scale);
             this.groupBox1.Controls.Add(this.secondFunctionBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.firstFunctionBox);
@@ -428,6 +431,8 @@
             this.toolStripLabel1,
             this.HyperbolicalBox,
             this.toolStripLabel4,
+            this.toolStripLabel5,
+            this.OtherFunctions,
             this.toolStripLabel3,
             this.ColorLabel,
             this.statusDash});
@@ -1163,6 +1168,25 @@
             this.splitContainer3.SplitterDistance = 762;
             this.splitContainer3.TabIndex = 30;
             // 
+            // OtherFunctions
+            // 
+            this.OtherFunctions.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.OtherFunctions.Items.AddRange(new object[] {
+            "abs(x)",
+            "ln(x)",
+            "log(a;x)",
+            "sqrt(x)",
+            "sign(x)"});
+            this.OtherFunctions.Name = "OtherFunctions";
+            this.OtherFunctions.Size = new System.Drawing.Size(121, 25);
+            this.OtherFunctions.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged_1);
+            // 
+            // toolStripLabel5
+            // 
+            this.toolStripLabel5.Name = "toolStripLabel5";
+            this.toolStripLabel5.Size = new System.Drawing.Size(99, 22);
+            this.toolStripLabel5.Text = "Built-in functions";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1170,7 +1194,6 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1108, 789);
             this.Controls.Add(this.splitContainer3);
-            this.Controls.Add(this.scale);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
@@ -1300,6 +1323,8 @@
         private System.Windows.Forms.Button button20;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox labelStatus;
+        private System.Windows.Forms.ToolStripComboBox OtherFunctions;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
     }
 }
 

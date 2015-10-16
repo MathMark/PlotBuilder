@@ -368,6 +368,11 @@ namespace PlotBuilder
         {
 
         }
+
+        private void toolStripComboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            firstFunctionBox.Text = OtherFunctions.SelectedItem.ToString();
+        }
     }
 
     class Function
