@@ -48,11 +48,6 @@ namespace PlotBuilder
         public static List<DashStyle> FunctionDashStyles = new List<DashStyle>();
 
         Graphics g;
-<<<<<<< HEAD
-        
-        List<string> list = new List<string>();
-=======
->>>>>>> Refactoring
 
         bool parametricMode = false;
 
