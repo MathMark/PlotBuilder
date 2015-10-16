@@ -795,11 +795,11 @@ namespace PlotBuilder
                     {
                         prototype = sheet.Height / 2;
                     }
-                    if(prototype < -sheet.Height / 2)
+                    else if(prototype < -sheet.Height / 2)
                     {
                         prototype = -sheet.Height / 2;
                     }
-                    if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
+                    else if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
                         if (Coordinates.Count != 0)
                         {
