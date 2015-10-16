@@ -427,7 +427,11 @@ namespace PlotBuilder
                     }
                     j--;
                     S.Push(function);
-                    function = "";
+                    function = string.Empty;
+                }
+                else if(buf[j]==';')
+                {
+                    continue;
                 }
                 else
                 {
@@ -555,6 +559,9 @@ namespace PlotBuilder
                              case "arctan":
                                      P.Push(Math.Atan(X));
                                      break;
+                            case "log":
+                                P.Push(Math.Log(Convert.ToDouble(P.Pop()), X));
+                                break;
 
                          }
                      }
@@ -590,7 +597,10 @@ namespace PlotBuilder
                                      }
                                      else P.Push(Math.Pow(a, b));
                                      break;
-
+                                case ';':
+                                    P.Push(b);
+                                    P.Push(a);
+                                    break;
                                  ///unary operations
                                  case '~':
                                      P.Push(-1 * Convert.ToDouble(b));
@@ -605,7 +615,7 @@ namespace PlotBuilder
              y:return Convert.ToDouble(P.Pop());
         }
        static string[] functions = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
-                                 "tanh","cth","arsinh","arcosh","artanh","arcth"};
+                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log"};
         public static short priority(string q)//returnes priority of function
         {
 
