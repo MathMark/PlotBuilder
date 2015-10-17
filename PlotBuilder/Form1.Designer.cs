@@ -73,6 +73,10 @@
             this.ColorButton = new System.Windows.Forms.ToolStripButton();
             this.statusDash = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.ChangeButton = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
             this.FunctionList = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.labelStatus = new System.Windows.Forms.TextBox();
@@ -126,6 +130,14 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
+            this.splitContainer5.Panel1.SuspendLayout();
+            this.splitContainer5.Panel2.SuspendLayout();
+            this.splitContainer5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -298,21 +310,21 @@
             // explicitToolStripMenuItem
             // 
             this.explicitToolStripMenuItem.Name = "explicitToolStripMenuItem";
-            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.explicitToolStripMenuItem.Text = "Explicit";
             this.explicitToolStripMenuItem.Click += new System.EventHandler(this.explicitToolStripMenuItem_Click);
             // 
             // parametricToolStripMenuItem2
             // 
             this.parametricToolStripMenuItem2.Name = "parametricToolStripMenuItem2";
-            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
             this.parametricToolStripMenuItem2.Text = "Parametric";
             this.parametricToolStripMenuItem2.Click += new System.EventHandler(this.parametricToolStripMenuItem2_Click);
             // 
             // pointsToolStripMenuItem
             // 
             this.pointsToolStripMenuItem.Name = "pointsToolStripMenuItem";
-            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.pointsToolStripMenuItem.Text = "Points";
             // 
             // scaleToolStripMenuItem
@@ -323,7 +335,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.scale);
             this.groupBox1.Controls.Add(this.secondFunctionBox);
@@ -333,7 +345,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.SteelBlue;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(342, 300);
+            this.groupBox1.Size = new System.Drawing.Size(342, 115);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Function";
@@ -412,6 +424,7 @@
             // 
             // toolStrip2
             // 
+            this.toolStrip2.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ClearButton,
             this.BuildButton,
@@ -444,7 +457,7 @@
             // BuildButton
             // 
             this.BuildButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BuildButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BuildButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.BuildButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BuildButton.Image = ((System.Drawing.Image)(resources.GetObject("BuildButton.Image")));
             this.BuildButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -455,13 +468,16 @@
             // 
             // toolStripLabel2
             // 
+            this.toolStripLabel2.ForeColor = System.Drawing.Color.Gray;
             this.toolStripLabel2.Name = "toolStripLabel2";
             this.toolStripLabel2.Size = new System.Drawing.Size(135, 22);
             this.toolStripLabel2.Text = "Trigonometry Functions";
             // 
             // TrigonomentyBox
             // 
+            this.TrigonomentyBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.TrigonomentyBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TrigonomentyBox.ForeColor = System.Drawing.SystemColors.Window;
             this.TrigonomentyBox.Items.AddRange(new object[] {
             "sin(x)",
             "cos(x)",
@@ -482,13 +498,16 @@
             // 
             // toolStripLabel1
             // 
+            this.toolStripLabel1.ForeColor = System.Drawing.Color.Gray;
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(129, 22);
             this.toolStripLabel1.Text = "Hyperbolical Functions";
             // 
             // HyperbolicalBox
             // 
+            this.HyperbolicalBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.HyperbolicalBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.HyperbolicalBox.ForeColor = System.Drawing.SystemColors.Window;
             this.HyperbolicalBox.Items.AddRange(new object[] {
             "sinh(x)",
             "cosh(x)",
@@ -511,13 +530,16 @@
             // 
             // toolStripLabel5
             // 
+            this.toolStripLabel5.ForeColor = System.Drawing.Color.Gray;
             this.toolStripLabel5.Name = "toolStripLabel5";
             this.toolStripLabel5.Size = new System.Drawing.Size(99, 22);
             this.toolStripLabel5.Text = "Built-in functions";
             // 
             // OtherFunctions
             // 
+            this.OtherFunctions.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.OtherFunctions.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.OtherFunctions.ForeColor = System.Drawing.SystemColors.Window;
             this.OtherFunctions.Items.AddRange(new object[] {
             "abs(x)",
             "ln(x)",
@@ -530,6 +552,7 @@
             // 
             // ColorButton
             // 
+            this.ColorButton.ForeColor = System.Drawing.Color.Gray;
             this.ColorButton.Image = ((System.Drawing.Image)(resources.GetObject("ColorButton.Image")));
             this.ColorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ColorButton.Name = "ColorButton";
@@ -544,14 +567,14 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.FunctionList);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer4);
             // 
             // splitContainer1.Panel2
             // 
@@ -559,19 +582,90 @@
             this.splitContainer1.Panel2.Controls.Add(this.sheet);
             this.splitContainer1.Size = new System.Drawing.Size(762, 739);
             this.splitContainer1.SplitterDistance = 105;
+            this.splitContainer1.SplitterWidth = 10;
             this.splitContainer1.TabIndex = 28;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.IsSplitterFixed = true;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.MaximumSize = new System.Drawing.Size(130, 739);
+            this.splitContainer4.MinimumSize = new System.Drawing.Size(105, 739);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.splitContainer5);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.FunctionList);
+            this.splitContainer4.Size = new System.Drawing.Size(105, 739);
+            this.splitContainer4.SplitterDistance = 29;
+            this.splitContainer4.TabIndex = 36;
+            // 
+            // splitContainer5
+            // 
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.IsSplitterFixed = true;
+            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.MaximumSize = new System.Drawing.Size(130, 29);
+            this.splitContainer5.MinimumSize = new System.Drawing.Size(105, 29);
+            this.splitContainer5.Name = "splitContainer5";
+            // 
+            // splitContainer5.Panel1
+            // 
+            this.splitContainer5.Panel1.Controls.Add(this.ChangeButton);
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.button36);
+            this.splitContainer5.Size = new System.Drawing.Size(105, 29);
+            this.splitContainer5.SplitterDistance = 68;
+            this.splitContainer5.TabIndex = 37;
+            // 
+            // ChangeButton
+            // 
+            this.ChangeButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ChangeButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ChangeButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ChangeButton.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ChangeButton.ForeColor = System.Drawing.Color.Black;
+            this.ChangeButton.Location = new System.Drawing.Point(0, 0);
+            this.ChangeButton.Name = "ChangeButton";
+            this.ChangeButton.Size = new System.Drawing.Size(68, 29);
+            this.ChangeButton.TabIndex = 35;
+            this.ChangeButton.Text = "Change";
+            this.ChangeButton.UseVisualStyleBackColor = false;
+            // 
+            // button36
+            // 
+            this.button36.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.button36.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button36.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button36.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button36.ForeColor = System.Drawing.Color.Black;
+            this.button36.Location = new System.Drawing.Point(0, 0);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(33, 29);
+            this.button36.TabIndex = 33;
+            this.button36.Text = "X";
+            this.button36.UseVisualStyleBackColor = false;
             // 
             // FunctionList
             // 
-            this.FunctionList.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.FunctionList.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.FunctionList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FunctionList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FunctionList.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FunctionList.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FunctionList.ForeColor = System.Drawing.SystemColors.Window;
             this.FunctionList.LargeImageList = this.imageList1;
             this.FunctionList.Location = new System.Drawing.Point(0, 0);
             this.FunctionList.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.FunctionList.Name = "FunctionList";
-            this.FunctionList.Size = new System.Drawing.Size(105, 739);
+            this.FunctionList.Size = new System.Drawing.Size(105, 706);
             this.FunctionList.SmallImageList = this.imageList1;
             this.FunctionList.StateImageList = this.imageList1;
             this.FunctionList.TabIndex = 0;
@@ -603,7 +697,7 @@
             this.sheet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sheet.Location = new System.Drawing.Point(0, 0);
             this.sheet.Name = "sheet";
-            this.sheet.Size = new System.Drawing.Size(653, 739);
+            this.sheet.Size = new System.Drawing.Size(647, 739);
             this.sheet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.sheet.TabIndex = 5;
             this.sheet.TabStop = false;
@@ -626,18 +720,18 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.panel1);
             this.splitContainer2.Size = new System.Drawing.Size(342, 739);
-            this.splitContainer2.SplitterDistance = 300;
+            this.splitContainer2.SplitterDistance = 115;
             this.splitContainer2.TabIndex = 29;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.textBox3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(342, 435);
+            this.panel1.Size = new System.Drawing.Size(342, 620);
             this.panel1.TabIndex = 6;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -684,7 +778,7 @@
             this.panel2.Location = new System.Drawing.Point(3, 104);
             this.panel2.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(336, 319);
+            this.panel2.Size = new System.Drawing.Size(336, 504);
             this.panel2.TabIndex = 67;
             // 
             // button35
@@ -1156,6 +1250,7 @@
             // 
             // splitContainer3
             // 
+            this.splitContainer3.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(0, 50);
@@ -1203,6 +1298,14 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
+            this.splitContainer5.Panel1.ResumeLayout(false);
+            this.splitContainer5.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
+            this.splitContainer5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sheet)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -1308,6 +1411,10 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel5;
         private System.Windows.Forms.ToolStripButton ColorButton;
         private System.Windows.Forms.ToolStripLabel statusDash;
+        private System.Windows.Forms.SplitContainer splitContainer5;
+        private System.Windows.Forms.Button ChangeButton;
+        private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.SplitContainer splitContainer4;
     }
 }
 

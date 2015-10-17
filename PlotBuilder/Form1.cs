@@ -30,6 +30,7 @@ namespace PlotBuilder
             ColorButton.Image = chosenColor;
             fill.Dispose();
             statusDash.Text = "Solid";
+            ChangeButton.Enabled = false;
 
         }
         const  int pixelcoeff=35;
@@ -184,6 +185,12 @@ namespace PlotBuilder
             try
             {
                 Function function = new Function(new StringBuilder(firstFunctionBox.Text), p.Color, p.DashStyle, 'x');
+                textBox3.ResetText();
+                foreach(string symbol in function.RPNsequence)
+                {
+                    textBox3.Text +=" "+symbol;
+                }
+                
 
                 if (Functions.Contains(function)== true)//It doesn't work. I don't know why
                 {
@@ -248,7 +255,7 @@ namespace PlotBuilder
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             Functions.Clear();
-
+            ChangeButton.Enabled = false;
             FunctionList.Items.Clear();
             g = sheet.CreateGraphics();
 
@@ -334,8 +341,10 @@ namespace PlotBuilder
             if (FunctionList.SelectedItems.Count != 0)
             {
                 ListViewItem item = FunctionList.SelectedItems[0];
-                firstFunctionBox.Text = null;
+ 
                 firstFunctionBox.Text = item.Text;
+
+                ChangeButton.Enabled = true;
             }
             else
             {
@@ -384,6 +393,9 @@ namespace PlotBuilder
                 fill.Dispose();
             }
         }
+
+
+
     }
 
     class Function
@@ -401,7 +413,7 @@ namespace PlotBuilder
             this.LineStyle = LineStyle;
             this.Argument = Argument;
         }
-           
+
     }
 
     class Calculate
@@ -487,7 +499,6 @@ namespace PlotBuilder
                 }
 
             }
-
             
                 while (S.IsEmpty() != true)
                 {
