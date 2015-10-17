@@ -23,7 +23,6 @@ namespace PlotBuilder
             label4.Hide();
             groupBox1.Size = new Size(333, 57);
 
-
             Bitmap chosenColor = new Bitmap(10, 10);
             Graphics fill = Graphics.FromImage(chosenColor);
             SolidBrush brush = new SolidBrush(p.Color);
@@ -215,9 +214,9 @@ namespace PlotBuilder
                     MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                catch(Exception)
+                catch(ArithmeticException)
                 {
-                    MessageBox.Show("You have forgotten to close brackets!","ErrorInSyntaxException",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Function cannot exist with double argument ","ErrorInSyntaxException",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 }
 
                 bool repetition = false;
@@ -488,7 +487,8 @@ namespace PlotBuilder
         public static double Solve(string[] line,double x,char Argument)
         {
             Stack P = new Stack(10);
-             double a,b;
+            double s = 0;
+            double a,b;
              for (int i = 0; i < line.Length; i++)
              {
                  if (string.IsNullOrEmpty(line[i]))continue;
@@ -596,14 +596,75 @@ namespace PlotBuilder
                                      break;
                                  case '/':
                                      P.Push(a / b);
+                                     s = b;
                                      break;
                                  case '^':
-                                     if ((a < 0)&&(b<1))
-                                     {
-                                         a = -1 * a;
-                                         P.Push(-Math.Pow(a, b));
-                                     }
-                                     else P.Push(Math.Pow(a, b));
+                                    if(b>1)
+                                    {
+                                        if ((a < 0)||(a > 0))
+                                        {
+                                            P.Push(Math.Pow(a, b));
+                                        }
+                                        else
+                                        {
+                                            P.Push(0);
+                                        }
+                                    }
+                                    else if((b<1)&&(b>0))
+                                    {
+                                        if(a>0)
+                                        {
+                                            P.Push(Math.Pow(a, b));
+                                        }
+                                        else if(a<0)
+                                        {
+                                            if (s % 2 == 1)
+                                            {
+                                               P.Push(-Math.Pow(Math.Abs(a), b));
+                                            }
+                                           else P.Push(Math.Pow(a, b));
+                                        }
+                                        else
+                                        {
+                                            P.Push(0);
+                                        }
+                                    }
+                                    else if(b==1)
+                                    {
+                                        P.Push(a);
+                                    }
+                                    else if(b==0)
+                                    {
+                                        if (a == 0)
+                                        {
+                                            P.Push(0);
+                                        }
+                                        else P.Push(1);
+                                    }
+                                    //if (a < 0)
+                                    //{
+                                    //    if (b > 1)
+                                    //    {
+                                    //        P.Push(Math.Pow(a, b));
+                                    //    }
+                                    //    else if(b < 1)
+                                    //    {
+                                    //       if(s%2==1)
+                                    //        {
+                                    //           P.Push(-Math.Pow(Math.Abs(a), b));
+                                    //        }
+                                    //       else P.Push(Math.Pow(a, b));
+                                    //    }
+                                    //    else if(b==1)
+                                    //    {
+                                    //        P.Push(a);
+                                    //    }
+                                    //}
+                                    //else if (a >= 0)
+                                    //{
+                                    //    P.Push(Math.Pow(a, b));
+                                    //}
+
                                      break;
                                 case ';':
                                     P.Push(b);
@@ -611,6 +672,7 @@ namespace PlotBuilder
                                     break;
                                  ///unary operations
                                  case '~':
+                                    P.Push(a);
                                      P.Push(-1 * Convert.ToDouble(b));
                                      break;
                                  default: 
