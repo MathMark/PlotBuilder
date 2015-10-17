@@ -545,7 +545,8 @@
             "ln(x)",
             "log(a;x)",
             "sqrt(x)",
-            "sign(x)"});
+            "sign(x)",
+            "rem(a;x)"});
             this.OtherFunctions.Name = "OtherFunctions";
             this.OtherFunctions.Size = new System.Drawing.Size(121, 25);
             this.OtherFunctions.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged_1);
@@ -683,7 +684,7 @@
             // 
             this.labelStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.labelStatus.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelStatus.Location = new System.Drawing.Point(519, 304);
+            this.labelStatus.Location = new System.Drawing.Point(509, 308);
             this.labelStatus.Multiline = true;
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(132, 19);
@@ -691,7 +692,7 @@
             // 
             // sheet
             // 
-            this.sheet.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.sheet.BackColor = System.Drawing.SystemColors.Window;
             this.sheet.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sheet.Cursor = System.Windows.Forms.Cursors.Cross;
             this.sheet.Dock = System.Windows.Forms.DockStyle.Fill;

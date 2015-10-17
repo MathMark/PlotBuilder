@@ -595,6 +595,9 @@ namespace PlotBuilder
                             case "sign":
                                 P.Push(Math.Sign(X));
                                 break;
+                            case "rem":
+                                P.Push(Convert.ToDouble(P.Pop())% X);
+                                break;
 
                         }
                     }
@@ -617,7 +620,8 @@ namespace PlotBuilder
                                     P.Push(a - b);
                                     break;
                                 case '*':
-                                    P.Push(a * b);
+                                    // P.Push(a * b);
+                                    P.Push(a % b);
                                     break;
                                 case '/':
                                     P.Push(a / b);
@@ -686,7 +690,7 @@ namespace PlotBuilder
              y:return Convert.ToDouble(P.Pop());
         }
        static string[] functions = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
-                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign"};
+                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem"};
         public static short priority(string q)//returnes priority of function
         {
 
@@ -757,6 +761,7 @@ namespace PlotBuilder
 
     }
     class Builder
+
     {
         public static void BuildNet(Graphics g, PictureBox sheet, float scale)
         {
