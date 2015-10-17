@@ -507,86 +507,88 @@ namespace PlotBuilder
                 }
             
         }
-        public static double Solve(string[] line,double x,char Argument)
+        public static double Solve(Function function, double x)
         {
             Stack P = new Stack(10);
             double s = 0;
             double a,b;
-             for (int i = 0; i < line.Length; i++)
+             for (int i = 0; i < function.RPNsequence.Length; i++)
              {
-                 if (string.IsNullOrEmpty(line[i]))continue;
+                 if (string.IsNullOrEmpty(function.RPNsequence[i]))continue;
                     
                  else
                  {
-                     if (char.IsDigit(line[i][0]))
-                     {
-                          P.Push(line[i]);
-                     }
-                     else if((char.IsLetter(line[i][0]))&&(line[i][0]!=Argument)&&(line[i][0]!='p')&&(line[i][0]!='e'))
-                     {
-                         double X = Convert.ToDouble(P.Pop());
-                         switch (line[i])
-                         {
-                             case"sqrt":
-                                 P.Push(Math.Sqrt(X));
-                                     break;
+                    if (char.IsDigit(function.RPNsequence[i][0]))
+                    {
+                        P.Push(function.RPNsequence[i]);
+                    }
+                    else if ((char.IsLetter(function.RPNsequence[i][0])) &&
+                        (function.RPNsequence[i][0] != function.Argument) && (function.RPNsequence[i][0] != 'p') &&
+                        (function.RPNsequence[i][0] != 'e'))
+                    {
+                        double X = Convert.ToDouble(P.Pop());
+                        switch (function.RPNsequence[i])
+                        {
+                            case "sqrt":
+                                P.Push(Math.Sqrt(X));
+                                break;
                             case "abs":
                                 P.Push(Math.Abs(X));
                                 break;
-                             case"sin":
-                                     P.Push(Math.Sin(X));
-                                     break;
-                             case "sinh":
-                                     P.Push(Math.Sinh(X));
-                                     break;
-                             case "cosh":
-                                     P.Push(Math.Cosh(X));
-                                     break;
-                             case "cos":
-                                     P.Push(Math.Cos(X));
-                                     break;
-                             case"cth":
-                                     P.Push(1 / Math.Tanh(X));
-                                     break;
-                             case "tanh":
-                                     P.Push(Math.Tanh(X));
-                                     break;
-                             case "tan":
-                                     P.Push(Math.Tan(X));
-                                     break;
-                             case "cot":
-                                     P.Push(1 / Math.Tan(X));
-                                     break;
-                             case "аbs":
-                                     P.Push(Math.Abs(X));
-                                     break;
-                             case "ln":
-                                     P.Push(Math.Log(X));
-                                     break;
-                             case "arsinh":
-                                     P.Push(Math.Log(X+ Math.Sqrt(X * X + 1)));
-                                     break;
-                             case "arcsin":
-                                     P.Push(Math.Asin(X));
-                                     break;
-                             case "arcosh":
-                                     P.Push(Math.Log(X + Math.Sqrt(X + 1) * Math.Sqrt(X - 1)));
-                                     break;
-                             case "arccos":
-                                     P.Push(Math.Acos(X));
-                                     break;
-                             case "artanh":
-                                     P.Push(Math.Log((X + 1) / (X - 1)) / 2);
-                                     break;
-                             case "arccot":
-                                     P.Push(Math.Atan(-1 * X) + Math.PI / 2);
-                                     break;
-                             case "arcth":
-                                     P.Push(Math.Log((X + 1) / (1 - X)) / 2);
-                                     break;
-                             case "arctan":
-                                     P.Push(Math.Atan(X));
-                                     break;
+                            case "sin":
+                                P.Push(Math.Sin(X));
+                                break;
+                            case "sinh":
+                                P.Push(Math.Sinh(X));
+                                break;
+                            case "cosh":
+                                P.Push(Math.Cosh(X));
+                                break;
+                            case "cos":
+                                P.Push(Math.Cos(X));
+                                break;
+                            case "cth":
+                                P.Push(1 / Math.Tanh(X));
+                                break;
+                            case "tanh":
+                                P.Push(Math.Tanh(X));
+                                break;
+                            case "tan":
+                                P.Push(Math.Tan(X));
+                                break;
+                            case "cot":
+                                P.Push(1 / Math.Tan(X));
+                                break;
+                            case "аbs":
+                                P.Push(Math.Abs(X));
+                                break;
+                            case "ln":
+                                P.Push(Math.Log(X));
+                                break;
+                            case "arsinh":
+                                P.Push(Math.Log(X + Math.Sqrt(X * X + 1)));
+                                break;
+                            case "arcsin":
+                                P.Push(Math.Asin(X));
+                                break;
+                            case "arcosh":
+                                P.Push(Math.Log(X + Math.Sqrt(X + 1) * Math.Sqrt(X - 1)));
+                                break;
+                            case "arccos":
+                                P.Push(Math.Acos(X));
+                                break;
+                            case "artanh":
+                                P.Push(Math.Log((X + 1) / (X - 1)) / 2);
+                                break;
+                            case "arccot":
+                                P.Push(Math.Atan(-1 * X) + Math.PI / 2);
+                                break;
+                            case "arcth":
+                                P.Push(Math.Log((X + 1) / (1 - X)) / 2);
+                                break;
+                            case "arctan":
+                                P.Push(Math.Atan(X));
+                                break;
                             case "log":
                                 P.Push(Math.Log(Convert.ToDouble(P.Pop()), X));
                                 break;
@@ -594,37 +596,37 @@ namespace PlotBuilder
                                 P.Push(Math.Sign(X));
                                 break;
 
-                         }
-                     }
-                     else
-                     {
-                         if (line[i][0] == 'e') P.Push(Math.E);
-                         else if (line[i][0] == 'p') P.Push(Math.PI);
-                         else if (line[i][0] == Argument) P.Push(x);
-                         else
-                         {
-                             b = Convert.ToDouble(P.Pop());
-                             a = Convert.ToDouble(P.Pop());
-                             switch (line[i][0])
-                             {
-                                 ///binary operations
-                                 case '+':
-                                     P.Push(a + b);
-                                     break;
-                                 case '-':
-                                     P.Push(a - b);
-                                     break;
-                                 case '*':
-                                     P.Push(a * b);
-                                     break;
-                                 case '/':
-                                     P.Push(a / b);
-                                     s = b;
-                                     break;
-                                 case '^':
-                                    if(b>1)
+                        }
+                    }
+                    else
+                    {
+                        if (function.RPNsequence[i][0] == 'e') P.Push(Math.E);
+                        else if (function.RPNsequence[i][0] == 'p') P.Push(Math.PI);
+                        else if (function.RPNsequence[i][0] == function.Argument) P.Push(x);
+                        else
+                        {
+                            b = Convert.ToDouble(P.Pop());
+                            a = Convert.ToDouble(P.Pop());
+                            switch (function.RPNsequence[i][0])
+                            {
+                                ///binary operations
+                                case '+':
+                                    P.Push(a + b);
+                                    break;
+                                case '-':
+                                    P.Push(a - b);
+                                    break;
+                                case '*':
+                                    P.Push(a * b);
+                                    break;
+                                case '/':
+                                    P.Push(a / b);
+                                    s = b;
+                                    break;
+                                case '^':
+                                    if (b > 1)
                                     {
-                                        if ((a < 0)||(a > 0))
+                                        if ((a < 0) || (a > 0))
                                         {
                                             P.Push(Math.Pow(a, b));
                                         }
@@ -633,30 +635,30 @@ namespace PlotBuilder
                                             P.Push(0);
                                         }
                                     }
-                                    else if((b<1)&&(b>0))
+                                    else if ((b < 1) && (b > 0))
                                     {
-                                        if(a>0)
+                                        if (a > 0)
                                         {
                                             P.Push(Math.Pow(a, b));
                                         }
-                                        else if(a<0)
+                                        else if (a < 0)
                                         {
                                             if (s % 2 == 1)
                                             {
-                                               P.Push(-Math.Pow(Math.Abs(a), b));
+                                                P.Push(-Math.Pow(Math.Abs(a), b));
                                             }
-                                           else P.Push(Math.Pow(a, b));
+                                            else P.Push(Math.Pow(a, b));
                                         }
                                         else
                                         {
                                             P.Push(0);
                                         }
                                     }
-                                    else if(b==1)
+                                    else if (b == 1)
                                     {
                                         P.Push(a);
                                     }
-                                    else if(b==0)
+                                    else if (b == 0)
                                     {
                                         if (a == 0)
                                         {
@@ -664,22 +666,22 @@ namespace PlotBuilder
                                         }
                                         else P.Push(1);
                                     }
-                                     break;
+                                    break;
                                 case ';':
                                     P.Push(b);
                                     P.Push(a);
                                     break;
-                                 ///unary operations
-                                 case '~':
+                                ///unary operations
+                                case '~':
                                     P.Push(a);
-                                     P.Push(-1 * Convert.ToDouble(b));
-                                     break;
-                                 default: 
-                                     goto y;
-                             }//end switch
-                         }//end else
-                     }
-                 }
+                                    P.Push(-1 * Convert.ToDouble(b));
+                                    break;
+                                default:
+                                    goto y;
+                            }//end switch
+                        }//end else
+                    }
+                }
              }
              y:return Convert.ToDouble(P.Pop());
         }
@@ -853,7 +855,8 @@ namespace PlotBuilder
             {
                 for (double x = -sheet.Width/2; x < sheet.Width/2; x += 1)
                 {
-                    prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
+                    //prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
+                    prototype = Calculate.Solve(function, x / scale);
                     if (prototype > sheet.Height / 2)
                     {
                         prototype = sheet.Height / 2;
@@ -897,7 +900,8 @@ namespace PlotBuilder
             {
                 for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
                 {
-                    prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
+                    //prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
+                    prototype = Calculate.Solve(function, x / scale);
 
                     if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
@@ -925,44 +929,44 @@ namespace PlotBuilder
             }
 
         }
-        public static void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] OutputLine_1, string[] OutputLine_2, double scale, char Argument)
-        {
-            PointF[] coordinates;
-            List<PointF> Coordinates = new List<PointF>();
-            double parametric_1;
-            double parametric_2;
+        //public static void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] OutputLine_1, string[] OutputLine_2, double scale, char Argument)
+        //{
+        //    PointF[] coordinates;
+        //    List<PointF> Coordinates = new List<PointF>();
+        //    double parametric_1;
+        //    double parametric_2;
 
-            for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
-            {
-                parametric_1 = Calculate.Solve((string[])OutputLine_1.Clone(), x / scale, Argument);
-                parametric_2 = Calculate.Solve((string[])OutputLine_2.Clone(), x / scale, Argument);
+        //    for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
+        //    {
+        //        //parametric_1 = Calculate.Solve((string[])OutputLine_1.Clone(), x / scale, Argument);
+        //        //parametric_2 = Calculate.Solve((string[])OutputLine_2.Clone(), x / scale, Argument);
 
-                if ((double.IsNaN(parametric_1)) || (double.IsInfinity(parametric_1))||
-                    (double.IsNaN(parametric_2)) || (double.IsInfinity(parametric_2)))
-                {
-                    if (Coordinates.Count != 0)
-                    {
-                        coordinates = new PointF[Coordinates.Count];
-                        coordinates = Coordinates.ToArray();
-                        g.DrawLines(pen, coordinates);
-                        Coordinates.Clear();
-                    }
-                    continue;
-                }
-                else
-                {
-                    Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width / 2 + scale*parametric_1),
-                                   Convert.ToSingle((sheet.Height / 2) - scale * parametric_2)));
-                }
+        //       // if ((double.IsNaN(parametric_1)) || (double.IsInfinity(parametric_1))||
+        //            //(double.IsNaN(parametric_2)) || (double.IsInfinity(parametric_2)))
+        //        {
+        //            if (Coordinates.Count != 0)
+        //            {
+        //                coordinates = new PointF[Coordinates.Count];
+        //                coordinates = Coordinates.ToArray();
+        //                g.DrawLines(pen, coordinates);
+        //                Coordinates.Clear();
+        //            }
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width / 2 + scale*parametric_1),
+        //                           Convert.ToSingle((sheet.Height / 2) - scale * parametric_2)));
+        //        }
 
-            }
-            if (Coordinates.Count != 0)
-            {
-                coordinates = new PointF[Coordinates.Count];
-                coordinates = Coordinates.ToArray();
-                g.DrawLines(pen, coordinates);
-            }
-        }
+        //    }
+        //    if (Coordinates.Count != 0)
+        //    {
+        //        coordinates = new PointF[Coordinates.Count];
+        //        coordinates = Coordinates.ToArray();
+        //        g.DrawLines(pen, coordinates);
+        //    }
+        //}
         
 
 
