@@ -46,7 +46,6 @@
             this.dashDotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dashDotDotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.representationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.explicitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parametricToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,8 +70,7 @@
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
             this.OtherFunctions = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
-            this.ColorLabel = new System.Windows.Forms.ToolStripLabel();
+            this.ColorButton = new System.Windows.Forms.ToolStripButton();
             this.statusDash = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.FunctionList = new System.Windows.Forms.ListView();
@@ -191,7 +189,6 @@
             this.SettingsButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.orientationToolStripMenuItem,
             this.dashStyleToolStripMenuItem,
-            this.colorToolStripMenuItem,
             this.representationToolStripMenuItem,
             this.scaleToolStripMenuItem});
             this.SettingsButton.ForeColor = System.Drawing.Color.Black;
@@ -288,13 +285,6 @@
             this.dotToolStripMenuItem.Text = "Dot";
             this.dotToolStripMenuItem.Click += new System.EventHandler(this.dotToolStripMenuItem_Click);
             // 
-            // colorToolStripMenuItem
-            // 
-            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.colorToolStripMenuItem.Text = "Color";
-            this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
-            // 
             // representationToolStripMenuItem
             // 
             this.representationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -308,21 +298,21 @@
             // explicitToolStripMenuItem
             // 
             this.explicitToolStripMenuItem.Name = "explicitToolStripMenuItem";
-            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.explicitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.explicitToolStripMenuItem.Text = "Explicit";
             this.explicitToolStripMenuItem.Click += new System.EventHandler(this.explicitToolStripMenuItem_Click);
             // 
             // parametricToolStripMenuItem2
             // 
             this.parametricToolStripMenuItem2.Name = "parametricToolStripMenuItem2";
-            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.parametricToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.parametricToolStripMenuItem2.Text = "Parametric";
             this.parametricToolStripMenuItem2.Click += new System.EventHandler(this.parametricToolStripMenuItem2_Click);
             // 
             // pointsToolStripMenuItem
             // 
             this.pointsToolStripMenuItem.Name = "pointsToolStripMenuItem";
-            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pointsToolStripMenuItem.Text = "Points";
             // 
             // scaleToolStripMenuItem
@@ -433,8 +423,7 @@
             this.toolStripLabel4,
             this.toolStripLabel5,
             this.OtherFunctions,
-            this.toolStripLabel3,
-            this.ColorLabel,
+            this.ColorButton,
             this.statusDash});
             this.toolStrip2.Location = new System.Drawing.Point(0, 25);
             this.toolStrip2.Name = "toolStrip2";
@@ -539,23 +528,19 @@
             this.OtherFunctions.Size = new System.Drawing.Size(121, 25);
             this.OtherFunctions.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged_1);
             // 
-            // toolStripLabel3
+            // ColorButton
             // 
-            this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(77, 22);
-            this.toolStripLabel3.Text = "Chosen color";
-            // 
-            // ColorLabel
-            // 
-            this.ColorLabel.AutoSize = false;
-            this.ColorLabel.Name = "ColorLabel";
-            this.ColorLabel.Size = new System.Drawing.Size(20, 20);
+            this.ColorButton.Image = ((System.Drawing.Image)(resources.GetObject("ColorButton.Image")));
+            this.ColorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ColorButton.Name = "ColorButton";
+            this.ColorButton.Size = new System.Drawing.Size(97, 22);
+            this.ColorButton.Text = "Current color";
+            this.ColorButton.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // statusDash
             // 
-            this.statusDash.AutoSize = false;
             this.statusDash.Name = "statusDash";
-            this.statusDash.Size = new System.Drawing.Size(86, 22);
+            this.statusDash.Size = new System.Drawing.Size(0, 22);
             // 
             // splitContainer1
             // 
@@ -1270,7 +1255,6 @@
         private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem representationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scaleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem explicitToolStripMenuItem;
@@ -1281,10 +1265,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
-        private System.Windows.Forms.ToolStripLabel ColorLabel;
         private System.Windows.Forms.ToolStripMenuItem pointsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripLabel statusDash;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button15;
@@ -1325,6 +1306,8 @@
         private System.Windows.Forms.TextBox labelStatus;
         private System.Windows.Forms.ToolStripComboBox OtherFunctions;
         private System.Windows.Forms.ToolStripLabel toolStripLabel5;
+        private System.Windows.Forms.ToolStripButton ColorButton;
+        private System.Windows.Forms.ToolStripLabel statusDash;
     }
 }
 

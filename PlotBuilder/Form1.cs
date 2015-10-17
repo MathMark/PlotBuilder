@@ -26,9 +26,10 @@ namespace PlotBuilder
             Bitmap chosenColor = new Bitmap(10, 10);
             Graphics fill = Graphics.FromImage(chosenColor);
             SolidBrush brush = new SolidBrush(p.Color);
-            fill.FillRectangle(brush, 0, 0, ColorLabel.Width, ColorLabel.Height);
-            ColorLabel.Image = chosenColor;
+            fill.FillRectangle(brush, 0, 0, ColorButton.Width, ColorButton.Height);
+            ColorButton.Image = chosenColor;
             fill.Dispose();
+            statusDash.Text = "Solid";
 
         }
         const  int pixelcoeff=35;
@@ -334,20 +335,6 @@ namespace PlotBuilder
             //parametricMode = true;
         }
 
-        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                p = new Pen(colorDialog1.Color, 2);
-                Bitmap chosenColor = new Bitmap(10, 10);
-                Graphics fill = Graphics.FromImage(chosenColor);
-                SolidBrush brush = new SolidBrush(p.Color);
-                fill.FillRectangle(brush, 0, 0, ColorLabel.Width, ColorLabel.Height);
-                ColorLabel.Image = chosenColor;
-                fill.Dispose();
-            }
-
-        }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -371,6 +358,38 @@ namespace PlotBuilder
         private void toolStripComboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             firstFunctionBox.Text = OtherFunctions.SelectedItem.ToString();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                p = new Pen(colorDialog1.Color, 2);
+                switch(statusDash.Text)
+                {
+                    case "Solid":
+                        p.DashStyle = DashStyle.Solid;
+                        break;
+                    case "Dash":
+                        p.DashStyle = DashStyle.Dash;
+                        break;
+                    case "Dash Dot":
+                        p.DashStyle = DashStyle.DashDot;
+                        break;
+                    case "Dash Dot Dot":
+                        p.DashStyle = DashStyle.DashDotDot;
+                        break;
+                    case "Dot":
+                        p.DashStyle = DashStyle.Dot;
+                        break;
+                }
+                Bitmap chosenColor = new Bitmap(10, 10);
+                Graphics fill = Graphics.FromImage(chosenColor);
+                SolidBrush brush = new SolidBrush(p.Color);
+                fill.FillRectangle(brush, 0, 0, ColorButton.Width, ColorButton.Height);
+                ColorButton.Image = chosenColor;
+                fill.Dispose();
+            }
         }
     }
 
