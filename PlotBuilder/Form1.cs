@@ -35,8 +35,6 @@ namespace PlotBuilder
         const  int pixelcoeff=35;
 
 
-        public StringBuilder buf;
-
         Pen p = new Pen(Color.CadetBlue,2);
 
         public static List<Color> FunctionColors = new List<Color>();
@@ -47,18 +45,12 @@ namespace PlotBuilder
 
         bool parametricMode = false;
 
-        //public static char Argument = 'x';
-    
-
-        List<string>list=new List<string>();
 
         List<Function> Functions = new List<Function>();
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
-            list.Clear();
             g = sheet.CreateGraphics();
 
             g.Clear(Color.White);
@@ -88,7 +80,7 @@ namespace PlotBuilder
                 {
                     Pen pen = new Pen(function.color,2);
                     pen.DashStyle = function.LineStyle;
-                    Builder.DrawGraphic(pen, e.Graphics, sheet, function.RPNsequence, pixelcoeff * Convert.ToDouble(scale.Value), function.Argument);
+                    Builder.DrawGraphic(e.Graphics, sheet, function, pixelcoeff * Convert.ToDouble(scale.Value));
                 }
             }
             else
@@ -161,7 +153,7 @@ namespace PlotBuilder
                 {
                     Pen pen = new Pen(function.color, 2);
                     pen.DashStyle = function.LineStyle;
-                    Builder.DrawGraphic(pen, g, sheet, function.RPNsequence, pixelcoeff * Convert.ToDouble(scale.Value), function.Argument);
+                    Builder.DrawGraphic(g, sheet, function, pixelcoeff * Convert.ToDouble(scale.Value));
                 }
             }
             else
@@ -188,42 +180,45 @@ namespace PlotBuilder
         Bitmap ColorFunction;
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            if (list.Contains(firstFunctionBox.Text) == true)
+           
+            try
             {
-                return;
-            } 
-            else
-            {
-                try
+                Function function = new Function(new StringBuilder(firstFunctionBox.Text), p.Color, p.DashStyle, 'x');
+
+                if (Functions.Contains(function)== true)//It doesn't work. I don't know why
+                {
+                    return;
+                }
+                else
                 {
                     g = sheet.CreateGraphics();
                     g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
                     g.SmoothingMode = SmoothingMode.AntiAlias;
-                    Function function = new Function(new StringBuilder(firstFunctionBox.Text), p.Color, p.DashStyle, 'x');
 
                     Functions.Add(function);
+                    Builder.DrawGraphic(g, sheet, function, pixelcoeff * Convert.ToDouble(scale.Value));
 
-                    Builder.DrawGraphic(p, g, sheet, function.RPNsequence, pixelcoeff * Convert.ToDouble(scale.Value), function.Argument);
                 }
-                catch (IndexOutOfRangeException)
-                {
-                    MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                catch(ArithmeticException)
-                {
-                    MessageBox.Show("Function cannot exist with double argument ","ErrorInSyntaxException",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            catch (ArithmeticException)
+            {
+                MessageBox.Show("Function cannot exist with double argument ", "ErrorInSyntaxException", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
                 bool repetition = false;
-                    foreach(ListViewItem function in FunctionList.Items)
+                    foreach(ListViewItem func in FunctionList.Items)
                     {
-                        if (function.Text == firstFunctionBox.Text) repetition = true;
+                        if (func.Text == firstFunctionBox.Text) repetition = true;
                     }
                 
 
@@ -249,8 +244,6 @@ namespace PlotBuilder
                 }
 
             }
-
-        }
 
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
@@ -660,30 +653,6 @@ namespace PlotBuilder
                                         }
                                         else P.Push(1);
                                     }
-                                    //if (a < 0)
-                                    //{
-                                    //    if (b > 1)
-                                    //    {
-                                    //        P.Push(Math.Pow(a, b));
-                                    //    }
-                                    //    else if(b < 1)
-                                    //    {
-                                    //       if(s%2==1)
-                                    //        {
-                                    //           P.Push(-Math.Pow(Math.Abs(a), b));
-                                    //        }
-                                    //       else P.Push(Math.Pow(a, b));
-                                    //    }
-                                    //    else if(b==1)
-                                    //    {
-                                    //        P.Push(a);
-                                    //    }
-                                    //}
-                                    //else if (a >= 0)
-                                    //{
-                                    //    P.Push(Math.Pow(a, b));
-                                    //}
-
                                      break;
                                 case ';':
                                     P.Push(b);
@@ -861,17 +830,19 @@ namespace PlotBuilder
                 w++;
             }
         }
-        public static void DrawGraphic(Pen pen, Graphics g, PictureBox sheet, string[] line, double scale, char Argument)
+        public static void DrawGraphic(Graphics g, PictureBox sheet, Function function, double scale)
         {
             double prototype;
+            Pen pen = new Pen(function.color,2);
+            pen.DashStyle = function.LineStyle;
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
 
-            if (Argument == 'x')
+            if (function.Argument == 'x')
             {
                 for (double x = -sheet.Width/2; x < sheet.Width/2; x += 1)
                 {
-                    prototype = Calculate.Solve((string[])line.Clone(), x / scale, Argument);
+                    prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
                     if (prototype > sheet.Height / 2)
                     {
                         prototype = sheet.Height / 2;
@@ -915,7 +886,7 @@ namespace PlotBuilder
             {
                 for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
                 {
-                    prototype = Calculate.Solve((string[])line.Clone(), x / scale, Argument);
+                    prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
 
                     if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
