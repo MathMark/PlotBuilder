@@ -33,10 +33,10 @@ namespace PlotBuilder
             ChangeButton.Enabled = false;
 
         }
-        const  int pixelcoeff=35;
+        const int pixelcoeff = 35;
 
 
-        Pen p = new Pen(Color.CadetBlue,2);
+        Pen p = new Pen(Color.CadetBlue, 2);
 
         public static List<Color> FunctionColors = new List<Color>();
 
@@ -57,7 +57,7 @@ namespace PlotBuilder
             g.Clear(Color.White);
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            Builder.BuildNet(g, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
+            Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             Builder.BuildAxes(g, sheet);
             Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
@@ -75,11 +75,11 @@ namespace PlotBuilder
             Builder.DrawCoordinates(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             e.Graphics.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            if (Functions.Count!=0)
+            if (Functions.Count != 0)
             {
-                foreach(Function function in Functions)
+                foreach (Function function in Functions)
                 {
-                    Pen pen = new Pen(function.color,2);
+                    Pen pen = new Pen(function.color, 2);
                     pen.DashStyle = function.LineStyle;
                     Builder.DrawGraphic(e.Graphics, sheet, function, pixelcoeff * Convert.ToDouble(scale.Value));
                 }
@@ -114,7 +114,7 @@ namespace PlotBuilder
             double Y = -(Convert.ToDouble(e.Y) - Convert.ToDouble(sheet.Height / 2))
                 / (pixelcoeff * Convert.ToDouble(scale.Value));
             labelStatus.Text = "X: " + String.Format("{0:0.00}", X) + "  Y: " + String.Format("{0:0.00}", Y);
-            labelStatus.Location = new Point(e.X+offset, e.Y-offset);
+            labelStatus.Location = new Point(e.X + offset, e.Y - offset);
 
         }
 
@@ -130,7 +130,7 @@ namespace PlotBuilder
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                p=new Pen(colorDialog1.Color,2);
+                p = new Pen(colorDialog1.Color, 2);
             }
         }
 
@@ -141,7 +141,7 @@ namespace PlotBuilder
 
             g.Clear(Color.White);
 
-            Builder.BuildNet(g, sheet, pixelcoeff*Convert.ToSingle(scale.Value));
+            Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             Builder.BuildAxes(g, sheet);
             Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
             Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
@@ -167,8 +167,8 @@ namespace PlotBuilder
         double b = 0;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if(firstFunctionBox.Text!=string.Empty) b = (firstFunctionBox.Text[firstFunctionBox.Text.Length - 1]);
-            if((b>=1040)&&(b<=1103))firstFunctionBox.ResetText();
+            if (firstFunctionBox.Text != string.Empty) b = (firstFunctionBox.Text[firstFunctionBox.Text.Length - 1]);
+            if ((b >= 1040) && (b <= 1103)) firstFunctionBox.ResetText();
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -181,18 +181,18 @@ namespace PlotBuilder
         Bitmap ColorFunction;
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-           
+
             try
             {
                 Function function = new Function(new StringBuilder(firstFunctionBox.Text), p.Color, p.DashStyle, 'x');
-                textBox3.ResetText();
-                foreach(string symbol in function.RPNsequence)
+                RPN_Box.ResetText();
+                foreach (string symbol in function.RPNsequence)
                 {
-                    textBox3.Text +=" "+symbol;
+                    RPN_Box.Text += " " + symbol;
                 }
-                
 
-                if (Functions.Contains(function)== true)//It doesn't work. I don't know why
+
+                if (Functions.Contains(function) == true)//It doesn't work. I don't know why
                 {
                     return;
                 }
@@ -220,41 +220,48 @@ namespace PlotBuilder
             catch (ArithmeticException)
             {
                 MessageBox.Show("Function cannot exist with double argument ", "ErrorInSyntaxException", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
 
-                bool repetition = false;
-                    foreach(ListViewItem func in FunctionList.Items)
-                    {
-                        if (func.Text == firstFunctionBox.Text) repetition = true;
-                    }
-                
+            bool repetition = false;
+            foreach (ListViewItem func in FunctionList.Items)
+            {
+                if (func.Text == firstFunctionBox.Text) repetition = true;
+            }
 
-                ColorFunction = new Bitmap(imageList1.ImageSize.Width, imageList1.ImageSize.Height);
-                Graphics DrawColor = Graphics.FromImage(ColorFunction);
-                SolidBrush color = new SolidBrush(p.Color);
 
-                if (repetition != true)
+            ColorFunction = new Bitmap(imageList1.ImageSize.Width, imageList1.ImageSize.Height);
+            Graphics DrawColor = Graphics.FromImage(ColorFunction);
+            SolidBrush color = new SolidBrush(p.Color);
+
+            if (repetition != true)
+            {
+                if (parametricMode == true)
                 {
-                    if (parametricMode == true)
-                    {
-                        DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
-                        imageList1.Images.Add(ColorFunction);
-                        FunctionList.Items.Add(firstFunctionBox.Text+" | "+secondFunctionBox.Text,imageList1.Images.Count-1);
-                    }
-                    else
-                    {
-                        DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
-                        imageList1.Images.Add(ColorFunction);
-                        FunctionList.Items.Add(firstFunctionBox.Text, imageList1.Images.Count-1);
-                    }
-                    repetition = false;
+                    DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
+                    imageList1.Images.Add(ColorFunction);
+                    FunctionList.Items.Add(firstFunctionBox.Text + " | " + secondFunctionBox.Text, imageList1.Images.Count - 1);
                 }
-
+                else
+                {
+                    DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
+                    imageList1.Images.Add(ColorFunction);
+                    FunctionList.Items.Add(firstFunctionBox.Text, imageList1.Images.Count - 1);
+                }
+                repetition = false;
             }
+
+        }
 
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             Functions.Clear();
+            RPN_Box.ResetText();
             ChangeButton.Enabled = false;
             FunctionList.Items.Clear();
             g = sheet.CreateGraphics();
@@ -320,7 +327,7 @@ namespace PlotBuilder
             secondFunctionBox.Hide();
             groupBox1.Size = new System.Drawing.Size(333, 57);
             label3.Text = "y = f(x)";
-           // Argument = 'x';
+            // Argument = 'x';
             parametricMode = false;
         }
 
@@ -341,7 +348,7 @@ namespace PlotBuilder
             if (FunctionList.SelectedItems.Count != 0)
             {
                 ListViewItem item = FunctionList.SelectedItems[0];
- 
+
                 firstFunctionBox.Text = item.Text;
 
                 ChangeButton.Enabled = true;
@@ -367,7 +374,7 @@ namespace PlotBuilder
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 p = new Pen(colorDialog1.Color, 2);
-                switch(statusDash.Text)
+                switch (statusDash.Text)
                 {
                     case "Solid":
                         p.DashStyle = DashStyle.Solid;
@@ -394,11 +401,258 @@ namespace PlotBuilder
             }
         }
 
+     
+        private void button26_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "(");
+        }
 
+        private void button27_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "x");
+        }
 
+        private void button28_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, ")");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "1");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "2");
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "3");
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "4");
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "5");
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "6");
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "7");
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "8");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "9");       
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "0");
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "\u03c0");
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "e");
+        }
+
+        private void button31_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "/");
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "*");
+        }
+
+        private void button34_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, ";");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "+");
+        }
+
+        private void button33_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "-");
+        }
+
+        private void button30_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "^");
+        }
+
+        //Main statements
+        private void button3_Click(object sender, EventArgs e)//abs
+        {
+            Function.AddStatement(firstFunctionBox, "abs(");
+        }
+
+        private void button4_Click(object sender, EventArgs e)//sqrt
+        {
+            Function.AddStatement(firstFunctionBox, "sqrt(");
+        }
+
+        private void button37_Click(object sender, EventArgs e)//sign
+        {
+            Function.AddStatement(firstFunctionBox, "sign(");
+        }
+
+        private void button21_Click(object sender, EventArgs e)//log
+        {
+            Function.AddStatement(firstFunctionBox, "log(");
+        }
+
+        private void button8_Click(object sender, EventArgs e)//ln
+        {
+            Function.AddStatement(firstFunctionBox, "ln(");
+        }
+
+        private void button23_Click(object sender, EventArgs e)//lg
+        {
+            Function.AddStatement(firstFunctionBox, "lg(");
+        }
+
+        private void button40_Click(object sender, EventArgs e)//[]
+        {
+            Function.AddStatement(firstFunctionBox,"E(");
+        }
+
+        private void button39_Click(object sender, EventArgs e)//{}
+        {
+            Function.AddStatement(firstFunctionBox, "R(");
+        }
+
+        private void button38_Click(object sender, EventArgs e)//rem
+        {
+            Function.AddStatement(firstFunctionBox, "rem(");
+        }
+
+        //Trygonometry
+        private void button46_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "sin(");
+        }
+
+        private void button47_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "cos(");
+        }
+
+        private void button44_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "tan(");
+        }
+
+        private void button49_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "cot(");
+        }
+
+        private void button42_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arcsin(");
+        }
+
+        private void button41_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arccos");
+        }
+
+        private void button45_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arctan(");
+        }
+
+        private void button48_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arccot");
+        }
+
+        //Hyperbolical
+        private void button20_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "sinh(");
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "cosh(");
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "tanh(");
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "cth(");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arsinh(");
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arcosh(");
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "artanh(");
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arcth(");
+        }
+
+        private void button35_Click(object sender, EventArgs e)
+        {
+            firstFunctionBox.ResetText();
+            RPN_Box.ResetText();
+        }
+
+        private void button43_Click(object sender, EventArgs e)
+        {
+            if (firstFunctionBox.SelectionStart != 0)
+            {
+                var selectionIndex = firstFunctionBox.SelectionStart;
+                firstFunctionBox.Text = firstFunctionBox.Text.Remove(firstFunctionBox.SelectionStart - 1, 1);
+                firstFunctionBox.SelectionStart = selectionIndex--;
+            }
+        }
     }
 
-    class Function
+    class Function 
     {
         public StringBuilder name;//e.g. sin(x)+5*x^2
         public string[] RPNsequence;//x sin x 2 ^ 5 * +
@@ -412,6 +666,12 @@ namespace PlotBuilder
             this.color = color;
             this.LineStyle = LineStyle;
             this.Argument = Argument;
+        }
+       public static void AddStatement(TextBox line,string insertText)
+        {
+            var selectionIndex = line.SelectionStart;
+            line.Text = line.Text.Insert(selectionIndex, insertText);
+            line.SelectionStart = selectionIndex + insertText.Length;
         }
 
     }
@@ -441,12 +701,12 @@ namespace PlotBuilder
             for (; j < buf.Length; j++)
             {
                 if ((char.IsDigit(buf[j])) || (buf[j] == ',') 
-                    ||(buf[j] == 'p') || (buf[j] == 'e')||(buf[j]==Argument))//в буфере число?
+                    ||(buf[j] == '\u03c0') || (buf[j] == 'e')||(buf[j]==Argument))//в буфере число?
                 {
                     line[e] += buf[j];
                     if ((j != buf.Length - 1) && (!char.IsDigit(buf[j + 1]))) e++;
                 }
-                else if((char.IsLetter(buf[j]))&&(buf[j]!=Argument)&&(buf[j]!='p')&&(buf[j]!='e'))
+                else if((char.IsLetter(buf[j]))&&(buf[j]!=Argument)&&(buf[j]!='\u03c0')&&(buf[j]!='e'))
                 {
                     while(char.IsLetter(buf[j]))
                     {
@@ -523,7 +783,7 @@ namespace PlotBuilder
                         P.Push(function.RPNsequence[i]);
                     }
                     else if ((char.IsLetter(function.RPNsequence[i][0])) &&
-                        (function.RPNsequence[i][0] != function.Argument) && (function.RPNsequence[i][0] != 'p') &&
+                        (function.RPNsequence[i][0] != function.Argument) && (function.RPNsequence[i][0] != '\u03c0') &&
                         (function.RPNsequence[i][0] != 'e'))
                     {
                         double X = Convert.ToDouble(P.Pop());
@@ -604,7 +864,7 @@ namespace PlotBuilder
                     else
                     {
                         if (function.RPNsequence[i][0] == 'e') P.Push(Math.E);
-                        else if (function.RPNsequence[i][0] == 'p') P.Push(Math.PI);
+                        else if (function.RPNsequence[i][0] == '\u03c0') P.Push(Math.PI);
                         else if (function.RPNsequence[i][0] == function.Argument) P.Push(x);
                         else
                         {
@@ -620,8 +880,7 @@ namespace PlotBuilder
                                     P.Push(a - b);
                                     break;
                                 case '*':
-                                    // P.Push(a * b);
-                                    P.Push(a % b);
+                                    P.Push(a * b);
                                     break;
                                 case '/':
                                     P.Push(a / b);
@@ -876,7 +1135,15 @@ namespace PlotBuilder
                         {
                             coordinates = new PointF[Coordinates.Count];
                             coordinates = Coordinates.ToArray();
-                            g.DrawLines(pen, coordinates);
+                            try
+                            {
+                                g.DrawLines(pen, coordinates);
+                            }
+                            catch(Exception)
+                            {
+                                //MessageBox.Show(coordinates[0].ToString());
+                                continue;
+                            }
                             Coordinates.Clear();
                         }
                         continue;
@@ -899,6 +1166,10 @@ namespace PlotBuilder
                 catch(OverflowException)
                 {
                     ;
+                }
+                catch(ArgumentException)
+                {
+                    return;
                 }
             }
             else
