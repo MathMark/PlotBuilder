@@ -45,7 +45,7 @@ Then comes into effect another unit - <b>Graphic unit</b>
 <dd>This unit immediately builds your function on sheet. It includes two methods:
 <ul>
 <li><b>DrawGraphic</b></li> - for usual functions;
-<li><b>Overloaded DrawGrapic</b></li> - for parametric functions;
+<li><b>Overloaded DrawGraphic</b></li> - for parametric functions;
 </ul>
 </dd>
 </dl>
