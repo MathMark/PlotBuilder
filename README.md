@@ -1,5 +1,6 @@
 # Smart Builder
-![](https://pp.vk.me/c628323/v628323649/1e19d/Nu03aCp-PkU.jpg)
+<!--![](https://pp.vk.me/c628323/v628323649/1e19d/Nu03aCp-PkU.jpg)-->
+<img src="https://pp.vk.me/c628324/v628324649/224ee/x9U4wMQ0K-c.jpg">
 
 <html>
 <body>
