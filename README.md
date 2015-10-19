@@ -51,5 +51,67 @@ Then comes into effect another unit - <b>Graphic unit</b>
 </dl>
 </li>
 </ol>
+<h1>Chart of functions</h1>
+<table>
+<tr>
+<td><b>Mathematical symbol or name of function</b></td>
+<td><b>Keyword (or symbol)</b></td>
+<td><b>Description</b></td>
+</tr>
+<tr>
+<td>|x|</td>
+<td>abs(x)</td>
+<td>The absolute value of x</td>
+</tr>
+<tr>
+<td>&radic;x</td>
+<td>sqrt(x)</td>
+<td>The square root of x</td>
+</tr>
+<tr>
+<td>sign x</td>
+<td>sign(x)</td>
+<td><b>The function "signum" of x.</b><br>
+Returns 1 if x greatest or equal 1<br>
+Returns 0 if x equal 0<br>
+Returns -1 if x less or equal -1
+</td>
+</tr>
+<tr>
+<td>log<sub>a</sub> x</td>
+<td>log(a;x)</td>
+<td>Returns the logarithm of x, which has base number a</td>
+</tr>
+<tr>
+<td>ln x</td>
+<td>ln(x)</td>
+<td>Returns the natural logarithm, which has base number e</td>
+</tr>
+<tr>
+<td>lg x</td>
+<td>lg(x)</td>
+<td>Returns the logarithm, which has base number 10</td>
+</tr>
+<tr>
+<td>[x]</td>
+<td>E(x)</td>
+<td>Returns the integer part of x</td>
+</tr>
+<tr>
+<td>{x}</td>
+<td>R(x)</td>
+<td>Returns the fractional part of x</td>
+</tr>
+<tr>
+<td>x<sup>y</sup></td>
+<td>x^y</td>
+<td>Returns the x powered by y</td>
+</tr>
+<tr>
+<td><sup>n</sup>&radic;x</td>
+<td>x^(1/n)</td>
+<td></td>
+</tr>
+</table>
 </body>
 </html>
