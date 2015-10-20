@@ -110,7 +110,7 @@ Returns -1 if x less or equal -1
 <tr>
 <td><sup>n</sup>&radic;x</td>
 <td>x^(1/n)</td>
-<td></td>
+<td>The <i>n</i>th root of x</td>
 </tr>
 </table>
 </body>
