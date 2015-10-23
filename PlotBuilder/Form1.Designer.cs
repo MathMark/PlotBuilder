@@ -111,24 +111,32 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
+            this.button57 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
+            this.button56 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button55 = new System.Windows.Forms.Button();
+            this.button54 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
+            this.button18 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button42 = new System.Windows.Forms.Button();
-            this.button41 = new System.Windows.Forms.Button();
-            this.button44 = new System.Windows.Forms.Button();
+            this.button53 = new System.Windows.Forms.Button();
+            this.button48 = new System.Windows.Forms.Button();
             this.button45 = new System.Windows.Forms.Button();
+            this.button52 = new System.Windows.Forms.Button();
+            this.button51 = new System.Windows.Forms.Button();
+            this.button50 = new System.Windows.Forms.Button();
             this.button46 = new System.Windows.Forms.Button();
             this.button47 = new System.Windows.Forms.Button();
-            this.button48 = new System.Windows.Forms.Button();
+            this.button44 = new System.Windows.Forms.Button();
             this.button49 = new System.Windows.Forms.Button();
+            this.button42 = new System.Windows.Forms.Button();
+            this.button41 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.button40 = new System.Windows.Forms.Button();
@@ -528,10 +536,14 @@
             "cos(x)",
             "tan(x)",
             "cot(x)",
+            "sec(x)",
+            "csc(x)",
             "arcsin(x)",
             "arccos(x)",
             "arctan(x)",
-            "arccot(x)"});
+            "arccot(x)",
+            "arcsec(x)",
+            "arccsc(x)"});
             this.TrigonomentyBox.Name = "TrigonomentyBox";
             this.TrigonomentyBox.Size = new System.Drawing.Size(121, 25);
             this.TrigonomentyBox.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
@@ -558,10 +570,14 @@
             "cosh(x)",
             "tanh(x)",
             "cth(x)",
+            "sech(x)",
+            "csch(x)",
             "arsinh(x)",
             "arcosh(x)",
             "artanh(x)",
-            "arcth(x)"});
+            "arcth(x)",
+            "arsech(x)",
+            "arcsch(x)"});
             this.HyperbolicalBox.Name = "HyperbolicalBox";
             this.HyperbolicalBox.Size = new System.Drawing.Size(121, 25);
             this.HyperbolicalBox.SelectedIndexChanged += new System.EventHandler(this.HyperbolicalBox_SelectedIndexChanged);
@@ -1208,15 +1224,15 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(322, 581);
             this.tableLayoutPanel5.TabIndex = 74;
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.tableLayoutPanel4);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox5.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox5.ForeColor = System.Drawing.Color.DarkCyan;
             this.groupBox5.Location = new System.Drawing.Point(3, 438);
             this.groupBox5.Name = "groupBox5";
@@ -1235,69 +1251,58 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.Controls.Add(this.button1, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.button2, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.button18, 2, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button19, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button57, 3, 2);
+            this.tableLayoutPanel4.Controls.Add(this.button24, 3, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button19, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button56, 2, 2);
+            this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button55, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.button54, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.button20, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button22, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button24, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.button25, 3, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(21, 34);
+            this.tableLayoutPanel4.Controls.Add(this.button18, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button25, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button1, 2, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(6, 19);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(277, 69);
+            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(301, 115);
             this.tableLayoutPanel4.TabIndex = 70;
             // 
-            // button1
+            // button57
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.LightGray;
-            this.button1.Location = new System.Drawing.Point(3, 37);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 29);
-            this.button1.TabIndex = 62;
-            this.button1.Text = "arsinh";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button57.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button57.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button57.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button57.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button57.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button57.ForeColor = System.Drawing.Color.LightGray;
+            this.button57.Location = new System.Drawing.Point(228, 79);
+            this.button57.Name = "button57";
+            this.button57.Size = new System.Drawing.Size(70, 33);
+            this.button57.TabIndex = 72;
+            this.button57.Text = "arcsch";
+            this.button57.UseVisualStyleBackColor = false;
+            this.button57.Click += new System.EventHandler(this.button57_Click);
             // 
-            // button2
+            // button24
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.Color.LightGray;
-            this.button2.Location = new System.Drawing.Point(72, 37);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(63, 29);
-            this.button2.TabIndex = 61;
-            this.button2.Text = "arcosh";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // button18
-            // 
-            this.button18.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button18.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button18.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button18.ForeColor = System.Drawing.Color.LightGray;
-            this.button18.Location = new System.Drawing.Point(141, 3);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(63, 28);
-            this.button18.TabIndex = 60;
-            this.button18.Text = "tanh";
-            this.button18.UseVisualStyleBackColor = false;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
+            this.button24.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button24.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button24.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button24.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button24.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button24.ForeColor = System.Drawing.Color.LightGray;
+            this.button24.Location = new System.Drawing.Point(228, 41);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(70, 32);
+            this.button24.TabIndex = 37;
+            this.button24.Text = "arcth";
+            this.button24.UseVisualStyleBackColor = false;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
             // button19
             // 
@@ -1305,15 +1310,79 @@
             this.button19.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button19.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button19.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button19.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button19.ForeColor = System.Drawing.Color.LightGray;
-            this.button19.Location = new System.Drawing.Point(141, 37);
+            this.button19.Location = new System.Drawing.Point(153, 41);
             this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(63, 29);
+            this.button19.Size = new System.Drawing.Size(69, 32);
             this.button19.TabIndex = 38;
             this.button19.Text = "artanh";
             this.button19.UseVisualStyleBackColor = false;
             this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
+            // button56
+            // 
+            this.button56.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button56.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button56.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button56.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button56.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button56.ForeColor = System.Drawing.Color.LightGray;
+            this.button56.Location = new System.Drawing.Point(153, 79);
+            this.button56.Name = "button56";
+            this.button56.Size = new System.Drawing.Size(69, 33);
+            this.button56.TabIndex = 71;
+            this.button56.Text = "arsech";
+            this.button56.UseVisualStyleBackColor = false;
+            this.button56.Click += new System.EventHandler(this.button56_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.ForeColor = System.Drawing.Color.LightGray;
+            this.button2.Location = new System.Drawing.Point(228, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(70, 32);
+            this.button2.TabIndex = 61;
+            this.button2.Text = "arcosh";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // button55
+            // 
+            this.button55.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button55.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button55.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button55.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button55.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button55.ForeColor = System.Drawing.Color.LightGray;
+            this.button55.Location = new System.Drawing.Point(78, 79);
+            this.button55.Name = "button55";
+            this.button55.Size = new System.Drawing.Size(69, 33);
+            this.button55.TabIndex = 71;
+            this.button55.Text = "csch";
+            this.button55.UseVisualStyleBackColor = false;
+            this.button55.Click += new System.EventHandler(this.button55_Click);
+            // 
+            // button54
+            // 
+            this.button54.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button54.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button54.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button54.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button54.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button54.ForeColor = System.Drawing.Color.LightGray;
+            this.button54.Location = new System.Drawing.Point(3, 79);
+            this.button54.Name = "button54";
+            this.button54.Size = new System.Drawing.Size(69, 33);
+            this.button54.TabIndex = 71;
+            this.button54.Text = "sech";
+            this.button54.UseVisualStyleBackColor = false;
+            this.button54.Click += new System.EventHandler(this.button54_Click);
             // 
             // button20
             // 
@@ -1321,11 +1390,11 @@
             this.button20.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button20.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button20.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button20.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button20.ForeColor = System.Drawing.Color.LightGray;
             this.button20.Location = new System.Drawing.Point(3, 3);
             this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(63, 28);
+            this.button20.Size = new System.Drawing.Size(69, 32);
             this.button20.TabIndex = 32;
             this.button20.Text = "sinh";
             this.button20.UseVisualStyleBackColor = false;
@@ -1337,31 +1406,31 @@
             this.button22.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button22.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button22.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button22.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button22.ForeColor = System.Drawing.Color.LightGray;
-            this.button22.Location = new System.Drawing.Point(72, 3);
+            this.button22.Location = new System.Drawing.Point(78, 3);
             this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(63, 28);
+            this.button22.Size = new System.Drawing.Size(69, 32);
             this.button22.TabIndex = 33;
             this.button22.Text = "cosh";
             this.button22.UseVisualStyleBackColor = false;
             this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
-            // button24
+            // button18
             // 
-            this.button24.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button24.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button24.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button24.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button24.ForeColor = System.Drawing.Color.LightGray;
-            this.button24.Location = new System.Drawing.Point(210, 37);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(64, 29);
-            this.button24.TabIndex = 37;
-            this.button24.Text = "arcth";
-            this.button24.UseVisualStyleBackColor = false;
-            this.button24.Click += new System.EventHandler(this.button24_Click);
+            this.button18.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button18.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button18.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button18.ForeColor = System.Drawing.Color.LightGray;
+            this.button18.Location = new System.Drawing.Point(3, 41);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(69, 32);
+            this.button18.TabIndex = 60;
+            this.button18.Text = "tanh";
+            this.button18.UseVisualStyleBackColor = false;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // button25
             // 
@@ -1369,15 +1438,31 @@
             this.button25.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button25.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button25.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button25.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button25.ForeColor = System.Drawing.Color.LightGray;
-            this.button25.Location = new System.Drawing.Point(210, 3);
+            this.button25.Location = new System.Drawing.Point(78, 41);
             this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(64, 28);
+            this.button25.Size = new System.Drawing.Size(69, 32);
             this.button25.TabIndex = 39;
             this.button25.Text = "cth";
             this.button25.UseVisualStyleBackColor = false;
             this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.Color.LightGray;
+            this.button1.Location = new System.Drawing.Point(153, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(69, 32);
+            this.button1.TabIndex = 62;
+            this.button1.Text = "arsinh";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox4
             // 
@@ -1391,7 +1476,7 @@
             this.groupBox4.Size = new System.Drawing.Size(316, 139);
             this.groupBox4.TabIndex = 72;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Trygonomety ";
+            this.groupBox4.Text = "Trygonometry ";
             // 
             // tableLayoutPanel3
             // 
@@ -1399,73 +1484,62 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.00001F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.Controls.Add(this.button42, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.button41, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.button44, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button45, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button53, 3, 2);
+            this.tableLayoutPanel3.Controls.Add(this.button48, 3, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button45, 2, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button52, 2, 2);
+            this.tableLayoutPanel3.Controls.Add(this.button51, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.button50, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.button46, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button47, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button48, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.button49, 3, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(21, 35);
+            this.tableLayoutPanel3.Controls.Add(this.button44, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button49, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button42, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button41, 3, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(6, 22);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(277, 71);
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(304, 111);
             this.tableLayoutPanel3.TabIndex = 69;
             // 
-            // button42
+            // button53
             // 
-            this.button42.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button42.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button42.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button42.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button42.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button42.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button42.Location = new System.Drawing.Point(3, 38);
-            this.button42.Name = "button42";
-            this.button42.Size = new System.Drawing.Size(63, 30);
-            this.button42.TabIndex = 62;
-            this.button42.Text = "arcsin";
-            this.button42.UseVisualStyleBackColor = false;
-            this.button42.Click += new System.EventHandler(this.button42_Click);
+            this.button53.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button53.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button53.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button53.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button53.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button53.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button53.Location = new System.Drawing.Point(229, 77);
+            this.button53.Name = "button53";
+            this.button53.Size = new System.Drawing.Size(72, 31);
+            this.button53.TabIndex = 72;
+            this.button53.Text = "arccsc";
+            this.button53.UseVisualStyleBackColor = false;
+            this.button53.Click += new System.EventHandler(this.button53_Click);
             // 
-            // button41
+            // button48
             // 
-            this.button41.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button41.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button41.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button41.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button41.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button41.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button41.Location = new System.Drawing.Point(72, 38);
-            this.button41.Name = "button41";
-            this.button41.Size = new System.Drawing.Size(63, 30);
-            this.button41.TabIndex = 61;
-            this.button41.Text = "arccos";
-            this.button41.UseVisualStyleBackColor = false;
-            this.button41.Click += new System.EventHandler(this.button41_Click);
-            // 
-            // button44
-            // 
-            this.button44.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button44.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button44.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button44.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button44.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button44.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button44.Location = new System.Drawing.Point(141, 3);
-            this.button44.Name = "button44";
-            this.button44.Size = new System.Drawing.Size(63, 29);
-            this.button44.TabIndex = 60;
-            this.button44.Text = "tan";
-            this.button44.UseVisualStyleBackColor = false;
-            this.button44.Click += new System.EventHandler(this.button44_Click);
+            this.button48.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button48.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button48.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button48.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button48.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button48.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button48.Location = new System.Drawing.Point(229, 40);
+            this.button48.Name = "button48";
+            this.button48.Size = new System.Drawing.Size(72, 31);
+            this.button48.TabIndex = 37;
+            this.button48.Text = "arccot";
+            this.button48.UseVisualStyleBackColor = false;
+            this.button48.Click += new System.EventHandler(this.button48_Click);
             // 
             // button45
             // 
@@ -1473,15 +1547,63 @@
             this.button45.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button45.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button45.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button45.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button45.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button45.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button45.Location = new System.Drawing.Point(141, 38);
+            this.button45.Location = new System.Drawing.Point(154, 40);
             this.button45.Name = "button45";
-            this.button45.Size = new System.Drawing.Size(63, 30);
+            this.button45.Size = new System.Drawing.Size(69, 31);
             this.button45.TabIndex = 38;
             this.button45.Text = "arctan";
             this.button45.UseVisualStyleBackColor = false;
             this.button45.Click += new System.EventHandler(this.button45_Click);
+            // 
+            // button52
+            // 
+            this.button52.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button52.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button52.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button52.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button52.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button52.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button52.Location = new System.Drawing.Point(154, 77);
+            this.button52.Name = "button52";
+            this.button52.Size = new System.Drawing.Size(69, 31);
+            this.button52.TabIndex = 71;
+            this.button52.Text = "arcsec";
+            this.button52.UseVisualStyleBackColor = false;
+            this.button52.Click += new System.EventHandler(this.button52_Click);
+            // 
+            // button51
+            // 
+            this.button51.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button51.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button51.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button51.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button51.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button51.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button51.Location = new System.Drawing.Point(79, 77);
+            this.button51.Name = "button51";
+            this.button51.Size = new System.Drawing.Size(69, 31);
+            this.button51.TabIndex = 70;
+            this.button51.Text = "csc";
+            this.button51.UseVisualStyleBackColor = false;
+            this.button51.Click += new System.EventHandler(this.button51_Click);
+            // 
+            // button50
+            // 
+            this.button50.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button50.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button50.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button50.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button50.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button50.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button50.Location = new System.Drawing.Point(3, 77);
+            this.button50.Name = "button50";
+            this.button50.Size = new System.Drawing.Size(70, 31);
+            this.button50.TabIndex = 69;
+            this.button50.Text = "sec";
+            this.button50.UseVisualStyleBackColor = false;
+            this.button50.Click += new System.EventHandler(this.button50_Click);
             // 
             // button46
             // 
@@ -1489,11 +1611,11 @@
             this.button46.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button46.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button46.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button46.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button46.ForeColor = System.Drawing.Color.Gainsboro;
             this.button46.Location = new System.Drawing.Point(3, 3);
             this.button46.Name = "button46";
-            this.button46.Size = new System.Drawing.Size(63, 29);
+            this.button46.Size = new System.Drawing.Size(70, 31);
             this.button46.TabIndex = 32;
             this.button46.Text = "sin";
             this.button46.UseVisualStyleBackColor = false;
@@ -1505,31 +1627,31 @@
             this.button47.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button47.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button47.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button47.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button47.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button47.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button47.Location = new System.Drawing.Point(72, 3);
+            this.button47.Location = new System.Drawing.Point(79, 3);
             this.button47.Name = "button47";
-            this.button47.Size = new System.Drawing.Size(63, 29);
+            this.button47.Size = new System.Drawing.Size(69, 31);
             this.button47.TabIndex = 33;
             this.button47.Text = "cos";
             this.button47.UseVisualStyleBackColor = false;
             this.button47.Click += new System.EventHandler(this.button47_Click);
             // 
-            // button48
+            // button44
             // 
-            this.button48.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.button48.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button48.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button48.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button48.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button48.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button48.Location = new System.Drawing.Point(210, 38);
-            this.button48.Name = "button48";
-            this.button48.Size = new System.Drawing.Size(64, 30);
-            this.button48.TabIndex = 37;
-            this.button48.Text = "arccot";
-            this.button48.UseVisualStyleBackColor = false;
-            this.button48.Click += new System.EventHandler(this.button48_Click);
+            this.button44.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button44.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button44.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button44.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button44.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button44.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button44.Location = new System.Drawing.Point(3, 40);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(70, 31);
+            this.button44.TabIndex = 60;
+            this.button44.Text = "tan";
+            this.button44.UseVisualStyleBackColor = false;
+            this.button44.Click += new System.EventHandler(this.button44_Click);
             // 
             // button49
             // 
@@ -1537,15 +1659,47 @@
             this.button49.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button49.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button49.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button49.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button49.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button49.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button49.Location = new System.Drawing.Point(210, 3);
+            this.button49.Location = new System.Drawing.Point(79, 40);
             this.button49.Name = "button49";
-            this.button49.Size = new System.Drawing.Size(64, 29);
+            this.button49.Size = new System.Drawing.Size(69, 31);
             this.button49.TabIndex = 39;
             this.button49.Text = "cot";
             this.button49.UseVisualStyleBackColor = false;
             this.button49.Click += new System.EventHandler(this.button49_Click);
+            // 
+            // button42
+            // 
+            this.button42.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button42.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button42.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button42.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button42.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button42.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button42.Location = new System.Drawing.Point(154, 3);
+            this.button42.Name = "button42";
+            this.button42.Size = new System.Drawing.Size(69, 31);
+            this.button42.TabIndex = 62;
+            this.button42.Text = "arcsin";
+            this.button42.UseVisualStyleBackColor = false;
+            this.button42.Click += new System.EventHandler(this.button42_Click);
+            // 
+            // button41
+            // 
+            this.button41.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.button41.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button41.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button41.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button41.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button41.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button41.Location = new System.Drawing.Point(229, 3);
+            this.button41.Name = "button41";
+            this.button41.Size = new System.Drawing.Size(72, 31);
+            this.button41.TabIndex = 61;
+            this.button41.Text = "arccos";
+            this.button41.UseVisualStyleBackColor = false;
+            this.button41.Click += new System.EventHandler(this.button41_Click);
             // 
             // groupBox3
             // 
@@ -1926,6 +2080,14 @@
         private System.Windows.Forms.Button button34;
         private System.Windows.Forms.Button button35;
         private System.Windows.Forms.Button button43;
+        private System.Windows.Forms.Button button57;
+        private System.Windows.Forms.Button button56;
+        private System.Windows.Forms.Button button55;
+        private System.Windows.Forms.Button button54;
+        private System.Windows.Forms.Button button53;
+        private System.Windows.Forms.Button button52;
+        private System.Windows.Forms.Button button51;
+        private System.Windows.Forms.Button button50;
     }
 }
 

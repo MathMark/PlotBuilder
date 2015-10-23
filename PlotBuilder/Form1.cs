@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using System.IO;
 
 
 namespace PlotBuilder
@@ -595,6 +594,26 @@ namespace PlotBuilder
             Function.AddStatement(firstFunctionBox, "arccot");
         }
 
+        private void button50_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "sec(");
+        }
+
+        private void button51_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "csc(");
+        }
+
+        private void button52_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arcsec(");
+        }
+
+        private void button53_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arccsc(");
+        }
+
         //Hyperbolical
         private void button20_Click(object sender, EventArgs e)
         {
@@ -642,6 +661,26 @@ namespace PlotBuilder
             RPN_Box.ResetText();
         }
 
+        private void button54_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "sech(");
+        }
+
+        private void button55_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "csch(");
+        }
+
+        private void button56_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arsecg(");
+        }
+
+        private void button57_Click(object sender, EventArgs e)
+        {
+            Function.AddStatement(firstFunctionBox, "arcsc(");
+        }
+
         private void button43_Click(object sender, EventArgs e)
         {
             if (firstFunctionBox.SelectionStart != 0)
@@ -651,6 +690,9 @@ namespace PlotBuilder
                 firstFunctionBox.SelectionStart = selectionIndex--;
             }
         }
+
+
+
     }
 
     class Function 
@@ -681,8 +723,6 @@ namespace PlotBuilder
     {
         public static void ConvertToRPN(StringBuilder buf, ref string[] line,char Argument)
         {
-            StreamWriter R = new StreamWriter("D:\\file.txt");
-
             if (buf[0] == '-')
             {
                 buf.Remove(0, 1);
@@ -718,12 +758,6 @@ namespace PlotBuilder
                     }
                     j--;
                     S.Push(function);
-                    foreach(object f in S.list)
-                    {
-                        R.WriteLine("Push");
-                        R.Write(" "+f.ToString());
-                        R.WriteLine();
-                    }
                     function = string.Empty;
                 }
                 else if(buf[j]==';')
@@ -735,33 +769,15 @@ namespace PlotBuilder
                     if (S.IsEmpty() == true)
                     {
                         S.Push(buf[j]);
-                        R.WriteLine("Push");
-                        foreach (object f in S.list)
-                        {
-                            R.Write(" " + f.ToString());
-                        }
-                        R.WriteLine();
                     }
                     else if (priority(Convert.ToString(S.CopyElement())) <priority(buf[j].ToString())) //сравнение приоритетов операций
                     {
                         S.Push(buf[j]);
-                        R.WriteLine("Push");
-                        foreach (object f in S.list)
-                        {
-                            R.Write(" " + f.ToString());
-                        }
-                        R.WriteLine();
                     }
                     ///
                     else if (buf[j] == '(')
                     {
                         S.Push(buf[j]);
-                        R.WriteLine("Push");
-                        foreach (object f in S.list)
-                        {
-                            R.Write(" " + f.ToString());
-                        }
-                        R.WriteLine();
                     }
                     else if (buf[j] == ')')
                     {
@@ -772,12 +788,6 @@ namespace PlotBuilder
                             e++;
                         }
                         S.DeleteElement();
-                        R.WriteLine("DeleteElement");
-                        foreach (object f in S.list)
-                        {
-                            R.Write(" " + f.ToString());
-                        }
-                        R.WriteLine();
                     }
                     else
                     {
@@ -788,12 +798,6 @@ namespace PlotBuilder
                             e++;
                         }
                         S.Push(buf[j]);
-                        R.WriteLine("Push");
-                        foreach (object f in S.list)
-                        {
-                            R.Write(" " + f.ToString());
-                        }
-                        R.WriteLine();
                     }
 
 
@@ -806,7 +810,6 @@ namespace PlotBuilder
                     e++;
                     line[e] += S.Pop().ToString();
                 }
-            R.Close();
             
         }
         public static double Solve(Function function, double x)
@@ -900,6 +903,31 @@ namespace PlotBuilder
                             case "rem":
                                 P.Push(Convert.ToDouble(P.Pop())% X);
                                 break;
+                            case "sec":
+                                P.Push(1 / Math.Cos(x));
+                                break;
+                            case "csc":
+                                P.Push(1 / Math.Sin(x));
+                                break;
+                            case "arcsec":
+                                P.Push(Math.Acos(1 / X));
+                                break;
+                            case "arccsc":
+                                P.Push(Math.Asin(1 / X));
+                                break;
+                            case "sech":
+                                P.Push(1 / Math.Cosh(x));
+                                break;
+                            case "csch":
+                                P.Push(1 / Math.Sinh(x));
+                                break;
+                            case "arsech":
+                                P.Push(Math.Log(1/x+Math.Sqrt(1/x+1)*Math.Sqrt(1/x-1)));
+                                break;
+                            case "arcsch":
+                                P.Push(Math.Log(1 / x + Math.Sqrt(1 / x*x + 1)));
+                                break;
+
 
                         }
                     }
@@ -992,7 +1020,8 @@ namespace PlotBuilder
             
         }
        static string[] functions = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
-                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem"};
+                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem",
+            "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch"};
         public static short priority(string q)//returnes priority of function
         {
 
@@ -1021,9 +1050,13 @@ namespace PlotBuilder
         }
         public object Pop()
         {
-            object temp = list[list.Count - 1];
-            list.RemoveAt(list.Count - 1);
-            return temp;
+            if (list.Count != 0)
+            {
+                object temp = list[list.Count - 1];
+                list.RemoveAt(list.Count - 1);
+                return temp;
+            }
+            else return null;
         }
         public void DeleteElement()
         {
