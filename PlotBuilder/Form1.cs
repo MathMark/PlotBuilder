@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.IO;
 
 
 namespace PlotBuilder
@@ -222,11 +223,11 @@ namespace PlotBuilder
                 MessageBox.Show("Function cannot exist with double argument ", "ErrorInSyntaxException", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+            //catch (Exception ex)
+           // {
+             //   MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+             //   return;
+           // }
 
             bool repetition = false;
             foreach (ListViewItem func in FunctionList.Items)
@@ -680,6 +681,8 @@ namespace PlotBuilder
     {
         public static void ConvertToRPN(StringBuilder buf, ref string[] line,char Argument)
         {
+            StreamWriter R = new StreamWriter("D:\\file.txt");
+
             if (buf[0] == '-')
             {
                 buf.Remove(0, 1);
@@ -688,7 +691,7 @@ namespace PlotBuilder
             buf.Replace("(-", "(~");
             
 
-            Stack S = new Stack(buf.Length);
+            Stack S = new Stack();
             line = new string[buf.Length];
 
             int j = 0;
@@ -715,6 +718,12 @@ namespace PlotBuilder
                     }
                     j--;
                     S.Push(function);
+                    foreach(object f in S.list)
+                    {
+                        R.WriteLine("Push");
+                        R.Write(" "+f.ToString());
+                        R.WriteLine();
+                    }
                     function = string.Empty;
                 }
                 else if(buf[j]==';')
@@ -726,33 +735,65 @@ namespace PlotBuilder
                     if (S.IsEmpty() == true)
                     {
                         S.Push(buf[j]);
+                        R.WriteLine("Push");
+                        foreach (object f in S.list)
+                        {
+                            R.Write(" " + f.ToString());
+                        }
+                        R.WriteLine();
                     }
                     else if (priority(Convert.ToString(S.CopyElement())) <priority(buf[j].ToString())) //сравнение приоритетов операций
                     {
                         S.Push(buf[j]);
+                        R.WriteLine("Push");
+                        foreach (object f in S.list)
+                        {
+                            R.Write(" " + f.ToString());
+                        }
+                        R.WriteLine();
                     }
                     ///
                     else if (buf[j] == '(')
                     {
                         S.Push(buf[j]);
+                        R.WriteLine("Push");
+                        foreach (object f in S.list)
+                        {
+                            R.Write(" " + f.ToString());
+                        }
+                        R.WriteLine();
                     }
                     else if (buf[j] == ')')
                     {
                         while (priority(Convert.ToString(S.CopyElement())) != 1)
                         {
+                            MessageBox.Show(Convert.ToString(S.CopyElement()));
                             line[e] += S.Pop().ToString();
                             e++;
                         }
                         S.DeleteElement();
+                        R.WriteLine("DeleteElement");
+                        foreach (object f in S.list)
+                        {
+                            R.Write(" " + f.ToString());
+                        }
+                        R.WriteLine();
                     }
                     else
                     {
                         while (priority(Convert.ToString(S.CopyElement())) >= priority(buf[j].ToString()))
                         {
+                            MessageBox.Show(Convert.ToString(S.CopyElement()));
                             line[e] += S.Pop().ToString();
                             e++;
                         }
                         S.Push(buf[j]);
+                        R.WriteLine("Push");
+                        foreach (object f in S.list)
+                        {
+                            R.Write(" " + f.ToString());
+                        }
+                        R.WriteLine();
                     }
 
 
@@ -765,11 +806,12 @@ namespace PlotBuilder
                     e++;
                     line[e] += S.Pop().ToString();
                 }
+            R.Close();
             
         }
         public static double Solve(Function function, double x)
         {
-            Stack P = new Stack(10);
+            Stack P = new Stack();
             double s = 0;
             double a,b;
              for (int i = 0; i < function.RPNsequence.Length; i++)
@@ -946,7 +988,8 @@ namespace PlotBuilder
                     }
                 }
              }
-             y:return Convert.ToDouble(P.Pop());
+            y: return Convert.ToDouble(P.Pop());
+            
         }
        static string[] functions = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
                                  "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem"};
@@ -971,51 +1014,33 @@ namespace PlotBuilder
     }
     class Stack
     {
-        object[] list = new object[0];
-        public Stack(int length)
-        {
-            if ((length > 0) && (length <= 20)) Array.Resize<object>(ref list, length);//Dinamic Array
-            else Array.Resize<object>(ref list, 20);
-        }
-        public int Length()
-        {
-            return list.Length;
-        }
+        public List<object> list = new List<object>();
         public void Push(object element)
         {
-            for (int i = 1; i < list.Length; i++)
-            {
-                list[i - 1] = list[i];
-            }
-            list[list.Length - 1] = element;
+            list.Add(element);
         }
         public object Pop()
         {
-            object temp = list[list.Length - 1];
-            for (int i = list.Length - 1; i >= 1; i--)
-            {
-                list[i] = list[i - 1];
-            }
-            list[0] = null;
+            object temp = list[list.Count - 1];
+            list.RemoveAt(list.Count - 1);
             return temp;
         }
         public void DeleteElement()
         {
-            for (int m = list.Length - 1; m >= 1; m--)
-            {
-                list[m] = list[m - 1];
-            }
-            list[0] = null;
+            list.RemoveAt(list.Count - 1);
         }
         public bool IsEmpty()
         {
-           if( object.Equals(list[list.Length-1],null))return true;
+            if (list.Count==0) return true;
             else return false;
         }
         public object CopyElement()
         {
-            object temp = list[list.Length-1];
-            return temp;
+            if (list.Count != 0)
+            {
+                return list[list.Count - 1];
+            }
+            else return null;
         }
 
     }

@@ -83,6 +83,7 @@
             this.labelStatus = new System.Windows.Forms.TextBox();
             this.sheet = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.button43 = new System.Windows.Forms.Button();
             this.button34 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
@@ -140,7 +141,6 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button23 = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.button43 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scale)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -591,7 +591,8 @@
             "log(a;x)",
             "sqrt(x)",
             "sign(x)",
-            "rem(a;x)"});
+            "rem(a;x)",
+            "E(x)"});
             this.OtherFunctions.Name = "OtherFunctions";
             this.OtherFunctions.Size = new System.Drawing.Size(121, 25);
             this.OtherFunctions.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged_1);
@@ -791,6 +792,21 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(316, 139);
             this.tableLayoutPanel1.TabIndex = 67;
+            // 
+            // button43
+            // 
+            this.button43.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.button43.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button43.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button43.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button43.ForeColor = System.Drawing.Color.Black;
+            this.button43.Location = new System.Drawing.Point(255, 3);
+            this.button43.Name = "button43";
+            this.button43.Size = new System.Drawing.Size(58, 21);
+            this.button43.TabIndex = 70;
+            this.button43.Text = "<--";
+            this.button43.UseVisualStyleBackColor = false;
+            this.button43.Click += new System.EventHandler(this.button43_Click);
             // 
             // button34
             // 
@@ -1734,21 +1750,6 @@
             this.splitContainer3.Size = new System.Drawing.Size(1108, 739);
             this.splitContainer3.SplitterDistance = 762;
             this.splitContainer3.TabIndex = 30;
-            // 
-            // button43
-            // 
-            this.button43.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button43.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button43.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button43.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button43.ForeColor = System.Drawing.Color.Black;
-            this.button43.Location = new System.Drawing.Point(255, 3);
-            this.button43.Name = "button43";
-            this.button43.Size = new System.Drawing.Size(58, 21);
-            this.button43.TabIndex = 70;
-            this.button43.Text = "<--";
-            this.button43.UseVisualStyleBackColor = false;
-            this.button43.Click += new System.EventHandler(this.button43_Click);
             // 
             // Form1
             // 
