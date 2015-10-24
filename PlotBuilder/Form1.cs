@@ -42,52 +42,43 @@ namespace PlotBuilder
 
         public static List<DashStyle> FunctionDashStyles = new List<DashStyle>();
 
-        Graphics g;
-
-        bool parametricMode = false;
-
+        Builder builder;
 
         List<Function> Functions = new List<Function>();
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            g = sheet.CreateGraphics();
-
-            g.Clear(Color.White);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-
-            Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            Builder.BuildAxes(g, sheet);
-            Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            builder = new Builder(sheet, pixelcoeff*Convert.ToSingle(scale.Value));
+            builder.BuildNet();
+            builder.BuildAxes();
+            builder.BuildSection();
+            builder.BuildCoordinates();
 
         }
 
         private void sheet_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
+            builder = new Builder(e.Graphics,sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            builder.BuildNet();
+            builder.BuildAxes();
+            builder.BuildSection();
+            builder.BuildCoordinates();
 
-            Builder.BuildNet(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            Builder.BuildAxes(e.Graphics, sheet);
-            Builder.BuildSection(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-
-            Builder.DrawCoordinates(e.Graphics, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            e.Graphics.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             if (Functions.Count != 0)
             {
                 foreach (Function function in Functions)
                 {
                     Pen pen = new Pen(function.color, 2);
                     pen.DashStyle = function.LineStyle;
-                    Builder.DrawGraphic(e.Graphics, sheet, function, pixelcoeff * Convert.ToDouble(scale.Value));
+                    builder.DrawFunction(function);
                 }
             }
             else
             {
                 ;
             }
+            builder = new Builder(sheet, pixelcoeff * Convert.ToSingle(scale.Value));
         }
 
 
@@ -136,17 +127,13 @@ namespace PlotBuilder
 
         private void scale_ValueChanged(object sender, EventArgs e)
         {
-            Graphics g = sheet.CreateGraphics();
-            g.SmoothingMode = SmoothingMode.AntiAlias;
+            builder = new Builder(sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            builder.Clear();
+            builder.BuildNet();
+            builder.BuildAxes();
+            builder.BuildSection();
+            builder.BuildCoordinates();
 
-            g.Clear(Color.White);
-
-            Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            Builder.BuildAxes(g, sheet);
-            Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-
-            g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
 
             if (Functions.Count != 0)
             {
@@ -154,7 +141,7 @@ namespace PlotBuilder
                 {
                     Pen pen = new Pen(function.color, 2);
                     pen.DashStyle = function.LineStyle;
-                    Builder.DrawGraphic(g, sheet, function, pixelcoeff * Convert.ToDouble(scale.Value));
+                    builder.DrawFunction(function);
                 }
             }
             else
@@ -179,6 +166,7 @@ namespace PlotBuilder
 
 
         Bitmap ColorFunction;
+
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
 
@@ -190,30 +178,23 @@ namespace PlotBuilder
                 {
                     RPN_Box.Text += " " + symbol;
                 }
-
-
                 if (Functions.Contains(function) == true)//It doesn't work. I don't know why
                 {
-                    return;
+                   return;
                 }
-                else
+               else
                 {
-                    g = sheet.CreateGraphics();
-                    g.Clip = new Region(new Rectangle(15, 0, sheet.Width, sheet.Height - 15));
-                    g.SmoothingMode = SmoothingMode.AntiAlias;
-
                     Functions.Add(function);
-                    Builder.DrawGraphic(g, sheet, function, pixelcoeff * Convert.ToDouble(scale.Value));
-
+                    builder.DrawFunction(function);
                 }
             }
             catch (IndexOutOfRangeException)
             {
                 MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
+           }
             catch (NullReferenceException)
-            {
+           {
                 MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -222,11 +203,11 @@ namespace PlotBuilder
                 MessageBox.Show("Function cannot exist with double argument ", "ErrorInSyntaxException", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            //catch (Exception ex)
-           // {
-             //   MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-             //   return;
-           // }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             bool repetition = false;
             foreach (ListViewItem func in FunctionList.Items)
@@ -241,18 +222,9 @@ namespace PlotBuilder
 
             if (repetition != true)
             {
-                if (parametricMode == true)
-                {
-                    DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
-                    imageList1.Images.Add(ColorFunction);
-                    FunctionList.Items.Add(firstFunctionBox.Text + " | " + secondFunctionBox.Text, imageList1.Images.Count - 1);
-                }
-                else
-                {
-                    DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
-                    imageList1.Images.Add(ColorFunction);
-                    FunctionList.Items.Add(firstFunctionBox.Text, imageList1.Images.Count - 1);
-                }
+                DrawColor.FillRectangle(color, 0, 0, imageList1.ImageSize.Width, imageList1.ImageSize.Height);
+                imageList1.Images.Add(ColorFunction);
+                FunctionList.Items.Add(firstFunctionBox.Text, imageList1.Images.Count - 1);
                 repetition = false;
             }
 
@@ -264,15 +236,13 @@ namespace PlotBuilder
             RPN_Box.ResetText();
             ChangeButton.Enabled = false;
             FunctionList.Items.Clear();
-            g = sheet.CreateGraphics();
 
-            g.Clear(Color.White);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-
-            Builder.BuildNet(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            Builder.BuildAxes(g, sheet);
-            Builder.BuildSection(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            Builder.DrawCoordinates(g, sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            builder = new Builder(sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            builder.Clear();
+            builder.BuildNet();
+            builder.BuildAxes();
+            builder.BuildSection();
+            builder.BuildCoordinates();
 
         }
 
@@ -328,7 +298,6 @@ namespace PlotBuilder
             groupBox1.Size = new System.Drawing.Size(333, 57);
             label3.Text = "y = f(x)";
             // Argument = 'x';
-            parametricMode = false;
         }
 
         private void parametricToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -673,12 +642,12 @@ namespace PlotBuilder
 
         private void button56_Click(object sender, EventArgs e)
         {
-            Function.AddStatement(firstFunctionBox, "arsecg(");
+            Function.AddStatement(firstFunctionBox, "arsech(");
         }
 
         private void button57_Click(object sender, EventArgs e)
         {
-            Function.AddStatement(firstFunctionBox, "arcsc(");
+            Function.AddStatement(firstFunctionBox, "arcsch(");
         }
 
         private void button43_Click(object sender, EventArgs e)
@@ -695,8 +664,42 @@ namespace PlotBuilder
 
     }
 
+     interface IBuilder
+    {
+        void BuildNet();
+        void BuildSection();
+        void BuildAxes();
+        void BuildCoordinates();
+        void DrawFunction(Function function);
+        void Clear();
+    }
+
+
     class Function 
     {
+        static string[] operators = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
+                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem",
+            "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch"};
+
+        public static short GetPriority(string @operator)//returnes priority of function
+        {
+
+            for (byte i = 0; i < operators.Length; i++)
+            {
+                if (@operator == operators[i]) return 5;
+            }
+            if (@operator == "^") return 4;
+            else if ((@operator == "*") || (@operator == "/")) return 3;
+            else if ((@operator == "+") || (@operator == "-")) return 2;
+            else if (@operator == "(") return 1;
+            else
+            {
+                //Console.WriteLine("Error");
+                return 0;//e.g. '\0' -> 0
+            }
+
+        }
+
         public StringBuilder name;//e.g. sin(x)+5*x^2
         public string[] RPNsequence;//x sin x 2 ^ 5 * +
         public Color color;
@@ -705,10 +708,11 @@ namespace PlotBuilder
         public Function(StringBuilder name,Color color, DashStyle LineStyle,char Argument)
         {
             this.name = name;
-            Calculate.ConvertToRPN(name, ref RPNsequence, Argument);
+            RPNsequence = new string[name.Length];
             this.color = color;
             this.LineStyle = LineStyle;
             this.Argument = Argument;
+            ConvertToRPN();
         }
        public static void AddStatement(TextBox line,string insertText)
         {
@@ -717,50 +721,46 @@ namespace PlotBuilder
             line.SelectionStart = selectionIndex + insertText.Length;
         }
 
-    }
-
-    class Calculate
-    {
-        public static void ConvertToRPN(StringBuilder buf, ref string[] line,char Argument)
+        private void ConvertToRPN()
         {
-            if (buf[0] == '-')
+            if (name[0] == '-')
             {
-                buf.Remove(0, 1);
-                buf.Insert(0, '~');
+                name.Remove(0, 1);
+                name.Insert(0, '~');
             }
-            buf.Replace("(-", "(~");
-            
+            name.Replace("(-", "(~");
+
 
             Stack S = new Stack();
-            line = new string[buf.Length];
+            RPNsequence = new string[name.Length];
 
             int j = 0;
 
             ///Перевод выражения в польскую запись
-            string function=string.Empty;
+            string function = string.Empty;
 
 
             int e = 0;
-            for (; j < buf.Length; j++)
+            for (; j < name.Length; j++)
             {
-                if ((char.IsDigit(buf[j])) || (buf[j] == ',') 
-                    ||(buf[j] == '\u03c0') || (buf[j] == 'e')||(buf[j]==Argument))//в буфере число?
+                if ((char.IsDigit(name[j]))|| (name[j] == '\u03c0')
+                    || (name[j] == 'e') || (name[j] == Argument))//в буфере число?
                 {
-                    line[e] += buf[j];
-                    if ((j != buf.Length - 1) && (!char.IsDigit(buf[j + 1]))) e++;
+                    RPNsequence[e] += name[j];
+                    if ((j != name.Length - 1) && (!char.IsDigit(name[j + 1]))) e++;
                 }
-                else if((char.IsLetter(buf[j]))&&(buf[j]!=Argument)&&(buf[j]!='\u03c0')&&(buf[j]!='e'))
+                else if ((char.IsLetter(name[j])) && (name[j] != Argument) && (name[j] != '\u03c0') && (name[j] != 'e'))
                 {
-                    while(char.IsLetter(buf[j]))
+                    while (char.IsLetter(name[j]))
                     {
-                        function += buf[j];
+                        function += name[j];
                         j++;
                     }
                     j--;
                     S.Push(function);
                     function = string.Empty;
                 }
-                else if(buf[j]==';')
+                else if (name[j] == ';')
                 {
                     continue;
                 }
@@ -768,50 +768,52 @@ namespace PlotBuilder
                 {
                     if (S.IsEmpty() == true)
                     {
-                        S.Push(buf[j]);
+                        S.Push(name[j]);
                     }
-                    else if (priority(Convert.ToString(S.CopyElement())) <priority(buf[j].ToString())) //сравнение приоритетов операций
+                    else if (GetPriority(Convert.ToString(S.CopyElement())) < GetPriority(name[j].ToString())) //сравнение приоритетов операций
                     {
-                        S.Push(buf[j]);
+                        S.Push(name[j]);
                     }
                     ///
-                    else if (buf[j] == '(')
+                    else if (name[j] == '(')
                     {
-                        S.Push(buf[j]);
+                        S.Push(name[j]);
                     }
-                    else if (buf[j] == ')')
+                    else if (name[j] == ')')
                     {
-                        while (priority(Convert.ToString(S.CopyElement())) != 1)
+                        while (GetPriority(Convert.ToString(S.CopyElement())) != 1)
                         {
-                            MessageBox.Show(Convert.ToString(S.CopyElement()));
-                            line[e] += S.Pop().ToString();
+                            RPNsequence[e] += S.Pop().ToString();
                             e++;
                         }
                         S.DeleteElement();
                     }
                     else
                     {
-                        while (priority(Convert.ToString(S.CopyElement())) >= priority(buf[j].ToString()))
+                        while (GetPriority(Convert.ToString(S.CopyElement())) >= GetPriority(name[j].ToString()))
                         {
-                            MessageBox.Show(Convert.ToString(S.CopyElement()));
-                            line[e] += S.Pop().ToString();
+                            RPNsequence[e] += S.Pop().ToString();
                             e++;
                         }
-                        S.Push(buf[j]);
+                        S.Push(name[j]);
                     }
 
 
                 }
 
             }
-            
-                while (S.IsEmpty() != true)
-                {
-                    e++;
-                    line[e] += S.Pop().ToString();
-                }
-            
+
+            while (S.IsEmpty() != true)
+            {
+                e++;
+                RPNsequence[e] += S.Pop().ToString();
+            }
+
         }
+    }
+
+    class Calculate
+    {
         public static double Solve(Function function, double x)
         {
             Stack P = new Stack();
@@ -1019,27 +1021,6 @@ namespace PlotBuilder
             y: return Convert.ToDouble(P.Pop());
             
         }
-       static string[] functions = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
-                                 "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem",
-            "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch"};
-        public static short priority(string q)//returnes priority of function
-        {
-
-            for (byte i = 0; i < functions.Length; i++)
-            {
-                if (q == functions[i]) return 5;
-            }
-                if (q == "^") return 4;
-                else if ((q == "*") || (q == "/")) return 3;
-                else if ((q == "+") || (q == "-")) return 2;
-                else if (q == "(") return 1;
-                else
-                {
-                    //Console.WriteLine("Error");
-                    return 0;//e.g. '\0' -> 0
-                }
-
-        }
     }
     class Stack
     {
@@ -1077,54 +1058,76 @@ namespace PlotBuilder
         }
 
     }
-    class Builder
+
+    class Builder:IBuilder
 
     {
-        public static void BuildNet(Graphics g, PictureBox sheet, float scale)
+        public Graphics Painter;
+        PictureBox Sheet;
+        float scale;
+
+        public Builder(PictureBox Sheet,float scale)
+        {
+            Painter = Sheet.CreateGraphics();
+            Painter.SmoothingMode = SmoothingMode.AntiAlias;
+            this.Sheet = Sheet;
+            this.scale = scale;
+        }
+        public Builder(Graphics Painter, PictureBox Sheet,float scale):this(Sheet,scale)
+        {
+            this.Painter = Painter;
+            Painter.SmoothingMode = SmoothingMode.AntiAlias;
+        }
+
+        public void Clear()
+        {
+            Painter.Clear(Color.White);
+        }
+        public void BuildNet()
         {
             Pen penNet = new Pen(Color.WhiteSmoke);
-            float start = Convert.ToSingle(sheet.Width / 2);
-            for (float i=0; i < sheet.Width; i += scale)
+            float start = Convert.ToSingle(Sheet.Width / 2);
+            for (float i=0; i < Sheet.Width; i += scale)
             {
-                g.DrawLine(penNet, start+i, 0, start+i, sheet.Height);
-                g.DrawLine(penNet, start - i, 0, start - i, sheet.Height);
+                Painter.DrawLine(penNet, start+i, 0, start+i, Sheet.Height);
+                Painter.DrawLine(penNet, start - i, 0, start - i, Sheet.Height);
             }
-            start = Convert.ToSingle(sheet.Height / 2);
-            for(float i=0;i<sheet.Height/2;i+=scale)
+            start = Convert.ToSingle(Sheet.Height / 2);
+            for(float i=0;i<Sheet.Height/2;i+=scale)
             {
-                g.DrawLine(penNet, 0, start + i, sheet.Width, start + i);
-                g.DrawLine(penNet, 0, start -i, sheet.Width, start - i);
+                Painter.DrawLine(penNet, 0, start + i, Sheet.Width, start + i);
+                Painter.DrawLine(penNet, 0, start -i, Sheet.Width, start - i);
             }
         }
 
-        public static void BuildSection(Graphics g,PictureBox sheet, float scale)
+        public void BuildSection()
         {
             Pen pen = new Pen(Color.Black);
             //X
-            float start = Convert.ToSingle(sheet.Width / 2);
-               for(float i=0;i<sheet.Width;i+=scale)
+            float start = Convert.ToSingle(Sheet.Width / 2);
+               for(float i=0;i<Sheet.Width;i+=scale)
             {
-                g.DrawLine(pen, start+i,Convert.ToSingle(sheet.Height/2)-2,start+i,Convert.ToSingle(sheet.Height/2)+2);
-                g.DrawLine(pen, start - i, Convert.ToSingle(sheet.Height / 2) - 2, start - i, Convert.ToSingle(sheet.Height / 2) + 2);
+                Painter.DrawLine(pen, start+i,Convert.ToSingle(Sheet.Height/2)-2,start+i,Convert.ToSingle(Sheet.Height/2)+2);
+                Painter.DrawLine(pen, start - i, Convert.ToSingle(Sheet.Height / 2) - 2, start - i, Convert.ToSingle(Sheet.Height / 2) + 2);
             }
                //Y
-            start = Convert.ToSingle(sheet.Height / 2);
-            for(float i=0;i<sheet.Height;i+=scale)
+            start = Convert.ToSingle(Sheet.Height / 2);
+            for(float i=0;i<Sheet.Height;i+=scale)
             {
-                g.DrawLine(pen,Convert.ToSingle(sheet.Width/2)-2,start+i, Convert.ToSingle(sheet.Width / 2) + 2,start+ i);
-                g.DrawLine(pen, Convert.ToSingle(sheet.Width / 2) - 2, start - i, Convert.ToSingle(sheet.Width / 2) + 2, start - i);
+                Painter.DrawLine(pen,Convert.ToSingle(Sheet.Width/2)-2,start+i, Convert.ToSingle(Sheet.Width / 2) + 2,start+ i);
+                Painter.DrawLine(pen, Convert.ToSingle(Sheet.Width / 2) - 2, start - i, Convert.ToSingle(Sheet.Width / 2) + 2, start - i);
             }
             
 
         }
-        public static void BuildAxes(Graphics g, PictureBox sheet)
+        public void BuildAxes()
         {
             Pen pen = new Pen(Color.Black, 1);
-            g.DrawLine(pen, sheet.Width / 2, 0, sheet.Width / 2, sheet.Height);
-            g.DrawLine(pen, 0, sheet.Height / 2, sheet.Width, sheet.Height / 2);   
+            Painter.DrawLine(pen, Sheet.Width / 2, 0, Sheet.Width / 2, Sheet.Height);
+            Painter.DrawLine(pen, 0, Sheet.Height / 2, Sheet.Width, Sheet.Height / 2);   
 
         }
-        public static void DrawCoordinates(Graphics h,PictureBox sheet,float scale)
+        public void BuildCoordinates()
         {
             Pen p=new Pen(Color.Gray);
             short w=1, v = -1;
@@ -1134,38 +1137,39 @@ namespace PlotBuilder
             SolidBrush drawBrush = new SolidBrush(Color.Brown);
             PointF P;
             PointF F;
-            h.Clip = new Region(new Rectangle(0, sheet.Height-20, sheet.Width, sheet.Height));
-            h.Clear(Color.WhiteSmoke);
+            Painter.Clip = new Region(new Rectangle(0, Sheet.Height-20, Sheet.Width, Sheet.Height));
+            Painter.Clear(Color.WhiteSmoke);
             string zero = "0";
-            float k = Convert.ToSingle(sheet.Width / 2);
-            for (float i = Convert.ToSingle(sheet.Width / 2)+scale; i < sheet.Width; i += scale)
+            float k = Convert.ToSingle(Sheet.Width / 2);
+            for (float i = Convert.ToSingle(Sheet.Width / 2)+scale; i < Sheet.Width; i += scale)
             {
-                P = new PointF(i-3, sheet.Height-15);
-                F = new PointF(sheet.Width - i-7, sheet.Height-15);
+                P = new PointF(i-3, Sheet.Height-15);
+                F = new PointF(Sheet.Width - i-7, Sheet.Height-15);
 
-                h.DrawString(w.ToString(), font, drawBrush, P);
+                Painter.DrawString(w.ToString(), font, drawBrush, P);
                 w++;
-                h.DrawString(v.ToString(), font, drawBrush, F);
+                Painter.DrawString(v.ToString(), font, drawBrush, F);
                 v--;
 
             }
-            P = new PointF(sheet.Width / 2-5,sheet.Height-15);
-            h.DrawString(zero, font, drawBrush, P);
+            P = new PointF(Sheet.Width / 2-5,Sheet.Height-15);
+            Painter.DrawString(zero, font, drawBrush, P);
             w=1;
             v=-1;
-            h.Clip = new Region(new Rectangle(0, 0, 20, sheet.Height));
-            h.Clear(Color.WhiteSmoke);
-            for (float i = Convert.ToSingle(sheet.Height / 2)+scale; i < sheet.Height; i += scale)
+            Painter.Clip = new Region(new Rectangle(0, 0, 20, Sheet.Height));
+            Painter.Clear(Color.WhiteSmoke);
+            for (float i = Convert.ToSingle(Sheet.Height / 2)+scale; i < Sheet.Height; i += scale)
             {
                 P = new PointF(1, i-5);
-                F = new PointF(5, sheet.Height-i-7);
-                h.DrawString(v.ToString(), font, drawBrush, P);
+                F = new PointF(5, Sheet.Height-i-7);
+                Painter.DrawString(v.ToString(), font, drawBrush, P);
                 v--;
-                h.DrawString(w.ToString(), font, drawBrush, F);
+                Painter.DrawString(w.ToString(), font, drawBrush, F);
                 w++;
             }
+            Painter.Clip = new Region(new Rectangle(15, 0, Sheet.Width, Sheet.Height - 15));
         }
-        public static void DrawGraphic(Graphics g, PictureBox sheet, Function function, double scale)
+        public void DrawFunction(Function function)
         {
             double prototype;
             Pen pen = new Pen(function.color,2);
@@ -1175,17 +1179,16 @@ namespace PlotBuilder
 
             if (function.Argument == 'x')
             {
-                for (double x = -sheet.Width/2; x < sheet.Width/2; x += 1)
+                for (double x = -Sheet.Width/2; x < Sheet.Width/2; x += 1)
                 {
-                    //prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
                     prototype = Calculate.Solve(function, x / scale);
-                    if (prototype > sheet.Height / 2)
+                    if (prototype > Sheet.Height / 2)
                     {
-                        prototype = sheet.Height / 2;
+                        prototype = Sheet.Height / 2;
                     }
-                    else if(prototype < -sheet.Height / 2)
+                    else if(prototype < -Sheet.Height / 2)
                     {
-                        prototype = -sheet.Height / 2;
+                        prototype = -Sheet.Height / 2;
                     }
                     else if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
@@ -1195,11 +1198,10 @@ namespace PlotBuilder
                             coordinates = Coordinates.ToArray();
                             try
                             {
-                                g.DrawLines(pen, coordinates);
+                                Painter.DrawLines(pen, coordinates);
                             }
                             catch(Exception)
                             {
-                                //MessageBox.Show(coordinates[0].ToString());
                                 continue;
                             }
                             Coordinates.Clear();
@@ -1208,8 +1210,8 @@ namespace PlotBuilder
                     }
                     else
                     {
-                        Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width/2+x),
-                            Convert.ToSingle(sheet.Height/2-scale * prototype)));
+                        Coordinates.Add(new PointF(Convert.ToSingle(Sheet.Width/2+x),
+                            Convert.ToSingle(Sheet.Height/2-scale * prototype)));
                     }
                 }
                 try
@@ -1218,7 +1220,7 @@ namespace PlotBuilder
                     {
                         coordinates = new PointF[Coordinates.Count];
                         coordinates = Coordinates.ToArray();
-                        g.DrawLines(pen, coordinates);
+                        Painter.DrawLines(pen, coordinates);
                     }
                 }
                 catch(OverflowException)
@@ -1232,9 +1234,8 @@ namespace PlotBuilder
             }
             else
             {
-                for (double x = -sheet.Width / 2; x < sheet.Width / 2; x += 1)
+                for (double x = -Sheet.Width / 2; x < Sheet.Width / 2; x += 1)
                 {
-                    //prototype = Calculate.Solve((string[])function.RPNsequence.Clone(), x / scale, function.Argument);
                     prototype = Calculate.Solve(function, x / scale);
 
                     if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
@@ -1243,22 +1244,22 @@ namespace PlotBuilder
                         {
                             coordinates = new PointF[Coordinates.Count];
                             coordinates = Coordinates.ToArray();
-                            g.DrawLines(pen, coordinates);
+                            Painter.DrawLines(pen, coordinates);
                             Coordinates.Clear();
                         }
                         continue;
                     }
                     else
                     {
-                        Coordinates.Add(new PointF(Convert.ToSingle(sheet.Width / 2 + scale*prototype),
-                                       Convert.ToSingle((sheet.Height / 2) - x)));
+                        Coordinates.Add(new PointF(Convert.ToSingle(Sheet.Width / 2 + scale*prototype),
+                                       Convert.ToSingle((Sheet.Height / 2) - x)));
                     }
                 }
                 if (Coordinates.Count != 0)
                 {
                     coordinates = new PointF[Coordinates.Count];
                     coordinates = Coordinates.ToArray();
-                    g.DrawLines(pen, coordinates);
+                    Painter.DrawLines(pen, coordinates);
                 }
             }
 
