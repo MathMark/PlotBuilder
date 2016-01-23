@@ -143,5 +143,44 @@ namespace PlotBuilder
             }
 
         }
+
+        public override bool Equals(object inputFunction)
+        {
+            if((inputFunction is Function)&&(inputFunction!=null))
+            {
+                Function tempInputFunction = (Function)inputFunction;
+                if(this.name.Equals(tempInputFunction.name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+        //public static bool operator ==(Function firstFunction, Function secondFunction)
+        //{
+        //    if(firstFunction.name==secondFunction.name)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+        //public static bool operator !=(Function firstFunction, Function secondFunction)
+        //{
+        //    if (firstFunction.name != secondFunction.name)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }
