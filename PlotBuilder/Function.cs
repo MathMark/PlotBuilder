@@ -144,6 +144,10 @@ namespace PlotBuilder
 
         }
 
+        public override string ToString()
+        {
+            return name.ToString();
+        }
         public override bool Equals(object inputFunction)
         {
             if((inputFunction is Function)&&(inputFunction!=null))
@@ -160,27 +164,5 @@ namespace PlotBuilder
         {
             return name.GetHashCode();
         }
-        //public static bool operator ==(Function firstFunction, Function secondFunction)
-        //{
-        //    if(firstFunction.name==secondFunction.name)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-        //public static bool operator !=(Function firstFunction, Function secondFunction)
-        //{
-        //    if (firstFunction.name != secondFunction.name)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
     }
 }

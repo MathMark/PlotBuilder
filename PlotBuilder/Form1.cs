@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using PlotBuilder.Properties;
 
 
 namespace PlotBuilder
@@ -12,7 +13,11 @@ namespace PlotBuilder
     {
         public Form1()
         {
+
             InitializeComponent();
+            p = new Pen((Color)Settings.Default["Color"]);
+            p.DashStyle = (DashStyle)Settings.Default["DashStyle"];
+
             scale.Minimum = Convert.ToDecimal(0.5);
             scale.Maximum = 2;
             scale.Increment = Convert.ToDecimal(0.1);
@@ -36,7 +41,8 @@ namespace PlotBuilder
         const int pixelcoeff = 35;
 
 
-        Pen p = new Pen(Color.CadetBlue, 2);
+         //Pen p = new Pen(Color.CadetBlue, 2);
+        Pen p;
 
         public static List<Color> FunctionColors = new List<Color>();
 
@@ -177,7 +183,7 @@ namespace PlotBuilder
                 {
                     RPN_Box.Text += " " + symbol;
                 }
-                if (Functions.Contains(function) == true)//It doesn't work. I don't know why
+                if (Functions.Contains(function) == true)//It works!
                 {
                     return;
                 }
@@ -342,6 +348,8 @@ namespace PlotBuilder
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 p = new Pen(colorDialog1.Color, 2);
+                Settings.Default["Color"] = p.Color;
+
                 switch (statusDash.Text)
                 {
                     case "Solid":
@@ -360,12 +368,17 @@ namespace PlotBuilder
                         p.DashStyle = DashStyle.Dot;
                         break;
                 }
+                Settings.Default["DashStyle"] = p.DashStyle;
+                Settings.Default.Save();
+
                 Bitmap chosenColor = new Bitmap(10, 10);
                 Graphics fill = Graphics.FromImage(chosenColor);
                 SolidBrush brush = new SolidBrush(p.Color);
                 fill.FillRectangle(brush, 0, 0, ColorButton.Width, ColorButton.Height);
                 ColorButton.Image = chosenColor;
                 fill.Dispose();
+
+                
             }
         }
 
