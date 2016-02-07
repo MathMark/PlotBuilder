@@ -761,7 +761,6 @@
             this.sheet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.sheet.TabIndex = 5;
             this.sheet.TabStop = false;
-            this.sheet.Paint += new System.Windows.Forms.PaintEventHandler(this.sheet_Paint);
             this.sheet.MouseLeave += new System.EventHandler(this.sheet_MouseLeave);
             this.sheet.MouseMove += new System.Windows.Forms.MouseEventHandler(this.sheet_MouseMove);
             // 

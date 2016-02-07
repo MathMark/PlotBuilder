@@ -37,56 +37,51 @@ namespace PlotBuilder
             statusDash.Text = "Solid";
             ChangeButton.Enabled = false;
 
+            Draft = new Bitmap(sheet.Width, sheet.Height);
+            builder = new Builder(Draft, pixelcoeff * Convert.ToSingle(scale.Value));
+            builder.BuildNet();
+            builder.BuildAxes();
+            builder.BuildSection();
+            builder.BuildCoordinates();
+            Image = Draft;
         }
         const int pixelcoeff = 35;
 
 
-         //Pen p = new Pen(Color.CadetBlue, 2);
+        //Pen p = new Pen(Color.CadetBlue, 2);
         Pen p;
 
         public static List<Color> FunctionColors = new List<Color>();
 
         public static List<DashStyle> FunctionDashStyles = new List<DashStyle>();
 
+        Bitmap Draft;
 
         Builder builder;
 
         List<Function> Functions = new List<Function>();
 
+        Bitmap Image
+        {
+            get
+            {
+                return (Bitmap)sheet.Image;
+            }
+            set
+            {
+                sheet.Image = value;
+            }
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            builder = new Builder(sheet, pixelcoeff*Convert.ToSingle(scale.Value));
             builder.BuildNet();
             builder.BuildAxes();
             builder.BuildSection();
             builder.BuildCoordinates();
+            Image = Draft;
 
         }
-
-        private void sheet_Paint(object sender, PaintEventArgs e)
-        {
-            builder = new Builder(e.Graphics,sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-            builder.BuildNet();
-            builder.BuildAxes();
-            builder.BuildSection();
-            builder.BuildCoordinates();
-
-            if (Functions.Count != 0)
-            {
-                foreach (Function function in Functions)
-                {
-                    Pen pen = new Pen(function.color, 2);
-                    pen.DashStyle = function.LineStyle;
-                    builder.DrawFunction(function);
-                }
-            }
-            else
-            {
-                ;
-            }
-            builder = new Builder(sheet, pixelcoeff * Convert.ToSingle(scale.Value));
-        }
-
 
         private void Trigonometry_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -133,13 +128,14 @@ namespace PlotBuilder
 
         private void scale_ValueChanged(object sender, EventArgs e)
         {
-            builder = new Builder(sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            Draft = new Bitmap(sheet.Width, sheet.Height);
+            builder = new Builder(Draft, pixelcoeff * Convert.ToSingle(scale.Value));
             builder.Clear();
             builder.BuildNet();
             builder.BuildAxes();
             builder.BuildSection();
             builder.BuildCoordinates();
-
+            Image = Draft;
 
             if (Functions.Count != 0)
             {
@@ -192,15 +188,16 @@ namespace PlotBuilder
                 {
                     Functions.Add(function);
                     builder.DrawFunction(function);
+                    Image = Draft;
                 }
             }
             catch (IndexOutOfRangeException)
             {
                 MessageBox.Show("Error in syntax (1)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-           }
+            }
             catch (NullReferenceException)
-           {
+            {
                 MessageBox.Show("Error in syntax (2). Perhaps you enter a wrong symbol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -243,7 +240,7 @@ namespace PlotBuilder
             ChangeButton.Enabled = false;
             FunctionList.Items.Clear();
 
-            builder = new Builder(sheet, pixelcoeff * Convert.ToSingle(scale.Value));
+            builder = new Builder(Draft, pixelcoeff * Convert.ToSingle(scale.Value));
             builder.Clear();
             builder.BuildNet();
             builder.BuildAxes();
@@ -379,11 +376,11 @@ namespace PlotBuilder
                 ColorButton.Image = chosenColor;
                 fill.Dispose();
 
-                
+
             }
         }
 
-     
+
         private void button26_Click(object sender, EventArgs e)
         {
             Function.AddStatement(firstFunctionBox, "(");
@@ -441,7 +438,7 @@ namespace PlotBuilder
 
         private void button12_Click(object sender, EventArgs e)
         {
-            Function.AddStatement(firstFunctionBox, "9");       
+            Function.AddStatement(firstFunctionBox, "9");
         }
 
         private void button13_Click(object sender, EventArgs e)
@@ -522,7 +519,7 @@ namespace PlotBuilder
 
         private void button40_Click(object sender, EventArgs e)//[]
         {
-            Function.AddStatement(firstFunctionBox,"E(");
+            Function.AddStatement(firstFunctionBox, "E(");
         }
 
         private void button39_Click(object sender, EventArgs e)//{}
@@ -677,7 +674,7 @@ namespace PlotBuilder
 
     }
 
-     interface IBuilder
+    interface IBuilder
     {
         void BuildNet();
         void BuildSection();
@@ -694,13 +691,13 @@ namespace PlotBuilder
         {
             Stack P = new Stack();
             double s = 0;
-            double a,b;
-             for (int i = 0; i < function.RPNsequence.Length; i++)
-             {
-                 if (string.IsNullOrEmpty(function.RPNsequence[i]))continue;
-                    
-                 else
-                 {
+            double a, b;
+            for (int i = 0; i < function.RPNsequence.Length; i++)
+            {
+                if (string.IsNullOrEmpty(function.RPNsequence[i])) continue;
+
+                else
+                {
                     if (char.IsDigit(function.RPNsequence[i][0]))
                     {
                         P.Push(function.RPNsequence[i]);
@@ -779,7 +776,7 @@ namespace PlotBuilder
                                 P.Push(Math.Sign(X));
                                 break;
                             case "rem":
-                                P.Push(Convert.ToDouble(P.Pop())% X);
+                                P.Push(Convert.ToDouble(P.Pop()) % X);
                                 break;
                             case "sec":
                                 P.Push(1 / Math.Cos(x));
@@ -800,10 +797,10 @@ namespace PlotBuilder
                                 P.Push(1 / Math.Sinh(x));
                                 break;
                             case "arsech":
-                                P.Push(Math.Log(1/x+Math.Sqrt(1/x+1)*Math.Sqrt(1/x-1)));
+                                P.Push(Math.Log(1 / x + Math.Sqrt(1 / x + 1) * Math.Sqrt(1 / x - 1)));
                                 break;
                             case "arcsch":
-                                P.Push(Math.Log(1 / x + Math.Sqrt(1 / x*x + 1)));
+                                P.Push(Math.Log(1 / x + Math.Sqrt(1 / x * x + 1)));
                                 break;
 
 
@@ -893,9 +890,9 @@ namespace PlotBuilder
                         }//end else
                     }
                 }
-             }
+            }
             y: return Convert.ToDouble(P.Pop());
-            
+
         }
     }
     class Stack
@@ -921,7 +918,7 @@ namespace PlotBuilder
         }
         public bool IsEmpty()
         {
-            if (list.Count==0) return true;
+            if (list.Count == 0) return true;
             else return false;
         }
         public object CopyElement()
@@ -935,26 +932,20 @@ namespace PlotBuilder
 
     }
 
-    class Builder:IBuilder
+    class Builder : IBuilder
 
     {
         public Graphics Painter;
-        PictureBox Sheet;
+        Bitmap Draft;
         float scale;
 
-        public Builder(PictureBox Sheet,float scale)
+        public Builder(Bitmap Draft, float scale)
         {
-            Painter = Sheet.CreateGraphics();
+            this.Draft = Draft;
+            Painter = Graphics.FromImage(Draft);
             Painter.SmoothingMode = SmoothingMode.AntiAlias;
-            this.Sheet = Sheet;
             this.scale = scale;
         }
-        public Builder(Graphics Painter, PictureBox Sheet,float scale):this(Sheet,scale)
-        {
-            this.Painter = Painter;
-            Painter.SmoothingMode = SmoothingMode.AntiAlias;
-        }
-
         public void Clear()
         {
             Painter.Clear(Color.White);
@@ -962,17 +953,17 @@ namespace PlotBuilder
         public void BuildNet()
         {
             Pen penNet = new Pen(Color.WhiteSmoke);
-            float start = Convert.ToSingle(Sheet.Width / 2);
-            for (float i=0; i < Sheet.Width; i += scale)
+            float start = Convert.ToSingle(Draft.Width / 2);
+            for (float i = 0; i < Draft.Width; i += scale)
             {
-                Painter.DrawLine(penNet, start+i, 0, start+i, Sheet.Height);
-                Painter.DrawLine(penNet, start - i, 0, start - i, Sheet.Height);
+                Painter.DrawLine(penNet, start + i, 0, start + i, Draft.Height);
+                Painter.DrawLine(penNet, start - i, 0, start - i, Draft.Height);
             }
-            start = Convert.ToSingle(Sheet.Height / 2);
-            for(float i=0;i<Sheet.Height/2;i+=scale)
+            start = Convert.ToSingle(Draft.Height / 2);
+            for (float i = 0; i < Draft.Height / 2; i += scale)
             {
-                Painter.DrawLine(penNet, 0, start + i, Sheet.Width, start + i);
-                Painter.DrawLine(penNet, 0, start -i, Sheet.Width, start - i);
+                Painter.DrawLine(penNet, 0, start + i, Draft.Width, start + i);
+                Painter.DrawLine(penNet, 0, start - i, Draft.Width, start - i);
             }
         }
 
@@ -980,47 +971,47 @@ namespace PlotBuilder
         {
             Pen pen = new Pen(Color.Black);
             //X
-            float start = Convert.ToSingle(Sheet.Width / 2);
-               for(float i=0;i<Sheet.Width;i+=scale)
+            float start = Convert.ToSingle(Draft.Width / 2);
+            for (float i = 0; i < Draft.Width; i += scale)
             {
-                Painter.DrawLine(pen, start+i,Convert.ToSingle(Sheet.Height/2)-2,start+i,Convert.ToSingle(Sheet.Height/2)+2);
-                Painter.DrawLine(pen, start - i, Convert.ToSingle(Sheet.Height / 2) - 2, start - i, Convert.ToSingle(Sheet.Height / 2) + 2);
+                Painter.DrawLine(pen, start + i, Convert.ToSingle(Draft.Height / 2) - 2, start + i, Convert.ToSingle(Draft.Height / 2) + 2);
+                Painter.DrawLine(pen, start - i, Convert.ToSingle(Draft.Height / 2) - 2, start - i, Convert.ToSingle(Draft.Height / 2) + 2);
             }
-               //Y
-            start = Convert.ToSingle(Sheet.Height / 2);
-            for(float i=0;i<Sheet.Height;i+=scale)
+            //Y
+            start = Convert.ToSingle(Draft.Height / 2);
+            for (float i = 0; i < Draft.Height; i += scale)
             {
-                Painter.DrawLine(pen,Convert.ToSingle(Sheet.Width/2)-2,start+i, Convert.ToSingle(Sheet.Width / 2) + 2,start+ i);
-                Painter.DrawLine(pen, Convert.ToSingle(Sheet.Width / 2) - 2, start - i, Convert.ToSingle(Sheet.Width / 2) + 2, start - i);
+                Painter.DrawLine(pen, Convert.ToSingle(Draft.Width / 2) - 2, start + i, Convert.ToSingle(Draft.Width / 2) + 2, start + i);
+                Painter.DrawLine(pen, Convert.ToSingle(Draft.Width / 2) - 2, start - i, Convert.ToSingle(Draft.Width / 2) + 2, start - i);
             }
-            
+
 
         }
         public void BuildAxes()
         {
             Pen pen = new Pen(Color.Black, 1);
-            Painter.DrawLine(pen, Sheet.Width / 2, 0, Sheet.Width / 2, Sheet.Height);
-            Painter.DrawLine(pen, 0, Sheet.Height / 2, Sheet.Width, Sheet.Height / 2);   
+            Painter.DrawLine(pen, Draft.Width / 2, 0, Draft.Width / 2, Draft.Height);
+            Painter.DrawLine(pen, 0, Draft.Height / 2, Draft.Width, Draft.Height / 2);
 
         }
         public void BuildCoordinates()
         {
-            Pen p=new Pen(Color.Gray);
-            short w=1, v = -1;
+            Pen p = new Pen(Color.Gray);
+            short w = 1, v = -1;
             Font font = new Font("Consolas", 7);
             StringFormat drawFormat = new StringFormat();
             drawFormat.FormatFlags = StringFormatFlags.DirectionVertical;
             SolidBrush drawBrush = new SolidBrush(Color.Brown);
             PointF P;
             PointF F;
-            Painter.Clip = new Region(new Rectangle(0, Sheet.Height-20, Sheet.Width, Sheet.Height));
+            Painter.Clip = new Region(new Rectangle(0, Draft.Height - 20, Draft.Width, Draft.Height));
             Painter.Clear(Color.WhiteSmoke);
             string zero = "0";
-            float k = Convert.ToSingle(Sheet.Width / 2);
-            for (float i = Convert.ToSingle(Sheet.Width / 2)+scale; i < Sheet.Width; i += scale)
+            float k = Convert.ToSingle(Draft.Width / 2);
+            for (float i = Convert.ToSingle(Draft.Width / 2) + scale; i < Draft.Width; i += scale)
             {
-                P = new PointF(i-3, Sheet.Height-15);
-                F = new PointF(Sheet.Width - i-7, Sheet.Height-15);
+                P = new PointF(i - 3, Draft.Height - 15);
+                F = new PointF(Draft.Width - i - 7, Draft.Height - 15);
 
                 Painter.DrawString(w.ToString(), font, drawBrush, P);
                 w++;
@@ -1028,43 +1019,43 @@ namespace PlotBuilder
                 v--;
 
             }
-            P = new PointF(Sheet.Width / 2-5,Sheet.Height-15);
+            P = new PointF(Draft.Width / 2 - 5, Draft.Height - 15);
             Painter.DrawString(zero, font, drawBrush, P);
-            w=1;
-            v=-1;
-            Painter.Clip = new Region(new Rectangle(0, 0, 20, Sheet.Height));
+            w = 1;
+            v = -1;
+            Painter.Clip = new Region(new Rectangle(0, 0, 20, Draft.Height));
             Painter.Clear(Color.WhiteSmoke);
-            for (float i = Convert.ToSingle(Sheet.Height / 2)+scale; i < Sheet.Height; i += scale)
+            for (float i = Convert.ToSingle(Draft.Height / 2) + scale; i < Draft.Height; i += scale)
             {
-                P = new PointF(1, i-5);
-                F = new PointF(5, Sheet.Height-i-7);
+                P = new PointF(1, i - 5);
+                F = new PointF(5, Draft.Height - i - 7);
                 Painter.DrawString(v.ToString(), font, drawBrush, P);
                 v--;
                 Painter.DrawString(w.ToString(), font, drawBrush, F);
                 w++;
             }
-            Painter.Clip = new Region(new Rectangle(15, 0, Sheet.Width, Sheet.Height - 15));
+            Painter.Clip = new Region(new Rectangle(15, 0, Draft.Width, Draft.Height - 15));
         }
         public void DrawFunction(Function function)
         {
             double prototype;
-            Pen pen = new Pen(function.color,2);
+            Pen pen = new Pen(function.color, 2);
             pen.DashStyle = function.LineStyle;
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
 
             if (function.Argument == 'x')
             {
-                for (double x = -Sheet.Width/2; x < Sheet.Width/2; x += 1)
+                for (double x = -Draft.Width / 2; x < Draft.Width / 2; x += 1)
                 {
                     prototype = Calculate.Solve(function, x / scale);
-                    if (prototype > Sheet.Height / 2)
+                    if (prototype > Draft.Height / 2)
                     {
-                        prototype = Sheet.Height / 2;
+                        prototype = Draft.Height / 2;
                     }
-                    else if(prototype < -Sheet.Height / 2)
+                    else if (prototype < -Draft.Height / 2)
                     {
-                        prototype = -Sheet.Height / 2;
+                        prototype = -Draft.Height / 2;
                     }
                     else if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
@@ -1076,7 +1067,7 @@ namespace PlotBuilder
                             {
                                 Painter.DrawLines(pen, coordinates);
                             }
-                            catch(Exception)
+                            catch (Exception)
                             {
                                 continue;
                             }
@@ -1086,8 +1077,8 @@ namespace PlotBuilder
                     }
                     else
                     {
-                        Coordinates.Add(new PointF(Convert.ToSingle(Sheet.Width/2+x),
-                            Convert.ToSingle(Sheet.Height/2-scale * prototype)));
+                        Coordinates.Add(new PointF(Convert.ToSingle(Draft.Width / 2 + x),
+                            Convert.ToSingle(Draft.Height / 2 - scale * prototype)));
                     }
                 }
                 try
@@ -1099,18 +1090,18 @@ namespace PlotBuilder
                         Painter.DrawLines(pen, coordinates);
                     }
                 }
-                catch(OverflowException)
+                catch (OverflowException)
                 {
                     ;
                 }
-                catch(ArgumentException)
+                catch (ArgumentException)
                 {
                     return;
                 }
             }
             else
             {
-                for (double x = -Sheet.Width / 2; x < Sheet.Width / 2; x += 1)
+                for (double x = -Draft.Width / 2; x < Draft.Width / 2; x += 1)
                 {
                     prototype = Calculate.Solve(function, x / scale);
 
@@ -1127,8 +1118,8 @@ namespace PlotBuilder
                     }
                     else
                     {
-                        Coordinates.Add(new PointF(Convert.ToSingle(Sheet.Width / 2 + scale*prototype),
-                                       Convert.ToSingle((Sheet.Height / 2) - x)));
+                        Coordinates.Add(new PointF(Convert.ToSingle(Draft.Width / 2 + scale * prototype),
+                                       Convert.ToSingle((Draft.Height / 2) - x)));
                     }
                 }
                 if (Coordinates.Count != 0)
@@ -1178,7 +1169,7 @@ namespace PlotBuilder
         //        g.DrawLines(pen, coordinates);
         //    }
         //}
-        
+
 
 
     }
